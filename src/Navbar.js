@@ -6,10 +6,11 @@ function Navbar() {
   return (
     <div className="Navbar" style={{
       ...style.serif,
-      fontSize: '80px',
+      fontSize: 80,
       fontWeight: 'bold',
+      paddingLeft: 20,
       color: style.dark,
-      paddingTop: '20px'
+      paddingTop: 20
     }}>
       <span style={{ color: style.dark,}}>eni</span>
       <span style={{ color: style.accent,}}>.wien</span>

@@ -16,12 +16,14 @@ const Events = () => {
     }, [])
     return <div style={{
         display: 'flex',
-        height: '400px',
+        [style.maxmedia(style.mobileBreak)]: {flexDirection: 'column'},
+        height: 400,
         background: style.white,
-        ...style.shadowed
+        ...style.shadowed,
     }}>
         <FilterList style={{
             width: 'calc(33% - 80px)',
+            [style.maxmedia(style.mobileBreak)]: {width: '100%'},
             padding:  '40px',
             flexShrink: 0,
             ...style.shadowed,

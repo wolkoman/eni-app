@@ -1,8 +1,12 @@
-const minmedia = (x) => `@media(min-width: ${x}px)`;
 const mixin = {
     sidepad: (pad) => ({paddingLeft: pad + 'px', paddingRight: pad + 'px'}),
 }
-const style = {
+let style = {
+    minmedia: (x) => `@media screen and (min-width: ${x}px)`,
+    maxmedia: (x) => `@media screen and (max-width: ${x-1}px)`,
+};
+style = {
+    ...style,
     white: '#fff',
     light: '#eee',
     accent: '#58A4B0',
@@ -14,11 +18,11 @@ const style = {
     serif: { fontFamily: 'Source Serif Pro' },
 }
 style.responsive = {
-    [minmedia(style.mobileBreak)] : mixin.sidepad(100),
-    [minmedia(1000)] : mixin.sidepad(150),
-    [minmedia(1200)] : mixin.sidepad(300),
-    [minmedia(1500)] : mixin.sidepad(400),
-    [minmedia(1800)] : mixin.sidepad(500),
+    [style.minmedia(style.mobileBreak)] : mixin.sidepad(100),
+    [style.minmedia(1000)] : mixin.sidepad(150),
+    [style.minmedia(1200)] : mixin.sidepad(300),
+    [style.minmedia(1500)] : mixin.sidepad(400),
+    [style.minmedia(1800)] : mixin.sidepad(500),
 };
 
 export { mixin , style }

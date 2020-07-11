@@ -13,9 +13,9 @@ function App() {
         <Navbar></Navbar>
         <Box label="Pfarren">
           <div style={{display: 'flex', height: 200 + 'px'}}>
-            <Church name="emmaus" picture="kirchen-01.svg"></Church>
-            <Church name="neustift" picture="kirchen-03.svg"></Church>
-            <Church name="inzersdorf" picture="kirchen-02.svg"></Church>
+            <Church name="emmaus" picture="kirchen-01.svg" first={true} link="https://tesarekplatz.at"></Church>
+            <Church name="neustift" picture="kirchen-03.svg" link="https://pfarresanktnikolaus.at"></Church>
+            <Church name="inzersdorf" picture="kirchen-02.svg" link="http://www.pfarreinzersdorfneustift.at/"></Church>
           </div>
         </Box>
         <Box label="Termine">
