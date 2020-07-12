@@ -4,7 +4,7 @@ import { style } from './style';
 import { pad } from './utils';
 import Loader from './graphics/Loader';
 
-const Events = () => {
+const Events = Radium(() => {
     const [filter, setFilter] = useState('all');
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,39 +15,48 @@ const Events = () => {
             .then(() => setLoading(false));
     }, [])
     return <div style={{
-        display: 'flex',
-        [style.maxmedia(style.mobileBreak)]: {flexDirection: 'column'},
-        height: 400,
+        display: 'grid',
+        gridTemplateColumns: "1fr 2fr",
+        gridTemplateAreas: '"filter content" "info content"',
+        [style.mobile]: { gridTemplateAreas: '"filter" "content" "info"', gridTemplateColumns: "1fr" },
+        height: 500,
         background: style.white,
         ...style.shadowed,
     }}>
         <FilterList style={{
-            width: 'calc(33% - 80px)',
-            [style.maxmedia(style.mobileBreak)]: {width: '100%'},
-            padding:  '40px',
-            flexShrink: 0,
-            ...style.shadowed,
-        }} options={{'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf'}} value={filter} setValue={setFilter}></FilterList>
+            gridArea: 'filter',
+            padding:  40,
+            flexDirection: 'column',
+            [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
+        }} options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }} value={filter} setValue={setFilter}></FilterList>
         <EventList style={{
-            flexGrow: 1,
+            gridArea: 'content',
             }}
             loading={loading}
-            events={events.filter(event => filter === 'all' || event.pfarre === filter)}
+            events={events.filter(event => filter === 'all' || event.pfarre === filter || event.pfarre === 'all')}
             showPfarre={filter === 'all'}
-            ></EventList>
+        ></EventList>
+        <div style={{ gridArea: 'info', color: 'grey', padding: 40 }}>
+            Kalendar herunterladen
+        </div>
     </div>;
-};
+});
 
-const FilterList = ({ options , value , setValue , style }) => {
-    return <div style={{cursor: 'pointer', ...style}}>
+const FilterList = Radium(({ options , value , setValue , style }) => {
+    return <div style={{
+        cursor: 'pointer',
+        display: 'flex',
+        ...style,
+        [style.mobile]: { flexDirection: 'row', background: 'red' },
+        }}>
         {Object.entries(options).map(([key,val]) => (
         <div
-            style={{ fontWeight: key === value ? 800 : 300, fontSize: 22, marginBottom: 5 }}
+            style={{ fontWeight: key === value ? 800 : 300, fontSize: 22, marginBottom: 5, marginRight: 10 }}
             key={key}
             onClick={() => setValue(key)}
         >{val}</div>))}
     </div>;
-}
+})
 
 const parseEvent = event => {
     const date = new Date(event.start.dateTime ?? event.start.date);
@@ -84,7 +93,7 @@ const Event = ({ event, showPfarre }) => {
             {event.title}
             {event.description || showPfarre ?
                 <div style={{fontSize: 14, fontWeight: "normal"}}>
-                    {showPfarre ? (<i style={{textTransform: 'capitalize'}}>in {event.pfarre}<br></br></i>) : null}
+                    {showPfarre && event.pfarre !== 'all' ? (<i style={{textTransform: 'capitalize'}}>in {event.pfarre}<br></br></i>) : null}
                     {event.description}
                 </div>
              : null}
@@ -93,4 +102,4 @@ const Event = ({ event, showPfarre }) => {
 }
 
 
-export default Radium(Events);
+export default Events;
