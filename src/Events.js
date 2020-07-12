@@ -60,25 +60,36 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
 
 const parseEvent = event => {
     const date = new Date(event.start.dateTime ?? event.start.date);
+    const day = new Date(date);
+    day.setHours(0,0,0,0);
     return {
         ...event,
         date: `${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}`,
         displayDate: `${['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()]}, ${pad(date.getDate())}.${pad(date.getMonth()+1)}`,
-        time: `${pad(date.getHours())}:${pad(date.getMinutes())}`
+        time: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
+        value: `${date.getTime()}`,
+        day: day.getTime(),
     };
 }
 const parseEvents = events => {
-    return events.map(parseEvent).reduce(function (r, a) {
-        r[a.displayDate] = r[a.displayDate] || [];
-        r[a.displayDate].push(a);
+    return sortGroups(events.map(parseEvent).reduce((r, a) => {
+        r[a.day] = r[a.day] || [];
+        r[a.day].push(a);
         return r;
-    }, Object.create(null));
+    }, {}));
 }
+const sortGroups = events => {
+    return Object.fromEntries(
+        Object.entries(events)
+            .map(([date, group]) => ([date, group.sort((a,b) => a.value - b.value)]))
+            .sort(([date1, group1],[date2, group2]) => date1 - date2)
+    );
+};
 
 const EventList = ({ events, style, showPfarre, loading}) => {
     return loading ? <Loader></Loader> : <div style={{ padding: 40, overflow: 'auto', ...style }}>
         {events.length === 0 ? <div>Keine Termine gefunden!</div> : Object.entries(parseEvents(events)).map(([date, events]) => <div key={date} style={{marginBottom: 20}}>
-            <div style={{ fontSize: 16, textDecoration: 'underline' }}>{date}</div>
+            <div style={{ fontSize: 16, textDecoration: 'underline' }}>{events[0].displayDate}</div>
             {events.map(event => <Event event={event} showPfarre={showPfarre}></Event>)}
         </div>
         )}</div>
