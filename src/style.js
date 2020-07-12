@@ -13,7 +13,7 @@ style = {
     dark: '#2B303A',
     borderRadius: '0px',
     mobileBreak: 600,
-    shadowed: { boxShadow: '0px 5px 10px rgba(0,0,0,0.1)' },
+    shadowed: { boxShadow: '0px 5px 5px rgba(0,0,0,0.1)' },
     sans: { fontFamily: 'Source Sans Pro' },
     serif: { fontFamily: 'Source Serif Pro' },
     mobile: style.maxmedia(style.mobileBreak),

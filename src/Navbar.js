@@ -10,7 +10,6 @@ function Navbar() {
       fontWeight: 'bold',
       paddingLeft: 20,
       color: style.dark,
-      paddingTop: 20
     }}>
       <span style={{ color: style.dark,}}>eni</span>
       <span style={{ color: style.accent,}}>.wien</span>
