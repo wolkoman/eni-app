@@ -2,7 +2,15 @@ import React from 'react';
 import Radium from 'radium';
 import { style } from './style';
 
-const Church = ({ name , picture, first, link}) => {
+const Churches = Radium(() => {
+    return <div style={{display: 'flex', height: 200 + 'px'}}>
+        <Church name="emmaus" picture="kirchen-01.svg" first={true} link="https://tesarekplatz.at"></Church>
+        <Church name="neustift" picture="kirchen-03.svg" link="https://pfarresanktnikolaus.at"></Church>
+        <Church name="inzersdorf" picture="kirchen-02.svg" link="http://www.pfarreinzersdorfneustift.at/"></Church>
+  </div>;
+});
+
+const Church = Radium(({ name , picture, first, link}) => {
 
     return <div style={{
         height: '100%',
@@ -27,7 +35,7 @@ const Church = ({ name , picture, first, link}) => {
             textAlign: 'center',
         }}>{name}</div>
     </div>
-}
+});
 
 
-export default Radium(Church);
+export default Churches;

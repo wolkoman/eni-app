@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className="Navbar" style={{
       ...style.serif,
-      fontSize: 80,
+      fontSize: 60,
       fontWeight: 'bold',
       paddingLeft: 20,
       color: style.dark,
