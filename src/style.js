@@ -13,11 +13,11 @@ style = {
     dark: '#2B303A',
     borderRadius: '0px',
     mobileBreak: 600,
-    shadowed: { boxShadow: '0px 5px 5px rgba(0,0,0,0.1)' },
     sans: { fontFamily: 'Source Sans Pro' },
     serif: { fontFamily: 'Source Serif Pro' },
     mobile: style.maxmedia(style.mobileBreak),
 }
+style.shadowed =  { boxShadow: '0px 5px 5px rgba(0,0,0,0.1)', background: style.white };
 style.responsive = {
     [style.minmedia(style.mobileBreak)] : mixin.sidepad(100),
     [style.minmedia(1000)] : mixin.sidepad(150),

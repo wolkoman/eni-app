@@ -11,6 +11,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Article from './Article';
 
 function App() {
   return (
@@ -20,18 +21,23 @@ function App() {
           <Navbar></Navbar>
           <Switch>
             <Route exact path="/">
-              <Box label="Pfarren">
+              <Box label="Pfarren" styled={false}>
                 <Churches></Churches>
               </Box>
               <Box label="Termine">
                 <Events></Events>
               </Box>
-              <Footer></Footer>
+            </Route>
+            <Route exact path="/impressum">
+              <Box>
+                <Article id="6W7G98iDMKpOdJJ1LlikCQ"></Article>
+              </Box>
             </Route>
             <Route path="*">
               <b>404</b> Seite nicht gefunden
             </Route>
           </Switch>
+          <Footer></Footer>
         </Router>
       </div>
     </StyleRoot>

@@ -20,8 +20,6 @@ const Events = Radium(() => {
         gridTemplateAreas: '"filter content" "info content"',
         [style.mobile]: { gridTemplateAreas: '"filter" "content" "info"', gridTemplateColumns: "1fr" },
         height: 500,
-        background: style.white,
-        ...style.shadowed,
     }}>
         <FilterList style={{
             gridArea: 'filter',

@@ -17,7 +17,6 @@ const Church = Radium(({ name , picture, first, link}) => {
         flexGrow: 1,
         marginLeft: first ? 0 : 10,
         ...style.shadowed,
-        backgroundColor: style.white,
         cursor: 'pointer'
     }} onClick={() => window.location.href = link }>
         <div style={{
