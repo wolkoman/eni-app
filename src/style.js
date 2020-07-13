@@ -21,7 +21,7 @@ style.shadowed =  {
     boxShadow: '0px 5px 5px rgba(0,0,0,0.15)',
     background: style.white,
     borderRadius: 8,
-    border: '1px solid #eee'
+    border: '1px solid #ccc'
 };
 style.highlyShadowed =  {
     boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
