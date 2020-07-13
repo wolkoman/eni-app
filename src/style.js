@@ -23,6 +23,9 @@ style.shadowed =  {
     borderRadius: 8,
     border: '1px solid #eee'
 };
+style.highlyShadowed =  {
+    boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
+};
 style.responsive = {
     [style.minmedia(style.mobileBreak)] : mixin.sidepad(80),
     [style.minmedia(1000)] : mixin.sidepad(120),
