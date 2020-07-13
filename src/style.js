@@ -8,7 +8,7 @@ let style = {
 style = {
     ...style,
     white: '#fff',
-    light: '#eee',
+    light: '#f5f5f5',
     accent: '#58A4B0',
     dark: '#2B303A',
     borderRadius: '0px',
@@ -17,7 +17,12 @@ style = {
     serif: { fontFamily: 'Source Serif Pro' },
     mobile: style.maxmedia(style.mobileBreak),
 }
-style.shadowed =  { boxShadow: '0px 5px 5px rgba(0,0,0,0.15)', background: style.white };
+style.shadowed =  {
+    boxShadow: '0px 5px 5px rgba(0,0,0,0.15)',
+    background: style.white,
+    borderRadius: 8,
+    border: '1px solid #eee'
+};
 style.responsive = {
     [style.minmedia(style.mobileBreak)] : mixin.sidepad(80),
     [style.minmedia(1000)] : mixin.sidepad(120),

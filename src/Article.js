@@ -27,7 +27,8 @@ const Article = Radium (({ id }) => {
         {component ? [
             <h1 key='title' style={{
                 ...style.serif,
-                paddingBottom: 5,
+                marginTop: 0,
+                paddingBottom: 20,
                 borderBottom: '1px solid #ddd',
             }}>{entry?.fields.title}</h1>,
             <div key='content' style={{overflowWrap: 'break-word', lineHeight: 1.5}}>{component}</div>

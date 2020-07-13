@@ -19,7 +19,7 @@ const FooterItem = Radium(({link, title, hard = false, onClick}) => {
     ;
 });
 const FooterSeperator = Radium(() => {
-    return <span style={{display: 'inline-block', margin: '0 10px', color: 'grey'}}>-</span>
+    return <span style={{display: 'inline-block', margin: '0 10px', color: 'grey'}}>–</span>
 });
 
 export default Footer;

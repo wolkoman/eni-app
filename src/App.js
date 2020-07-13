@@ -16,7 +16,13 @@ import Article from './Article';
 function App() {
   return (
     <StyleRoot>
-      <div style={{...style.responsive, background: style.light, minHeight: 'calc(100vh - 120px)', paddingTop: 20, paddingBottom: 100}}>
+      <div style={{
+        ...style.responsive,
+        background: style.light,
+        minHeight: 'calc(100vh - 120px)',
+        paddingTop: 20,
+        paddingBottom: 60
+        }}>
         <Router>
           <Navbar></Navbar>
           <Switch>

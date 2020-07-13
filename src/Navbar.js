@@ -8,20 +8,23 @@ function Navbar() {
   const greyed = {
   }
   return (
-    <Link to="/" className="Navbar" style={{
-      ...style.serif,
-      fontSize: 60,
-      fontWeight: 'bold',
-      textDecoration: 'none',
-      paddingLeft: 20,
-      color: style.dark,
-      cursor: 'pointer',
-      ...(match.isExact ? {} : {fontSize: 30, lineHeight: 1}),
-      transition: 'all .1s',
-    }}>
-      <span style={{ color: style.dark, ...(match.isExact ? {} : greyed)}}>eni</span>
-      <span style={{ color: style.accent, ...(match.isExact ? {} : greyed)}}>.wien</span>
-    </Link>
+    <div style={{ paddingBottom: 20 }}>
+      <Link to="/" className="Navbar" style={{
+        ...style.serif,
+        fontSize: 60,
+        fontWeight: 'bold',
+        textDecoration: 'none',
+        paddingLeft: 20,
+        
+        color: style.dark,
+        cursor: 'pointer',
+        ...(match.isExact ? {} : { fontSize: 30 }),
+        transition: 'all .1s',
+      }}>
+        <span style={{ color: style.dark, ...(match.isExact ? {} : greyed)}}>eni</span>
+        <span style={{ color: style.accent, ...(match.isExact ? {} : greyed)}}>.wien</span>
+      </Link>
+    </div>
   );
 }
 
