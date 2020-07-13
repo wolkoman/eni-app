@@ -19,10 +19,10 @@ style = {
 }
 style.shadowed =  { boxShadow: '0px 5px 5px rgba(0,0,0,0.15)', background: style.white };
 style.responsive = {
-    [style.minmedia(style.mobileBreak)] : mixin.sidepad(100),
-    [style.minmedia(1000)] : mixin.sidepad(150),
-    [style.minmedia(1200)] : mixin.sidepad(300),
-    [style.minmedia(1500)] : mixin.sidepad(400),
+    [style.minmedia(style.mobileBreak)] : mixin.sidepad(80),
+    [style.minmedia(1000)] : mixin.sidepad(120),
+    [style.minmedia(1200)] : mixin.sidepad(200),
+    [style.minmedia(1500)] : mixin.sidepad(300),
     [style.minmedia(1800)] : mixin.sidepad(500),
     mobile: style.maxmedia(style.mobileBreak),
 };
