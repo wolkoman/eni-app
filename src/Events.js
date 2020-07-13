@@ -88,7 +88,9 @@ const EventList = ({ events, style, showPfarre, loading}) => {
     return loading ? <Loader></Loader> : <div style={{ padding: 40, overflow: 'auto', ...style, boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.15) inset' }}>
         {events.length === 0 ? <div>Keine Termine gefunden!</div> : Object.entries(parseEvents(events)).map(([date, events]) => <div key={date} style={{marginBottom: 20}}>
             <div style={{ fontSize: 16, textDecoration: 'underline' }}>{events[0].displayDate}</div>
-            {events.map(event => <Event event={event} showPfarre={showPfarre}></Event>)}
+            {events.map(event => 
+                <Event key={event.id} event={event} showPfarre={showPfarre}></Event>
+            )}
         </div>
         )}</div>
 }

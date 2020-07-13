@@ -14,7 +14,6 @@ const Article = Radium (({ id }) => {
     useEffect(() => {
         ContentfulClient.getEntry(id).then(entry => {
             setEntry(entry);
-            console.log(entry);
             setComponent(documentToReactComponents(entry.fields.inhalt, {
                 renderNode: {
                     [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields }}}) =>
@@ -26,12 +25,12 @@ const Article = Radium (({ id }) => {
 
     return <div style={{padding: 40}}>
         {component ? [
-            <h1 style={{
+            <h1 key='title' style={{
                 ...style.serif,
                 paddingBottom: 5,
                 borderBottom: '1px solid #ddd',
             }}>{entry?.fields.title}</h1>,
-            <div style={{overflowWrap: 'break-word'}}>{component}</div>
+            <div key='content' style={{overflowWrap: 'break-word', lineHeight: 1.5}}>{component}</div>
         ] : <Loader></Loader>}
     </div>;
 });

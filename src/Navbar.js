@@ -16,7 +16,8 @@ function Navbar() {
       paddingLeft: 20,
       color: style.dark,
       cursor: 'pointer',
-      ...(match.isExact ? {} : {fontSize: 30, lineHeight: 1})
+      ...(match.isExact ? {} : {fontSize: 30, lineHeight: 1}),
+      transition: 'all .1s',
     }}>
       <span style={{ color: style.dark, ...(match.isExact ? {} : greyed)}}>eni</span>
       <span style={{ color: style.accent, ...(match.isExact ? {} : greyed)}}>.wien</span>

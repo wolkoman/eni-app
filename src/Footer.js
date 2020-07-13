@@ -8,7 +8,7 @@ const Footer = Radium(() => {
             <FooterItem link="/impressum" title="Impressum"></FooterItem>,
             <FooterItem link="//github.com/wolkoman/eni-app" title="Quellcode" hard={true}></FooterItem>,
             <FooterItem title="Feedback" hard={true} onClick={() => window.open("//docs.google.com/forms/d/e/1FAIpQLSfcVTLOylH9uUk50iKZvXe6WiDRY-JXV5HnfhYIPR1XOFmJPA/viewform?usp=sf_link")}></FooterItem>,
-        ].map((item,index) => [index === 0 ? null : <FooterSeperator></FooterSeperator> ,item]).flat()}
+        ].map((item,index) => [index === 0 ? null : <FooterSeperator key={index+'s'}></FooterSeperator> , {...item, key: index}]).flat()}
     </div>
 });
 
