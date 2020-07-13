@@ -11,7 +11,7 @@ const Churches = Radium(() => {
     }}>
         <Church name="emmaus" picture="kirchen-01.svg" first={true} link="https://tesarekplatz.at"></Church>
         <Church name="neustift" picture="kirchen-03.svg" link="https://pfarresanktnikolaus.at"></Church>
-        <Church name="inzersdorf" picture="kirchen-02.svg" link="http://www.pfarreinzersdorfneustift.at/"></Church>
+        <Church name="inzersdorf" picture="kirchen-02.svg" link="https://www.erzdioezese-wien.at/pages/pfarren/9233"></Church>
   </div>;
 });
 
