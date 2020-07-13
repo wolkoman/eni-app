@@ -26,15 +26,15 @@ const Events = Radium(() => {
             padding:  40,
             flexDirection: 'column',
             [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
-        }} options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }} value={filter} setValue={setFilter}></FilterList>
+        }} options={{ 'all': 'Alle', 'emmaus': 'Emmaus', /*'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf'*/ }} value={filter} setValue={setFilter}></FilterList>
         <EventList style={{
             gridArea: 'content',
             }}
             loading={loading}
-            events={events.filter(event => filter === 'all' || event.pfarre === filter || event.pfarre === 'all')}
+            events={events.filter(event => filter === 'all' || event.pfarre === filter)}
             showPfarre={filter === 'all'}
         ></EventList>
-        <div style={{ gridArea: 'info', color: 'grey', padding: 40 }}>
+        <div style={{ gridArea: 'info', color: 'grey', padding: 40, display: 'none' }}>
             Kalendar herunterladen
         </div>
     </div>;
