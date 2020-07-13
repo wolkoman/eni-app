@@ -3,7 +3,7 @@ import Radium from 'radium';
 //import {style} from './style';
 import ContentfulClient from './contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { style } from './style';
 import Loader from './graphics/Loader';
 
@@ -18,9 +18,7 @@ const Article = Radium (({ id }) => {
             setComponent(documentToReactComponents(entry.fields.inhalt, {
                 renderNode: {
                     [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields }}}) =>
-                    <img src="${fields.file.url}" style="max-width: 100%" alt="${fields.description}"/>,
-                    [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields }}}) =>
-                    `<img src="${fields.file.url}" style="max-width: 100%" alt="${fields.description}"/>`,
+                    <img src={fields.file.url} style={{maxWidth: '100%'}} alt={fields.description}/>,
                 },
             }));
         });
