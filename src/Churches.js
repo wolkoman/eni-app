@@ -7,7 +7,7 @@ const Churches = Radium(() => {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: '200px',
-        columnGap: 10
+        columnGap: 20
     }}>
         <Church name="emmaus" picture="kirchen-01.svg" first={true} link="https://tesarekplatz.at"></Church>
         <Church name="neustift" picture="kirchen-03.svg" link="https://pfarresanktnikolaus.at"></Church>
@@ -19,7 +19,9 @@ const Church = Radium(({ name , picture, first, link}) => {
 
     return <div style={{
         ...style.shadowed,
-        cursor: 'pointer'
+        cursor: 'pointer',
+        transition: 'all .1s',
+        ':hover': { transform: 'scale(1.02)', ...style.highlyShadowed }
     }} onClick={() => window.location.href = link }>
         <div style={{
             backgroundImage: `url(${picture})`,
