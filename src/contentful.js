@@ -1,6 +1,5 @@
 
 import * as contentful from 'contentful';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const client = contentful.createClient({
   space: '893uputjzopm',
