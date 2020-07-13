@@ -31,7 +31,7 @@ const Article = Radium (({ id }) => {
                 paddingBottom: 5,
                 borderBottom: '1px solid #ddd',
             }}>{entry?.fields.title}</h1>,
-            component
+            <div style={{overflowWrap: 'break-word'}}>{component}</div>
         ] : <Loader></Loader>}
     </div>;
 });
