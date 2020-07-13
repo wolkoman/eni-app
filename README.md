@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ENI App
+
+## Purpose
+
+This app serves as a webplatform for the parish _Emmaus am Wienerberg_, _Inzersdorf-Neustift_ und _Inzersdorf_.
+Contribution is welcome when coordinated correctly.
 
 ## Available Scripts
 
