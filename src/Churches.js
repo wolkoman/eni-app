@@ -3,7 +3,12 @@ import Radium from 'radium';
 import { style } from './style';
 
 const Churches = Radium(() => {
-    return <div style={{display: 'flex', height: 200 + 'px'}}>
+    return <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr',
+        gridTemplateRows: '200px',
+        columnGap: 10
+    }}>
         <Church name="emmaus" picture="kirchen-01.svg" first={true} link="https://tesarekplatz.at"></Church>
         <Church name="neustift" picture="kirchen-03.svg" link="https://pfarresanktnikolaus.at"></Church>
         <Church name="inzersdorf" picture="kirchen-02.svg" link="http://www.pfarreinzersdorfneustift.at/"></Church>
@@ -13,9 +18,6 @@ const Churches = Radium(() => {
 const Church = Radium(({ name , picture, first, link}) => {
 
     return <div style={{
-        height: '100%',
-        flexGrow: 1,
-        marginLeft: first ? 0 : 10,
         ...style.shadowed,
         cursor: 'pointer'
     }} onClick={() => window.location.href = link }>
