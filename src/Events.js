@@ -9,7 +9,7 @@ const Events = Radium(() => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch('https://tesarekplatz.at/api/cal.php')
+        fetch('https://eni.wien/api/calendar/v1/')
             .then(x => x.json())
             .then(x => setEvents(x))
             .then(() => setLoading(false));
