@@ -3,6 +3,7 @@ import Radium from 'radium';
 import { style } from './style';
 import { pad } from './utils';
 import Loader from './graphics/Loader';
+import { JSONLD, Generic } from 'react-structured-data';
 
 const Events = Radium(() => {
     const [filter, setFilter] = useState('all');
@@ -57,16 +58,23 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
 })
 
 const parseEvent = event => {
-    const date = new Date(event.start.dateTime ?? event.start.date);
+    const start = event.start.dateTime ?? event.start.date;
+    const date = new Date(start);
     const day = new Date(date);
     day.setHours(0,0,0,0);
     return {
         ...event,
+        start, 
         date: `${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}`,
         displayDate: `${['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()]}, ${pad(date.getDate())}.${pad(date.getMonth()+1)}`,
         time: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
         value: `${date.getTime()}`,
         day: day.getTime(),
+        location: {
+            emmaus: { name: 'Pfarre Emmaus am Wienerberg', address: '', postalCode: '1100' },
+            neustift: { name: 'Pfarre Inzersdorf-Neustift', address: '', postalCode: '1230' },
+            inzersdorf: { name: 'Pfarre Inzersdorf', address: '', postalCode: '1230' },
+        }[event.pfarre],
     };
 }
 const parseEvents = events => {
@@ -109,6 +117,18 @@ const Event = ({ event, showPfarre }) => {
                 </div>
              : null}
         </div>
+        {event.pfarre !== 'all' ? <JSONLD>
+            <Generic type="event" jsonldtype="Event" schema={{ name: event.title, startDate: event.start }}>
+                <Generic type="location" jsonldtype="Location" schema={{name: event.location.name}}>
+                    <Generic type="address" jsonldtype="Address" schema={{ 
+                        addressLocality: 'Vienna',
+                        addressRegion: 'VIE',
+                        postalCode: event.location.postalCode,
+                        streetAdress: event.location.address
+                    }}/>
+                </Generic>
+            </Generic>
+        </JSONLD> : null }
     </div>;
 }
 
