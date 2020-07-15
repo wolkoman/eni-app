@@ -26,7 +26,7 @@ const Events = Radium(() => {
             padding:  40,
             flexDirection: 'column',
             [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
-        }} options={{ 'all': 'Alle', 'emmaus': 'Emmaus', /*'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf'*/ }} value={filter} setValue={setFilter}></FilterList>
+        }} options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }} value={filter} setValue={setFilter}></FilterList>
         <EventList style={{
             gridArea: 'content',
             }}
