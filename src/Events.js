@@ -120,7 +120,7 @@ const Event = ({ event, showPfarre }) => {
         {event.pfarre !== 'all' ? <JSONLD>
             <Generic type="event" jsonldtype="Event" schema={{ name: event.title, startDate: event.start }}>
                 <Generic type="location" jsonldtype="Place" schema={{name: event.location.name}}>
-                    <Generic type="address" jsonldtype="Address" schema={{ 
+                    <Generic type="address" jsonldtype="PostalAddress" schema={{ 
                         addressLocality: 'Vienna',
                         addressRegion: 'VIE',
                         postalCode: event.location.postalCode,
