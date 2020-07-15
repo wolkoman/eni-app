@@ -3,7 +3,7 @@
 ## Purpose
 
 This app serves as a webplatform for the parish _Emmaus am Wienerberg_, _Inzersdorf-Neustift_ und _Inzersdorf_.
-Contribution is welcome when coordinated correctly.
+Contribution is welcome.
 
 ## Available Scripts
 
