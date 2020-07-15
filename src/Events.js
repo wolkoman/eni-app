@@ -59,21 +59,23 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
 
 const parseEvent = event => {
     const start = event.start.dateTime ?? event.start.date;
+    const end = event.end.dateTime ?? event.end.date;
     const date = new Date(start);
     const day = new Date(date);
     day.setHours(0,0,0,0);
     return {
         ...event,
         start, 
+        end,
         date: `${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}`,
         displayDate: `${['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()]}, ${pad(date.getDate())}.${pad(date.getMonth()+1)}`,
         time: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
         value: `${date.getTime()}`,
         day: day.getTime(),
         location: {
-            emmaus: { name: 'Pfarre Emmaus am Wienerberg', address: '', postalCode: '1100' },
-            neustift: { name: 'Pfarre Inzersdorf-Neustift', address: '', postalCode: '1230' },
-            inzersdorf: { name: 'Pfarre Inzersdorf', address: '', postalCode: '1230' },
+            emmaus: { name: 'Pfarre Emmaus am Wienerberg', address: 'Tesarekplatz 2', postalCode: '1100' },
+            neustift: { name: 'Pfarre Inzersdorf-Neustift', address: 'Don-Bosco-Gasse 14', postalCode: '1230' },
+            inzersdorf: { name: 'Pfarre Inzersdorf', address: 'Draschestraße 105', postalCode: '1230' },
         }[event.pfarre],
     };
 }
@@ -117,8 +119,8 @@ const Event = ({ event, showPfarre }) => {
                 </div>
              : null}
         </div>
-        {event.pfarre !== 'all' ? <JSONLD>
-            <Generic type="event" jsonldtype="Event" schema={{ name: event.title, startDate: event.start }}>
+        {event.pfarre !== 'all' && event.wholeday === false ? <JSONLD>
+            <Generic type="event" jsonldtype="Event" schema={{ name: event.title, startDate: event.start, endDate: event.end }}>
                 <Generic type="location" jsonldtype="Place" schema={{name: event.location.name}}>
                     <Generic type="address" jsonldtype="PostalAddress" schema={{ 
                         addressLocality: 'Vienna',
