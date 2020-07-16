@@ -8,7 +8,7 @@ let style = {
 style = {
     ...style,
     white: '#fff',
-    light: '#f5f5f5',
+    light: '#f8f8f8',
     accent: '#58A4B0',
     dark: '#2B303A',
     borderRadius: '0px',
@@ -18,13 +18,13 @@ style = {
     mobile: style.maxmedia(style.mobileBreak),
 }
 style.shadowed =  {
-    boxShadow: '0px 5px 5px rgba(0,0,0,0.15)',
+    boxShadow: '0px 3px 5px rgba(0,0,0,0.1)',
     background: style.white,
-    borderRadius: 8,
-    border: '1px solid #ccc'
+    borderRadius: 4,
+    border: '1px solid #eee'
 };
 style.highlyShadowed =  {
-    boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
+    boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
 };
 style.responsive = {
     [style.minmedia(style.mobileBreak)] : mixin.sidepad(80),

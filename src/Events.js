@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Radium from 'radium';
 import { style } from './style';
-import { pad } from './utils';
+import { parseEvents } from './eventParser';
 import Loader from './graphics/Loader';
 import { JSONLD, Generic } from 'react-structured-data';
 
@@ -57,45 +57,8 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
     </div>;
 })
 
-const parseEvent = event => {
-    const start = event.start.dateTime ?? event.start.date;
-    const end = event.end.dateTime ?? event.end.date;
-    const date = new Date(start);
-    const day = new Date(date);
-    day.setHours(0,0,0,0);
-    return {
-        ...event,
-        start, 
-        end,
-        date: `${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}`,
-        displayDate: `${['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()]}, ${pad(date.getDate())}.${pad(date.getMonth()+1)}`,
-        time: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
-        value: `${date.getTime()}`,
-        day: day.getTime(),
-        location: {
-            emmaus: { name: 'Pfarre Emmaus am Wienerberg', address: 'Tesarekplatz 2', postalCode: '1100' },
-            neustift: { name: 'Pfarre Inzersdorf-Neustift', address: 'Don-Bosco-Gasse 14', postalCode: '1230' },
-            inzersdorf: { name: 'Pfarre Inzersdorf', address: 'Draschestraße 105', postalCode: '1230' },
-        }[event.pfarre],
-    };
-}
-const parseEvents = events => {
-    return sortGroups(events.map(parseEvent).reduce((r, a) => {
-        r[a.day] = r[a.day] || [];
-        r[a.day].push(a);
-        return r;
-    }, {}));
-}
-const sortGroups = events => {
-    return Object.fromEntries(
-        Object.entries(events)
-            .map(([date, group]) => ([date, group.sort((a,b) => a.value - b.value)]))
-            .sort(([date1, group1],[date2, group2]) => date1 - date2)
-    );
-};
-
 const EventList = ({ events, style, showPfarre, loading}) => {
-    return <div style={{ padding: 40, overflow: 'auto', ...style, boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.2) inset' }}>
+    return <div style={{ padding: 40, overflow: 'auto', ...style, boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.1) inset' }}>
         {loading ? <Loader></Loader> : events.length === 0 ? <div>Keine Termine gefunden!</div> : Object.entries(parseEvents(events)).map(([date, events]) => <div key={date} style={{marginBottom: 20}}>
             <div style={{ fontSize: 16, textDecoration: 'underline' }}>{events[0].displayDate}</div>
             {events.map(event => 
