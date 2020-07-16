@@ -7,7 +7,8 @@ const Churches = Radium(() => {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: '200px',
-        columnGap: 20
+        columnGap: 20,
+        [style.mobile]: { columnGap: 5 },
     }}>
         <Church name="emmaus" picture="kirchen-01.svg" first={true} link="https://tesarekplatz.at"></Church>
         <Church name="neustift" picture="kirchen-03.svg" link="https://www.erzdioezese-wien.at/pages/pfarren/9233"></Church>
