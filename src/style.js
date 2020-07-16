@@ -20,11 +20,10 @@ style = {
 style.shadowed =  {
     boxShadow: '0px 3px 5px rgba(0,0,0,0.1)',
     background: style.white,
-    borderRadius: 4,
-    border: '1px solid #eee'
+    borderRadius: 6,
 };
 style.highlyShadowed =  {
-    boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
+    boxShadow: '0px 3px 10px rgba(0,0,0,0.1)',
 };
 style.responsive = {
     [style.minmedia(style.mobileBreak)] : mixin.sidepad(80),

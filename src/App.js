@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleRoot} from 'radium';
 import {style} from './style';
 import Navbar from './Navbar';
+import Title from './Title';
 import Churches from './Churches';
 import Box from './Box';
 import Events from './Events';
@@ -27,6 +28,7 @@ function App() {
           <Navbar></Navbar>
           <Switch>
             <Route exact path="/">
+              <Title></Title>
               <Box label="Pfarren" styled={false}>
                 <Churches></Churches>
               </Box>
