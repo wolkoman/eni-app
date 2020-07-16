@@ -75,16 +75,21 @@ const EventList = Radium(({ events, style, showPfarre, loading}) => {
             : (
                 events.length === 0
                 ? <div>Keine Termine gefunden!</div>
-                : Object.entries(parseEvents(events)).map(([date, events]) => <div key={date} style={{marginBottom: 20}}>
-                    <DateGroup events={events} showPfarre={showPfarre}></DateGroup>
-                </div>)
+                : Object.entries(parseEvents(events)).map(([ date, events ]) => 
+                    <DateGroup
+                        events={events}
+                        showPfarre={showPfarre}
+                        style={{ marginBottom: 20 }}
+                        key={date}
+                    ></DateGroup>
+                )
             )
         }
     </div>
 });
 
-const DateGroup = Radium(({ events, showPfarre }) => 
-    <div>
+const DateGroup = Radium(({ events, showPfarre, style }) => 
+    <div style={style}>
         <div style={{
             fontSize: 16,
             textDecoration: 'underline'
