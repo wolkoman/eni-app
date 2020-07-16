@@ -6,9 +6,12 @@ import Loader from './graphics/Loader';
 import { JSONLD, Generic } from 'react-structured-data';
 
 const Events = Radium(() => {
-    const [filter, setFilter] = useState('all');
+    const [filter, setFilter] = useState(localStorage.getItem('filter') ?? 'all');
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        localStorage.setItem('filter', filter)
+    }, [filter])
     useEffect(() => {
         fetch('https://eni.wien/api/calendar/v1/')
             .then(x => x.json())
