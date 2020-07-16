@@ -25,22 +25,23 @@ const Events = Radium(() => {
         [style.mobile]: { gridTemplateAreas: '"filter" "content" "info"', gridTemplateColumns: "1fr" },
         height: 500,
     }}>
-        <FilterList style={{
-            gridArea: 'filter',
-            padding:  40,
-            flexDirection: 'column',
-            [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
-        }} options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }} value={filter} setValue={setFilter}></FilterList>
-        <EventList style={{
-            gridArea: 'content',
+        <FilterList
+            style={{
+                gridArea: 'filter',
+                padding:  40,
+                flexDirection: 'column',
+                [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
             }}
+            options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }}
+            value={filter}
+            setValue={setFilter}
+        ></FilterList>
+        <EventList
+        style={{ gridArea: 'content', }}
             loading={loading}
             events={events.filter(event => filter === 'all' || event.pfarre === filter)}
             showPfarre={filter === 'all'}
         ></EventList>
-        <div style={{ gridArea: 'info', color: 'grey', padding: 40, display: 'none' }}>
-            Kalendar herunterladen
-        </div>
     </div>;
 });
 
@@ -60,16 +61,43 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
     </div>;
 })
 
-const EventList = ({ events, style, showPfarre, loading}) => {
-    return <div style={{ padding: 40, overflow: 'auto', ...style, boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.1) inset' }}>
-        {loading ? <Loader></Loader> : events.length === 0 ? <div>Keine Termine gefunden!</div> : Object.entries(parseEvents(events)).map(([date, events]) => <div key={date} style={{marginBottom: 20}}>
-            <div style={{ fontSize: 16, textDecoration: 'underline' }}>{events[0].displayDate}</div>
-            {events.map(event => 
-                <Event key={event.id} event={event} showPfarre={showPfarre}></Event>
-            )}
+const EventList = Radium(({ events, style, showPfarre, loading}) => {
+    return <div style={{
+        ...style,
+        padding: 40,
+        overflow: 'auto',
+        boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.1) inset',
+        [style.mobile]: { boxShadow: '0px 5px 5px -5px rgba(0,0,0,0.1) inset' },
+    }}>
+        {
+            loading
+            ? <Loader></Loader>
+            : (
+                events.length === 0
+                ? <div>Keine Termine gefunden!</div>
+                : Object.entries(parseEvents(events)).map(([date, events]) => <div key={date} style={{marginBottom: 20}}>
+                    <DateGroup events={events} showPfarre={showPfarre}></DateGroup>
+                </div>)
+            )
+        }
+    </div>
+});
+
+const DateGroup = Radium(({ events, showPfarre }) => 
+    <div>
+        <div style={{
+            fontSize: 16,
+            textDecoration: 'underline'
+        }}>
+            {events[0].displayDate}
         </div>
-        )}</div>
-}
+        {
+            events.map(event => 
+                <Event key={event.id} event={event} showPfarre={showPfarre}></Event>
+            )
+        }
+    </div>
+);
 
 const Event = ({ event, showPfarre }) => {
     return <div key={event.id} style={{display: 'flex', ...style.serif, fontWeight: 600, fontSize: 20, marginTop: 5}}>
@@ -85,20 +113,22 @@ const Event = ({ event, showPfarre }) => {
                 </div>
              : null}
         </div>
-        {event.pfarre !== 'all' && event.wholeday === false ? <JSONLD>
-            <Generic type="event" jsonldtype="Event" schema={{ name: event.title, startDate: event.start, endDate: event.end }}>
-                <Generic type="location" jsonldtype="Place" schema={{name: event.location.name}}>
-                    <Generic type="address" jsonldtype="PostalAddress" schema={{ 
-                        addressLocality: 'Vienna',
-                        addressRegion: 'VIE',
-                        postalCode: event.location.postalCode,
-                        streetAdress: event.location.address
-                    }}/>
-                </Generic>
-            </Generic>
-        </JSONLD> : null }
+        {event.pfarre !== 'all' && event.wholeday === false ? <EventSchema event={event}></EventSchema> : null }
     </div>;
 }
+
+const EventSchema = ({ event }) => <JSONLD>
+    <Generic type="event" jsonldtype="Event" schema={{ name: event.title, startDate: event.start, endDate: event.end }}>
+        <Generic type="location" jsonldtype="Place" schema={{name: event.location.name}}>
+            <Generic type="address" jsonldtype="PostalAddress" schema={{ 
+                addressLocality: 'Vienna',
+                addressRegion: 'VIE',
+                postalCode: event.location.postalCode,
+                streetAdress: event.location.address
+            }}/>
+        </Generic>
+    </Generic>
+</JSONLD>;
 
 
 export default Events;
