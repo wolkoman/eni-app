@@ -7,7 +7,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { style } from './style';
 import Loader from './graphics/Loader';
 
-const Article = Radium (({ id }) => {
+const Article = Radium (({ id, closeable, onClose = ()=>{} }) => {
 
     const [entry, setEntry] = useState();
     const [component, setComponent] = useState();
@@ -25,12 +25,15 @@ const Article = Radium (({ id }) => {
 
     return <div style={{padding: 40}}>
         {component ? [
-            <h1 key='title' style={{
-                ...style.serif,
-                marginTop: 0,
-                paddingBottom: 20,
-                borderBottom: '1px solid #ddd',
-            }}>{entry?.fields.title}</h1>,
+            <div style={{ display: 'flex', justifyContent: 'space-between' }} key='title'>
+                <h1 style={{
+                    ...style.serif,
+                    marginTop: 0,
+                    paddingBottom: 20,
+                    borderBottom: '1px solid #ddd',
+                }}>{entry?.fields.title}</h1>
+                { closeable ? <i className="fas fa-times fa-2x" onClick={onClose} style={{ cursor: 'pointer', paddingLeft: 10, flexGrow: 0 }}></i> : null }
+            </div>,
             <div key='content' style={{overflowWrap: 'break-word', lineHeight: 1.5}}>{component}</div>
         ] : <Loader></Loader>}
     </div>;
