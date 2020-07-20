@@ -106,15 +106,19 @@ const DateGroup = Radium(({ events, showPfarre, style }) =>
 );
 
 const Event = ({ event, showPfarre }) => {
-    return <div key={event.id} style={{display: 'flex', ...style.serif, fontWeight: 600, fontSize: 20, marginTop: 5}}>
-        <div style={{width: 70, flexGrow: 0, flexShrink: 0, display: event.wholeday ? 'none' : 'auto'}}>
+    const color = (pfarre) => ({emmaus: style.accent1, neustift: style.accent2, inzersdorf: style.accent3}[pfarre]);
+    return <div key={ event.id } style={{ display: 'flex', ...style.serif, fontWeight: 600, fontSize: 20, marginTop: 5 }}>
+        <div style={{ width: 70, flexGrow: 0, flexShrink: 0, display: event.wholeday ? 'none' : 'auto' }}>
             {event.time}
         </div>
+        { true && !event.wholeday ? <div style={{ width: 20, flexGrow: 0, flexShrink: 0, display: 'flex' }}>
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: color(event.pfarre), marginTop: 10 }}></div>
+        </div> : null }
         <div>
             {event.title}
             {event.description || showPfarre ?
-                <div style={{fontSize: 14, fontWeight: "normal"}}>
-                    {showPfarre && event.pfarre !== 'all' ? (<i style={{textTransform: 'capitalize'}}>in {event.pfarre}<br></br></i>) : null}
+                <div style={{ fontSize: 14, fontWeight: 'normal' }}>
+                    {showPfarre && event.pfarre !== 'all' ? (<i style={{ textTransform: 'capitalize' }}>in { event.pfarre }<br></br></i>) : null}
                     {event.description}
                 </div>
              : null}
