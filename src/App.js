@@ -37,9 +37,16 @@ function App() {
               </Box>
             </Route>
             <Route exact path="/impressum">
-              <Box>
-                <Article id="6W7G98iDMKpOdJJ1LlikCQ"></Article>
-              </Box>
+              <Box><Article id="6W7G98iDMKpOdJJ1LlikCQ"></Article></Box>
+            </Route>
+            <Route exact path="/emmaus">
+              <Box><Article id="53Lgt4kd0qUnPFZszRL8Rk"></Article></Box>
+            </Route>
+            <Route exact path="/neustift">
+              <Box><Article id="42F2oBzL7K4LA2s8OyfEdz"></Article></Box>
+            </Route>
+            <Route exact path="/inzersdorf">
+              <Box><Article id="4eVTrqzQN7wDZXu1CWZIVQ"></Article></Box>
             </Route>
             <Route path="*">
               <b>404</b> Seite nicht gefunden
