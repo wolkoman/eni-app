@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Radium from 'radium';
-import { style } from './style';
+import { style, style as globalStyle } from './style';
 import { parseEvents } from './eventParser';
 import Loader from './graphics/Loader';
 import { JSONLD, Generic } from 'react-structured-data';
@@ -21,7 +21,7 @@ const Events = Radium(() => {
     return <div style={{
         display: 'grid',
         gridTemplateColumns: "1fr 2fr",
-        gridTemplateAreas: '"filter content" "info content"',
+        gridTemplateAreas: '"filter content" "filter content"',
         [style.mobile]: { gridTemplateAreas: '"filter" "content" "info"', gridTemplateColumns: "1fr" },
         height: 500,
     }}>
@@ -31,6 +31,7 @@ const Events = Radium(() => {
                 padding:  40,
                 flexDirection: 'column',
                 [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
+                color: globalStyle.dark,
             }}
             options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }}
             value={filter}

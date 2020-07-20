@@ -43,7 +43,7 @@ const Church = Radium(({ name , picture, closedStyle, setExpand, id }) => {
     return <div style={{
         ...style.shadowed,
         height: 200,
-        ...(open ? { left: 0, width: '100%', zIndex: 2, height: '100%' } : closedStyle),
+        ...(open ? { left: 0, width: '100%', height: '100%' } : closedStyle),
         display: 'flex',
         flexDirection: 'row',
         position: 'absolute',

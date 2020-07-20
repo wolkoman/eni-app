@@ -8,6 +8,7 @@ function Navbar() {
   return (
     <div style={{ paddingBottom: 20 }}>
       <Link to="/" className="Navbar" style={{
+        display: 'flex',
         ...style.serif,
         fontWeight: 'bold',
         textDecoration: 'none',
@@ -17,6 +18,7 @@ function Navbar() {
         ...(match.isExact ? { fontSize: 45 } : { fontSize: 30 }),
         transition: 'all .1s',
       }}>
+        <img src="logo.svg" alt="eni logo" width="40" style={{ paddingRight: 10 }}/>
         <span style={{}}>eni</span>
         <span style={{ opacity: 0.5 }}>.wien</span>
       </Link>

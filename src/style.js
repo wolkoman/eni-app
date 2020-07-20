@@ -9,7 +9,9 @@ style = {
     ...style,
     white: '#fff',
     light: '#f8f8f8',
-    accent: '#58A4B0',
+    accent1: '#D13751',
+    accent2: '#900D0D',
+    accent3: '#CF1B1B',
     dark: '#2B303A',
     borderRadius: '0px',
     mobileBreak: 600,
@@ -17,6 +19,7 @@ style = {
     serif: { fontFamily: 'Source Serif Pro' },
     mobile: style.maxmedia(style.mobileBreak),
 }
+style.gradient = `linear-gradient(25deg, ${style.accent1}, ${style.accent3})`;
 style.shadowed =  {
     boxShadow: '0px 3px 5px rgba(0,0,0,0.1)',
     background: style.white,
