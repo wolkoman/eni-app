@@ -5,7 +5,6 @@ import { useRouteMatch, Link } from "react-router-dom";
 
 const Navbar = Radium(() => {
   const match = useRouteMatch({path: '/', strict: true});
-  const borderBottomWidth = 2;
   return (
     <div style={{ paddingBottom: 20 }}>
       <Link to="/" className="Navbar" style={{
@@ -20,9 +19,7 @@ const Navbar = Radium(() => {
         transition: 'all .1s',
       }}>
         <img src="logo.svg" alt="eni logo" style={{ paddingRight: 10, width: match.isExact ? 40 : 30, transition: 'all .2s' }}/>
-        <span style={{ borderBottomColor: style.accent1, borderBottomWidth, borderBottomStyle: 'solid' }}>e</span>
-        <span style={{ borderBottomColor: style.accent2, borderBottomWidth, borderBottomStyle: 'solid' }}>n</span>
-        <span style={{ borderBottomColor: style.accent3, borderBottomWidth, borderBottomStyle: 'solid' }}>i</span>
+        <span>eni</span>
         <span style={{ opacity: 0.5 }}>.wien</span>
       </Link>
     </div>
