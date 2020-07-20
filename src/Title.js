@@ -4,18 +4,32 @@ import { style } from './style';
 
 const Title = Radium(() => {
     return <div style={{
-        padding: '60px',
-        fontSize: 70,
-        fontWeight: 800,
-        textAlign: 'center',
+        padding: 80,
         ...style.serif,
-        color: '#fff',
         ...style.shadowed,
+        textAlign: 'center',
+        color: style.white,
         background: style.gradient,
         boxShadow: '0px 3px 5px rgba(0,0,0,0.2)',
-        [style.mobile]: { fontSize: 60, padding: '60px 20px', },
+        [style.mobile]: { padding: '60px 20px', },
     }}>
-        Gott liebt dich!
+        <div style={{
+            color: style.white,
+            fontWeight: 800,
+            fontSize: 70,
+            [style.mobile]: {
+                fontSize: 50,
+            },
+        }}>
+            Gott liebt dich!
+        </div>
+        <div style={{
+            ...style.sans,
+            fontWeight: 300,
+            fontSize: 15,
+        }}>
+            Bei ihm findest du Geborgenheit und Zuversicht
+        </div>
     </div>
 });
 
