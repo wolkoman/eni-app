@@ -10,7 +10,7 @@ const Title = Radium(() => {
         textAlign: 'center',
         color: style.white,
         background: style.gradient,
-        boxShadow: '0px 3px 5px rgba(0,0,0,0.2)',
+        boxShadow: '0px 3px 5px rgba(0,0,0,0.3)',
         [style.mobile]: { padding: '60px 20px', },
     }}>
         <div style={{
