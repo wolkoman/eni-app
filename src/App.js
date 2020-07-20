@@ -13,6 +13,7 @@ import {
   Route,
 } from "react-router-dom";
 import Article from './Article';
+import RedirectNotice from './RedirectNotice';
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
             </Route>
             <Route exact path="/inzersdorf">
               <Box><Article id="4eVTrqzQN7wDZXu1CWZIVQ"></Article></Box>
+            </Route>
+            <Route exact path="/redirect-notice">
+              <RedirectNotice></RedirectNotice>
             </Route>
             <Route path="*">
               <b>404</b> Seite nicht gefunden
