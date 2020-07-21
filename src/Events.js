@@ -8,7 +8,7 @@ import { JSONLD, Generic } from 'react-structured-data';
 const Events = Radium(() => {
     const [filter, setFilter] = useState(localStorage.getItem('filter') ?? 'all');
     const [events, setEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [state, setState] = useState('LOADING');
     useEffect(() => {
         localStorage.setItem('filter', filter)
     }, [filter])
@@ -16,7 +16,8 @@ const Events = Radium(() => {
         fetch('https://api.eni.wien/calendar/v1/')
             .then(x => x.json())
             .then(x => setEvents(x))
-            .then(() => setLoading(false));
+            .then(() => setState('LOADED'))
+            .catch(() => setState('FAILED'));
     }, [])
     return <div style={{
         display: 'grid',
@@ -38,8 +39,8 @@ const Events = Radium(() => {
             setValue={setFilter}
         ></FilterList>
         <EventList
-        style={{ gridArea: 'content', }}
-            loading={loading}
+            style={{ gridArea: 'content', }}
+            state={state}
             events={events.filter(event => filter === 'all' || event.pfarre === filter)}
             showPfarre={filter === 'all'}
         ></EventList>
@@ -62,7 +63,7 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
     </div>;
 })
 
-const EventList = Radium(({ events, style, showPfarre, loading}) => {
+const EventList = Radium(({ events, style, showPfarre, state}) => {
     return <div style={{
         ...style,
         padding: 40,
@@ -70,10 +71,9 @@ const EventList = Radium(({ events, style, showPfarre, loading}) => {
         boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.1) inset',
         [style.mobile]: { boxShadow: '0px 5px 5px -5px rgba(0,0,0,0.1) inset' },
     }}>
-        {
-            loading
-            ? <Loader></Loader>
-            : (
+        {{
+            LOADING: <Loader></Loader>,
+            LOADED: (
                 events.length === 0
                 ? <div>Keine Termine gefunden!</div>
                 : Object.entries(parseEvents(events)).map(([ date, events ]) => 
@@ -84,8 +84,12 @@ const EventList = Radium(({ events, style, showPfarre, loading}) => {
                         key={date}
                     ></DateGroup>
                 )
-            )
-        }
+            ),
+            FAILED: <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                <img src="/calendar-fail.svg" style={{ width: 200, paddingBottom: 20 }}></img>
+                <div>Termine können nicht geladen werden.</div>
+            </div>
+        }[state]}
     </div>
 });
 
