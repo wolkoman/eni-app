@@ -13,7 +13,7 @@ const Events = Radium(() => {
         localStorage.setItem('filter', filter)
     }, [filter])
     useEffect(() => {
-        fetch('https://eni.wien/api/calendar/v1/')
+        fetch('https://api.eni.wien/calendar/v1/')
             .then(x => x.json())
             .then(x => setEvents(x))
             .then(() => setLoading(false));
