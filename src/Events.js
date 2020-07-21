@@ -86,7 +86,7 @@ const EventList = Radium(({ events, style, showPfarre, state}) => {
                 )
             ),
             FAILED: <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                <img src="/calendar-fail.svg" style={{ width: 200, paddingBottom: 20 }}></img>
+                <img src="/calendar-fail.svg" style={{ width: 200, paddingBottom: 20 }} alt="Kalendar schlägt fehl"></img>
                 <div>Termine können nicht geladen werden.</div>
             </div>
         }[state]}
