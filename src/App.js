@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import Article from './Article';
 import RedirectNotice from './RedirectNotice';
+import Cockpit from './cockpit';
+import ScrollToTop from './ScrollTop';
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
         paddingBottom: 60
         }}>
         <Router>
+          <ScrollToTop/>
           <Navbar></Navbar>
           <Switch>
             <Route exact path="/">
@@ -38,16 +41,16 @@ function App() {
               </Box>
             </Route>
             <Route exact path="/impressum">
-              <Box><Article id="6W7G98iDMKpOdJJ1LlikCQ"></Article></Box>
+              <Box><Article article={() => Cockpit.singleton('impressum')}></Article></Box>
             </Route>
             <Route exact path="/emmaus">
-              <Box><Article id="53Lgt4kd0qUnPFZszRL8Rk"></Article></Box>
+              <Box><Article article={() => Cockpit.singleton('emmaus')}></Article></Box>
             </Route>
             <Route exact path="/neustift">
-              <Box><Article id="42F2oBzL7K4LA2s8OyfEdz"></Article></Box>
+              <Box><Article article={() => Cockpit.singleton('inzersdorf_neustift')}></Article></Box>
             </Route>
             <Route exact path="/inzersdorf">
-              <Box><Article id="4eVTrqzQN7wDZXu1CWZIVQ"></Article></Box>
+              <Box><Article article={() => Cockpit.singleton('inzersdorf')}></Article></Box>
             </Route>
             <Route exact path="/redirect-notice">
               <RedirectNotice></RedirectNotice>
