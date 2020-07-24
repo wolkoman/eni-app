@@ -16,6 +16,7 @@ import Article from './Article';
 import RedirectNotice from './RedirectNotice';
 import Cockpit from './cockpit';
 import ScrollToTop from './ScrollTop';
+import ChurchArticle from './ChurchArticle';
 
 function App() {
   return (
@@ -44,13 +45,13 @@ function App() {
               <Box><Article article={() => Cockpit.singleton('impressum')}></Article></Box>
             </Route>
             <Route exact path="/emmaus">
-              <Box><Article article={() => Cockpit.singleton('emmaus')}></Article></Box>
+              <ChurchArticle entry={() => Cockpit.collectionEntry('churches','5f18288a6536666d1f000260')}></ChurchArticle>
             </Route>
             <Route exact path="/neustift">
-              <Box><Article article={() => Cockpit.singleton('inzersdorf_neustift')}></Article></Box>
+              <ChurchArticle entry={() => Cockpit.collectionEntry('churches','5f1aa08f633830e8aa000125')}></ChurchArticle>
             </Route>
             <Route exact path="/inzersdorf">
-              <Box><Article article={() => Cockpit.singleton('inzersdorf')}></Article></Box>
+              <ChurchArticle entry={() => Cockpit.collectionEntry('churches','5f1aa1b3393061b0880001a6')}></ChurchArticle>
             </Route>
             <Route exact path="/redirect-notice">
               <RedirectNotice></RedirectNotice>

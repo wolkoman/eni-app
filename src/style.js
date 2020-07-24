@@ -14,6 +14,7 @@ style = {
     accent2: '#11B0A8',
     dark: '#2B303A',
     borderRadius: '0px',
+    padding: 40,
     mobileBreak: 600,
     sans: { fontFamily: 'Source Sans Pro' },
     serif: { fontFamily: 'Source Serif Pro' },
@@ -24,6 +25,7 @@ style.shadowed =  {
     boxShadow: '0px 3px 5px rgba(0,0,0,0.1)',
     background: style.white,
     borderRadius: 6,
+    overflow: 'auto',
 };
 style.highlyShadowed =  {
     boxShadow: '0px 3px 10px rgba(0,0,0,0.1)',

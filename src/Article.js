@@ -8,7 +8,7 @@ const Article = Radium (({ article }) => {
     const [object, setObject] = useState(null);
     useEffect(() => { article().then(setObject) }, [article]);
 
-    return <div style={{padding: 40}}>
+    return <div style={{padding: style.padding}}>
         {object ? [
             <div style={{ display: 'flex', justifyContent: 'space-between' }} key='title'>
                 <h1 style={{

@@ -26,7 +26,7 @@ const Title = Radium(() => {
         <div style={{
             ...style.sans,
             fontWeight: 300,
-            fontSize: 15,
+            fontSize: 18,
         }}>
             Bei ihm findest du Geborgenheit und Zuversicht
         </div>

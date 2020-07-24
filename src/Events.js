@@ -29,9 +29,9 @@ const Events = Radium(() => {
         <FilterList
             style={{
                 gridArea: 'filter',
-                padding:  40,
+                padding: style.padding,
                 flexDirection: 'column',
-                [style.mobile]: { padding:  20, flexDirection: 'row', justifyContent: 'center', height: 30 },
+                [style.mobile]: { padding: style.padding/2, flexDirection: 'row', justifyContent: 'center', height: 30 },
                 color: globalStyle.dark,
             }}
             options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }}
@@ -66,7 +66,7 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
 const EventList = Radium(({ events, style, showPfarre, state}) => {
     return <div style={{
         ...style,
-        padding: 40,
+        padding: globalStyle.padding,
         overflow: 'auto',
         boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.1) inset',
         [style.mobile]: { boxShadow: '0px 5px 5px -5px rgba(0,0,0,0.1) inset' },
