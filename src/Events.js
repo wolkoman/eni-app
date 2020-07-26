@@ -23,7 +23,7 @@ const Events = Radium(() => {
         display: 'grid',
         gridTemplateColumns: "1fr 2fr",
         gridTemplateAreas: '"filter content" "filter content"',
-        [style.mobile]: { gridTemplateAreas: '"filter" "content" "info"', gridTemplateColumns: "1fr" },
+        [style.mobile]: { gridTemplateAreas: '"filter" "content"', gridTemplateColumns: "1fr", gridTemplateRows: "70px 1fr" },
         height: 500,
     }}>
         <FilterList
@@ -33,13 +33,18 @@ const Events = Radium(() => {
                 flexDirection: 'column',
                 [style.mobile]: { padding: style.padding/2, flexDirection: 'row', justifyContent: 'center', height: 30 },
                 color: globalStyle.dark,
+                cursor: 'pointer',
+                display: 'flex',
             }}
             options={{ 'all': 'Alle', 'emmaus': 'Emmaus', 'neustift': 'Neustift', 'inzersdorf': 'Inzersdorf' }}
             value={filter}
             setValue={setFilter}
         ></FilterList>
         <EventList
-            style={{ gridArea: 'content', }}
+            style={{
+                gridArea: 'content',
+                [style.mobile]: { boxShadow: '0px 5px 5px -5px rgba(0,0,0,0.1) inset' },
+            }}
             state={state}
             events={events.filter(event => filter === 'all' || event.pfarre === filter)}
             showPfarre={filter === 'all'}
@@ -48,12 +53,7 @@ const Events = Radium(() => {
 });
 
 const FilterList = Radium(({ options , value , setValue , style }) => {
-    return <div style={{
-        cursor: 'pointer',
-        display: 'flex',
-        ...style,
-        [style.mobile]: { flexDirection: 'row', background: 'red' },
-        }}>
+    return <div style={style}>
         {Object.entries(options).map(([key,val]) => (
         <div
             style={{ fontWeight: key === value ? 800 : 300, fontSize: 22, marginBottom: 5, marginRight: 10 }}
@@ -69,7 +69,6 @@ const EventList = Radium(({ events, style, showPfarre, state}) => {
         padding: globalStyle.padding,
         overflow: 'auto',
         boxShadow: '5px 0px 5px -5px rgba(0,0,0,0.1) inset',
-        [style.mobile]: { boxShadow: '0px 5px 5px -5px rgba(0,0,0,0.1) inset' },
     }}>
         {{
             LOADING: <Loader></Loader>,
