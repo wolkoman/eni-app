@@ -6,7 +6,7 @@ import Loader from './graphics/Loader';
 import { JSONLD, Generic } from 'react-structured-data';
 
 const Events = Radium(() => {
-    const [filter, setFilter] = useState(localStorage.getItem('filter') ?? 'all');
+    const [filter, setFilter] = useState(/*localStorage.getItem('filter') ?? 'all'*/ 'emmaus');
     const [events, setEvents] = useState([]);
     const [state, setState] = useState('LOADING');
     useEffect(() => {
@@ -48,6 +48,7 @@ const Events = Radium(() => {
             state={state}
             events={events.filter(event => filter === 'all' || event.pfarre === filter)}
             showPfarre={filter === 'all'}
+            warning={filter !== 'emmaus'}
         ></EventList>
     </div>;
 });
@@ -63,7 +64,7 @@ const FilterList = Radium(({ options , value , setValue , style }) => {
     </div>;
 })
 
-const EventList = Radium(({ events, style, showPfarre, state}) => {
+const EventList = Radium(({ events, style, showPfarre, state, warning}) => {
     return <div style={{
         ...style,
         padding: globalStyle.padding,
@@ -75,14 +76,17 @@ const EventList = Radium(({ events, style, showPfarre, state}) => {
             LOADED: (
                 events.length === 0
                 ? <div>Keine Termine gefunden!</div>
-                : Object.entries(parseEvents(events)).map(([ date, events ]) => 
+                : <div>
+                    {warning ? <div style={{ fontStyle: 'italic', paddingBottom: 30, textAlign: 'center'}}>Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift sind noch nicht vollständig.</div> : null}
+                    {Object.entries(parseEvents(events)).map(([ date, events ]) => 
                     <DateGroup
                         events={events}
                         showPfarre={showPfarre}
                         style={{ marginBottom: 20 }}
                         key={date}
                     ></DateGroup>
-                )
+                    )}
+                </div>
             ),
             FAILED: <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
                 <img src="/calendar-fail.svg" style={{ width: 200, paddingBottom: 20 }} alt="Kalendar schlägt fehl"></img>
