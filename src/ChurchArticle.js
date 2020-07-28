@@ -20,7 +20,7 @@ const ChurchArticle = Radium (({ entry }) => {
             [style.mobile]: { padding: 20 }
         }}>
         {object ? <div>
-            <h1 style={{...style.serif, padding: '40px 20px', fontSize: 40}}>{object.name}</h1>
+            <h1 style={{...style.serif, padding: '0 20px', fontSize: 40}}>{object.name}</h1>
             <Box label="Allgemein">
                 <div style={{ display: 'flex', [style.mobile]: { flexDirection: 'column' } }}>
                     <div style={{ backgroundImage: `url(${host}${object.image.path})`, backgroundSize: 'cover', width: '100%', backgroundPosition: 'center', [style.mobile]: { height: 300 } }}></div>

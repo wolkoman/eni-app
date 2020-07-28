@@ -4,14 +4,16 @@ import { style } from './style';
 
 const Title = Radium(() => {
     return <div style={{
-        padding: 80,
         ...style.serif,
         ...style.shadowed,
+        position: 'relative',
+        padding: 80,
+        overflow: 'hidden',
         textAlign: 'center',
         color: style.white,
         background: style.gradient,
         boxShadow: '0px 3px 5px rgba(0,0,0,0.3)',
-        [style.mobile]: { padding: '60px 20px', },
+        [style.mobile]: { padding: '100px 20px', },
     }}>
         <div style={{
             color: style.white,
