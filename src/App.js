@@ -17,6 +17,7 @@ import RedirectNotice from './RedirectNotice';
 import Cockpit from './cockpit';
 import ScrollToTop from './ScrollTop';
 import ChurchArticle from './ChurchArticle';
+import ArticleSnippets from './ArticleSnippet';
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
               </Box>
               <Box label="Termine">
                 <Events></Events>
+              </Box>
+              <Box label="Vatikan Nachrichten" styled={false}>
+                <ArticleSnippets></ArticleSnippets>
               </Box>
             </Route>
             <Route exact path="/impressum">

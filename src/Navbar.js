@@ -18,7 +18,7 @@ const Navbar = Radium(() => {
         ...(match.isExact ? { fontSize: 45 } : { fontSize: 30 }),
         transition: 'all .1s',
       }}>
-        <img src="logo.svg" alt="eni logo" style={{ paddingRight: 10, width: match.isExact ? 40 : 30, transition: 'all .2s' }}/>
+        <img src="/logo.svg" alt="eni logo" style={{ paddingRight: 10, width: match.isExact ? 40 : 30, transition: 'all .2s' }}/>
         <span>eni</span>
         <span style={{ opacity: 0.5 }}>.wien</span>
       </Link>
