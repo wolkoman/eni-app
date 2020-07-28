@@ -77,7 +77,9 @@ const EventList = Radium(({ events, style, showPfarre, state, warning}) => {
                 events.length === 0
                 ? <div>Keine Termine gefunden!</div>
                 : <div>
-                    {warning ? <div style={{ fontStyle: 'italic', paddingBottom: 30, textAlign: 'center'}}>Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift sind noch nicht vollständig.</div> : null}
+                    {warning ? <div style={{ fontStyle: 'italic', padding: 10, marginBottom: 20, textAlign: 'center', background: '#eee', borderRadius: globalStyle.borderRadius}}>
+                        Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift sind noch nicht vollständig.
+                    </div> : null}
                     {Object.entries(parseEvents(events)).map(([ date, events ]) => 
                     <DateGroup
                         events={events}

@@ -13,7 +13,7 @@ style = {
     accent1: '#31575E',
     accent2: '#11B0A8',
     dark: '#2B303A',
-    borderRadius: '0px',
+    borderRadius: 6,
     padding: 40,
     mobileBreak: 600,
     sans: { fontFamily: 'Source Sans Pro' },
