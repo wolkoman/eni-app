@@ -13,8 +13,7 @@ export const Livestream = Radium(() => {
     const publish_start = new Date(nextLivestream?.publish_start).getTime();
     const publish_end = new Date(nextLivestream?.publish_end).getTime();
     const shown = nextLivestream !== null && (publish_start - now < 0) && (publish_end - now > 0);
-    const live = new Date(`${nextLivestream?.date} ${nextLivestream?.time}`).getTime() - now < 0;
-    let timeout;
+    const live = new Date(`${nextLivestream?.date} ${nextLivestream?.time}`).getTime() - (+nextLivestream?.prepublish_time) * 60000 - now < 0;
 
     useEffect(() => {
         setNextLivestream(JSON.parse(localStorage.getItem(NEXT_LIVESTREAM)));
@@ -23,7 +22,7 @@ export const Livestream = Radium(() => {
             localStorage.setItem(NEXT_LIVESTREAM, JSON.stringify(livestream));
             setNextLivestream(livestream);
         });
-        timeout = setInterval(() => setNow(new Date().getTime()), 1000);
+        let timeout = setInterval(() => setNow(new Date().getTime()), 1000);
         return () => clearInterval(timeout);
     }, []);
 
@@ -45,4 +44,12 @@ const WaitNotice = Radium(({livestream}) => <div style={{
     <div>Der Livestream <b>{livestream.title}</b> beginnt am {humanDateFormat(livestream.date)} um {livestream.time} Uhr.</div>    
     <div></div>
 </div>);
-const Player = Radium(({livestream, autoplay=false}) => <iframe style={{ width: '100%', height: 400 }} src={`https://www.youtube.com/embed/${livestream?.URL.split(`?v=`)[1]}${autoplay ? '?autoplay=1' : ''}`} frameborder="0" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe>);
+const Player = Radium(({livestream, autoplay=false}) => 
+    <iframe
+        title={livestream?.title}
+        style={{ width: '100%', height: 400 }}
+        src={`https://www.youtube.com/embed/${livestream?.URL.split(`?v=`)[1]}${autoplay ? '?autoplay=1' : ''}`}
+        frameBorder="0"
+        allow="autoplay;encrypted-media;picture-in-picture"
+        allowFullScreen
+    ></iframe>);

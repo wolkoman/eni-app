@@ -23,7 +23,7 @@ const ChurchArticle = Radium (({ entry }) => {
             <h1 style={{...style.serif, padding: '0 20px', fontSize: 40}}>{object.name}</h1>
             <Box label="Allgemein">
                 <div style={{ display: 'flex', [style.mobile]: { flexDirection: 'column' } }}>
-                    <div style={{ backgroundImage: `url(${host}${object.image.path})`, backgroundSize: 'cover', width: '100%', backgroundPosition: 'center', [style.mobile]: { height: 300 } }}></div>
+                    <div style={{ backgroundImage: `url(${object.image.path?.[0] === '/' ? host : ''}${object.image.path})`, backgroundSize: 'cover', width: '100%', backgroundPosition: 'center', [style.mobile]: { height: 300 } }}></div>
                     <div style={{padding: style.padding}}>
                         <Markdown source={object.info} headingOffset={2}/>
                     </div>
