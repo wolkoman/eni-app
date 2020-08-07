@@ -2,6 +2,7 @@ import Radium from 'radium';
 import React, {useEffect,useState} from 'react';
 import { style } from './style';
 import Loader from './graphics/Loader';
+import { apiUrl } from './config';
 
 const ArticleSnippet = Radium(({ article, area, textStyle }) => {
     return <a href={article?.link} style={{
@@ -36,7 +37,7 @@ const ArticleSnippet = Radium(({ article, area, textStyle }) => {
 const ArticleSnippets = Radium(() => {
     const [articles, setArticles] = useState([]);
     useEffect(() => {
-        fetch('https://api.eni.wien/vaticannews/v1/')
+        fetch(`${apiUrl}/vaticannews/v1/`)
             .then(x => x.json())
             .then(x => setArticles(x));
     }, []);

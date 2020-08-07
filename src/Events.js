@@ -4,6 +4,8 @@ import { style, style as globalStyle } from './style';
 import { parseEvents } from './eventParser';
 import Loader from './graphics/Loader';
 import { JSONLD, Generic } from 'react-structured-data';
+import { apiUrl } from './config';
+var sanitize = require('sanitize-html');
 
 const Events = Radium(() => {
     const [filter, setFilter] = useState(/*localStorage.getItem('filter') ?? 'all'*/ 'emmaus');
@@ -13,7 +15,7 @@ const Events = Radium(() => {
         localStorage.setItem('filter', filter)
     }, [filter])
     useEffect(() => {
-        fetch('https://api.eni.wien/calendar/v1/')
+        fetch(`${apiUrl}/calendar/v1/`)
             .then(x => x.json())
             .then(x => setEvents(x))
             .then(() => setState('LOADED'))
@@ -115,6 +117,7 @@ const DateGroup = Radium(({ events, showPfarre, style }) =>
 );
 
 const Event = ({ event, showPfarre }) => {
+    const descriptionStyle = { fontSize: 14, fontWeight: 'normal' };
     const color = (pfarre) => ({emmaus: style.accent1, neustift: style.accent2, inzersdorf: style.accent3}[pfarre]);
     return <div key={ event.id } style={{ display: 'flex', ...style.serif, fontWeight: 600, fontSize: 20, marginTop: 5 }}>
         <div style={{ width: 70, flexGrow: 0, flexShrink: 0, display: event.wholeday ? 'none' : 'auto' }}>
@@ -125,12 +128,24 @@ const Event = ({ event, showPfarre }) => {
         </div> : null }
         <div>
             {event.title}
-            {event.description || showPfarre ?
-                <div style={{ fontSize: 14, fontWeight: 'normal' }}>
-                    {showPfarre && event.pfarre !== 'all' ? (<i style={{ textTransform: 'capitalize' }}>in { event.pfarre }<br></br></i>) : null}
-                    {event.description}
-                </div>
-             : null}
+            {showPfarre && event.pfarre !== 'all' ? <div style={descriptionStyle}>
+                 <i style={{ textTransform: 'capitalize' }}>in { event.pfarre }</i>
+            </div> : null}
+            {
+            event.place ? <div style={descriptionStyle}>
+                 <i style={{ textTransform: 'capitalize' }}>in { event.place }</i>
+            </div> : null
+            }
+            {event.description ?
+                <div style={descriptionStyle}
+                    dangerouslySetInnerHTML={{__html: sanitize(event.description, {
+                    allowedTags: [ 'b', 'i', 'em', 'strong', 'a', 'ul', 'ol','li' ],
+                    allowedAttributes: {
+                        'a': [ 'href' ]
+                    },
+                    allowedIframeHostnames: ['www.youtube.com']
+                    })}} />
+            : null}
         </div>
         {event.pfarre !== 'all' && event.wholeday === false ? <EventSchema event={event}></EventSchema> : null }
     </div>;
