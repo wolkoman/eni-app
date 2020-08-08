@@ -30,7 +30,7 @@ const Title = Radium(() => {
             fontWeight: 300,
             fontSize: 18,
         }}>
-            Bei ihm findest du Geborgenheit und Zuversicht
+            Bei Ihm findest du Geborgenheit und Zuversicht
         </div>
     </div>
 });
