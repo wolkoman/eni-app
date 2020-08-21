@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Radium from "radium";
 import { style, style as globalStyle } from "./style";
-import { parseEvents } from "./eventParser";
+import { parseEvents, fetchRawEvents } from "./eventHandler";
 import Loader from "./graphics/Loader";
 import { JSONLD, Generic } from "react-structured-data";
-import { apiUrl } from "./config";
 var sanitize = require("sanitize-html");
 
 const Events = Radium(() => {
@@ -17,8 +16,7 @@ const Events = Radium(() => {
     localStorage.setItem("filter", filter);
   }, [filter]);
   useEffect(() => {
-    fetch(`${apiUrl}/calendar/v1/`)
-      .then((x) => x.json())
+    fetchRawEvents({})
       .then((x) => setEvents(x))
       .then(() => setState("LOADED"))
       .catch(() => setState("FAILED"));
