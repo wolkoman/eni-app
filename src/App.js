@@ -19,6 +19,7 @@ import ScrollToTop from './ScrollTop';
 import ChurchArticle from './ChurchArticle';
 import ArticleSnippets from './ArticleSnippet';
 import { Livestream } from './Livestream';
+import Wochenblatt from './Wochenblatt';
 
 function App() {
   return (
@@ -61,6 +62,9 @@ function App() {
             </Route>
             <Route exact path="/redirect-notice">
               <RedirectNotice></RedirectNotice>
+            </Route>
+            <Route exact path="/wochenblatt">
+              <Wochenblatt/>
             </Route>
             <Route path="*">
               <b>404</b> Seite nicht gefunden
