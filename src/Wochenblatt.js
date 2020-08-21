@@ -4,20 +4,38 @@ import cockpit, { host } from "./cockpit";
 import { saveAs } from "file-saver";
 import { apiUrl } from "./config";
 
-const startDateMatch = /START_DATE/gms;
-const endDateMatch = /END_DATE/gms;
-const dateParagraphMatch = /<w:p ((?!<\/w:p>).)*?EVENTDATE.*?<\/w:p>/gms;
-const eventParagraphMatch = /<w:tbl>((?!<\/w:tbl>).)*?TITLE.*?<\/w:tbl>/gms;
-const descriptionParagraphMatch = /<w:p((?!<\/w:p>).)*?DESCRIPTION.*?<\/w:p>/;
-const timeMatch = /TIME/;
-const titleMatch = /TITLE/;
-const descriptionMatch = /DESCRIPTION/;
-const contentMatch = /<w:p((?!<\/w:p>).)*?CONTENT.*?<\/w:p>/;
-const dateMatch = /EVENTDATE/;
+const CONST = {
+  START_DATE: "START_DATE",
+  END_DATE: "END_DATE",
+  EVENTDATE: "EVENTDATE",
+  TITLE: "TITLE",
+  DESCRIPTION: "DESCRIPTION",
+  TIME: "TIME",
+  CONTENT: "CONTENT",
+};
+const TEMPLATE = (document) => ({
+  EVENT: (z, t, d) =>
+    document
+      .match(tableOf(CONST.TITLE))[0]
+      .replace(CONST.TIME, z ?? "")
+      .replace(CONST.TITLE, t)
+      .replace(
+        paragraphOf(CONST.DESCRIPTION),
+        d
+          ? document
+              .match(paragraphOf(CONST.DESCRIPTION))[0]
+              .replace(CONST.DESCRIPTION, d)
+          : ""
+      ),
+  DATE: (x) =>
+    document.match(paragraphOf(CONST.EVENTDATE))[0].replace(CONST.EVENTDATE, x),
+});
+const paragraphOf = (x) =>
+  new RegExp(`<w:p((?!<\\\/w:p>).)*?${x}.*?<\\\/w:p>`, "gms");
+const tableOf = (x) =>
+  new RegExp(`<w:tbl((?!<\\\/w:tbl>).)*?${x}.*?<\\\/w:tbl>`, "gms");
 
 export default () => {
-  const [logging, setLog] = useState('');
-  const log = x => setLog(`${logging}\n${x}`);
   useEffect(() => {
     fetch(`${apiUrl}/calendar/v1/`)
       .then((x) => x.json())
@@ -26,40 +44,41 @@ export default () => {
         cockpit
           .singleton("wochenblatt")
           //.then(({ template }) => fetch(`${host}/${template}`))
-          .then(() => fetch('http://lvh.me:3000/wochenblatt.docx'))
-          .then(function (response) {
-            if (response.status === 200 || response.status === 0) {
-              return Promise.resolve(response.blob());
-            } else {
-              return Promise.reject(new Error(response.statusText));
-            }
-          })
+          .then(() => fetch("http://lvh.me:3000/wochenblatt.docx"))
+          .then((response) =>
+            response.status === 200 || response.status === 0
+              ? Promise.resolve(response.blob())
+              : Promise.reject(new Error(response.statusText))
+          )
           .then(JSZip.loadAsync)
-          .then(async (zip) => { 
-            let document = await zip
-              .file("word/document.xml")
-              .async("string");
-            const dateContent = document.match(dateParagraphMatch)[0];
-            const eventContent = document.match(eventParagraphMatch)[0];
-            const descriptionParagraphContent = document.match(descriptionParagraphMatch)[0];
-            const date = (x) => dateContent.replace(dateMatch, x);
-            const event = (z, t, d) =>
-              eventContent
-                .replace(timeMatch, z ?? '')
-                .replace(titleMatch, t)
-                .replace(descriptionParagraphMatch, d ? descriptionParagraphContent.replace(descriptionMatch, d): '');
-            log(eventContent);
-            document = document.replace(startDateMatch, "JÄNNER");
-            document = document.replace(endDateMatch, "DEZEMBER");
-            let content =
-              document.replace(dateParagraphMatch, '').replace(eventParagraphMatch, '').replace(contentMatch, date("TESTS") + event('10:00','Messe','in der Kirche') + event('10:00','Messe'))
-              ;
+          .then(async (zip) => {
+            let document = await zip.file("word/document.xml").async("string");
+            let content = document
+              .replace(CONST.START_DATE, "JÄNNER")
+              .replace(CONST.END_DATE, "DEZEMBER")
+              .replace(paragraphOf(CONST.EVENTDATE), "")
+              .replace(tableOf(CONST.TITLE), "")
+              .replace(
+                paragraphOf(CONST.CONTENT),
+                events.map(
+                  (event) =>
+                    TEMPLATE(document).DATE(
+                      event.start?.dateTime?.substring(0, 10) ??
+                        event.start.date
+                    ) +
+                    TEMPLATE(document).EVENT(
+                      event.start?.dateTime?.substring(11, 16),
+                      event.title,
+                      event.description
+                    )
+                )
+              );
             zip.file("word/document.xml", content);
             zip.generateAsync({ type: "blob" }).then(function (blob) {
-              saveAs(blob, "hello.docx");
+              saveAs(blob, "wochenblatt.docx");
             });
-          })
+          });
       });
   }, []);
-  return <div>{logging}</div>;
+  return <div></div>;
 };
