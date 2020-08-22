@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "./Box";
 import wochenblattGenerator from "./wochenblattGenerator";
-import Loader from "./Graphics/Loader";
+import Loader from "./Graphic/Loader";
 import cockpit, { host } from "./cockpit";
 import { fetchRawEvents, parseEvents, isValidEventToken } from "./eventHandler";
 

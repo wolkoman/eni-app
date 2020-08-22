@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Radium from "radium";
 import { style, style as globalStyle } from "../style";
 import { parseEvents, fetchRawEvents } from "../eventHandler";
-import Loader from "../Graphics/Loader";
+import Loader from "../Graphic/Loader";
 import Event from "./Event";
 
 const Events = Radium(() => {

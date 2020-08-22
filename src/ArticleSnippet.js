@@ -1,7 +1,7 @@
 import Radium from 'radium';
 import React, {useEffect,useState} from 'react';
 import { style } from './style';
-import Loader from './Graphics/Loader';
+import Loader from './Graphic/Loader';
 import { apiUrl } from './config';
 
 const ArticleSnippet = Radium(({ article, area, textStyle }) => {
