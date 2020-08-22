@@ -6,7 +6,6 @@ import Markdown from "./Markdown";
 const ANNOUNCEMENT = "announcement";
 
 export default () => {
-  const ANNOUNCEMENT = "announcement";
   const [announcement, setAnnouncement] = useState(
     JSON.parse(localStorage.getItem(ANNOUNCEMENT)) ?? {}
   );
