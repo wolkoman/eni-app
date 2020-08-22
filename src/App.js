@@ -37,7 +37,7 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Title></Title>
-              <Livestream></Livestream>
+              {/*<Livestream></Livestream>*/}
               <Box label="Pfarren" styled={false}>
                 <Churches></Churches>
               </Box>
