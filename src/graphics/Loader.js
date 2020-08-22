@@ -1,7 +1,7 @@
 import React from 'react';
 import './Loader.css';
 
-const Loader = () => {
+export default () => {
     return <div className="spinner">
         <div className="rect1"></div>
         <div className="rect2"></div>
@@ -10,5 +10,3 @@ const Loader = () => {
         <div className="rect5"></div>
   </div>;
 }
-
-export default Loader;

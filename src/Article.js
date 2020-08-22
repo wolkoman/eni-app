@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Radium from 'radium';
 import { style } from './style';
-import Loader from './graphics/Loader';
+import Loader from './Graphics/Loader';
 
 const Article = Radium (({ article }) => {
 

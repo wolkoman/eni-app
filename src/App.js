@@ -2,10 +2,7 @@ import React from 'react';
 import {StyleRoot} from 'radium';
 import {style} from './style';
 import Navbar from './Navbar';
-import Title from './Title';
-import Churches from './Churches';
 import Box from './Box';
-import Events from './Events';
 import Footer from './Footer';
 import {
   BrowserRouter as Router,
@@ -17,9 +14,8 @@ import RedirectNotice from './RedirectNotice';
 import Cockpit from './cockpit';
 import ScrollToTop from './ScrollTop';
 import ChurchArticle from './ChurchArticle';
-import ArticleSnippets from './ArticleSnippet';
 import Wochenblatt from './Wochenblatt';
-import { Livestreams } from './Livestreams/Livestreams';
+import LandingPage from './LandingPage';
 
 function App() {
   return (
@@ -36,17 +32,7 @@ function App() {
           <Navbar></Navbar>
           <Switch>
             <Route exact path="/">
-              <Title></Title>
-              <Livestreams/>
-              <Box label="Pfarren" styled={false}>
-                <Churches></Churches>
-              </Box>
-              <Box label="Termine">
-                <Events></Events>
-              </Box>
-              <Box label="Vatikan Nachrichten" styled={false}>
-                <ArticleSnippets></ArticleSnippets>
-              </Box>
+              <LandingPage/>
             </Route>
             <Route exact path="/impressum">
               <Box><Article article={() => Cockpit.singleton('impressum')}></Article></Box>
