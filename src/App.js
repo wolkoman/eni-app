@@ -18,7 +18,6 @@ import Cockpit from './cockpit';
 import ScrollToTop from './ScrollTop';
 import ChurchArticle from './ChurchArticle';
 import ArticleSnippets from './ArticleSnippet';
-import { Livestream } from './Livestream';
 import Wochenblatt from './Wochenblatt';
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Title></Title>
-              <Livestream></Livestream>
               <Box label="Pfarren" styled={false}>
                 <Churches></Churches>
               </Box>
