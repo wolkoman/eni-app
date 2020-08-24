@@ -4,15 +4,16 @@ import { style, style as globalStyle } from "../style";
 import { parseEvents, fetchRawEvents } from "../eventHandler";
 import Loader from "../Graphic/Loader";
 import Event from "./Event";
+import {localStorageSet} from "../utils";
 
 const Events = Radium(() => {
   const [filter, setFilter] = useState(
-    /*localStorage.getItem('filter') ?? 'all'*/ "emmaus"
+    /*localStorageGet('filter') ?? 'all'*/ "emmaus"
   );
   const [events, setEvents] = useState([]);
   const [state, setState] = useState("LOADING");
   useEffect(() => {
-    localStorage.setItem("filter", filter);
+    localStorageSet("filter", filter);
   }, [filter]);
   useEffect(() => {
     fetchRawEvents({})

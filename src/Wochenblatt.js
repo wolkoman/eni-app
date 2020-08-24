@@ -4,17 +4,18 @@ import wochenblattGenerator from "./wochenblattGenerator";
 import Loader from "./Graphic/Loader";
 import cockpit, { host } from "./cockpit";
 import { fetchRawEvents, parseEvents, isValidEventToken } from "./eventHandler";
+import {localStorageGet, localStorageSet} from "./utils";
 
 const CALENDAR_TOKEN = "calendar_token";
 const onTokenSubmit = (token) => {
-  localStorage.setItem(CALENDAR_TOKEN, token);
+  localStorageSet(CALENDAR_TOKEN, token);
   window.location.reload(false);
 };
 
 export default () => {
   const [access, setAccess] = useState();
   useEffect(() => {
-    isValidEventToken(localStorage.getItem(CALENDAR_TOKEN)).then((valid) =>
+    isValidEventToken(localStorageGet(CALENDAR_TOKEN)).then((valid) =>
       setAccess(valid)
     );
   }, []);
@@ -23,7 +24,7 @@ export default () => {
   ) : (
     <Box label="Wochenblatt" padded={true}>
       {access ? (
-        <Generator token={localStorage.getItem(CALENDAR_TOKEN)} />
+        <Generator token={localStorageGet(CALENDAR_TOKEN)} />
       ) : (
         <NoAccess />
       )}

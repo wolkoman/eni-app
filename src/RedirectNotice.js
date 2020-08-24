@@ -2,9 +2,10 @@ import React,  { useEffect } from 'react';
 import Radium from 'radium';
 import { style } from './style';
 import { useHistory } from 'react-router-dom';
+import {localStorageGet, localStorageSet} from "./utils";
 
 const RedirectNotice = Radium(() => {
-    const timeout = localStorage.getItem('redirect-notice') ? 0 : 10;
+    const timeout = localStorageGet('redirect-notice') ? 0 : 10;
     const history = useHistory();
     const spinnerKeyframes = Radium.keyframes({
         '0%': { width: '0%' },
@@ -12,7 +13,7 @@ const RedirectNotice = Radium(() => {
     });
     useEffect(() => {
         const timer = setTimeout(() => {
-            localStorage.setItem('redirect-notice', true);
+            localStorageSet('redirect-notice', true);
             history.push('/');
         }, timeout * 1000);
         return () => clearTimeout(timer);

@@ -3,12 +3,13 @@ import Box from "../Box";
 import Cockpit from "../cockpit";
 import { parseLivestreams } from "./livestreamParser";
 import Livestream from "./Livestream";
+import {localStorageGet, localStorageSet} from "../utils";
 
 export const Livestreams = () => {
   const LIVESTREAM = "livestream";
   const [now, setNow] = useState(new Date().getTime());
   const [livestreams, setLivestreams] = useState(
-    JSON.parse(localStorage.getItem(LIVESTREAM)) ?? []
+    localStorageGet(LIVESTREAM) ?? []
   );
   const [parsedLivestreams, setParsedLivestreams] = useState(
     parseLivestreams(livestreams, now)
@@ -17,7 +18,7 @@ export const Livestreams = () => {
   useEffect(() => {
     const update = () =>
       Cockpit.collection("livestream").then(({ entries }) => {
-        localStorage.setItem(LIVESTREAM, JSON.stringify(entries));
+        localStorageSet(LIVESTREAM, entries);
         setLivestreams(entries);
       });
     update();
