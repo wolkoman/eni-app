@@ -17,7 +17,7 @@
     "react-icons": "^3.11.0",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
     "react-structured-data": "0.0.14",
     "sanitize-html": "^1.27.3",
     "save-as": "^0.1.8"
