@@ -1,72 +1,26 @@
-import React from "react";
-import Radium from "radium";
-import { Link } from "react-router-dom";
-import { FaEye, FaYoutube, FaGithub, FaInstagram } from "react-icons/fa";
+import React from 'react';
+import Radium from 'radium';
+import { Link } from 'react-router-dom';
 
 const Footer = Radium(() => {
-  return (
-    <div style={{ textAlign: "center", marginTop: "60px", display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-      {[
-        <FooterItem
-          link="/impressum"
-          title="Impressum & Datenschutz"
-          icon={<FaEye />}
-        ></FooterItem>,
-        <FooterItem
-          link="//github.com/wolkoman/eni"
-          title="Github"
-          icon={<FaGithub />}
-          hard={true}
-        ></FooterItem>,
-        <FooterItem
-          link="//www.youtube.com/channel/UCty97x9ptrFsKhX5M_QA58g"
-          icon={<FaYoutube />}
-          title="YouTube"
-          hard={true}
-        ></FooterItem>,
-        <FooterItem
-          link="//www.instagram.com/pfarreemmaus/"
-          title="Instagram"
-          icon={<FaInstagram />}
-          hard={true}
-        ></FooterItem>,
-      ]
-        .map((item, index) => [
-          index === 0 ? null : (
-            <FooterSeperator key={index + "s"}></FooterSeperator>
-          ),
-          { ...item, key: index },
-        ])
-        .flat()}
+    return <div style={{textAlign: 'center', marginTop: '60px'}}>
+        {[
+            <FooterItem link="/impressum" title="Impressum"></FooterItem>,
+            <FooterItem link="//github.com/wolkoman/eni-app" title="Quellcode" hard={true}></FooterItem>,
+            <FooterItem link="//www.youtube.com/channel/UCty97x9ptrFsKhX5M_QA58g" title="YouTube" hard={true}></FooterItem>,
+            <FooterItem title="Feedback" hard={true} onClick={() => window.open("//docs.google.com/forms/d/e/1FAIpQLSfcVTLOylH9uUk50iKZvXe6WiDRY-JXV5HnfhYIPR1XOFmJPA/viewform?usp=sf_link")}></FooterItem>,
+        ].map((item,index) => [index === 0 ? null : <FooterSeperator key={index+'s'}></FooterSeperator> , {...item, key: index}]).flat()}
     </div>
-  );
 });
 
-const FooterItem = Radium(
-  ({ link, title, hard = false, onClick, icon = null }) => {
-    return hard ? (
-      <a
-        href={link}
-        onClick={onClick}
-        style={{ color: "grey", textDecoration: "none", cursor: "pointer", display: 'flex', alignItems: 'center' }}
-      >
-        {icon ? <div style={{marginRight: 3, marginTop: 6}}>{icon}</div>: null}
-        {title}
-      </a>
-    ) : (
-      <Link to={link} style={{ color: "grey", textDecoration: "none", display: 'flex', alignItems: 'center' }}>
-      {icon ? <div style={{marginRight: 3, marginTop: 6}}>{icon}</div>: null}
-        {title}
-      </Link>
-    );
-  }
-);
+const FooterItem = Radium(({link, title, hard = false, onClick}) => {
+    return hard
+    ? <a href={link} onClick={onClick} style={{color: 'grey', textDecoration: 'none', cursor: 'pointer'}}>{title}</a>
+    : <Link to={link} style={{color: 'grey', textDecoration: 'none'}}>{title}</Link>
+    ;
+});
 const FooterSeperator = Radium(() => {
-  return (
-    <div style={{margin: "4px 10px", color: "grey" }}>
-      –
-    </div>
-  );
+    return <span style={{display: 'inline-block', margin: '0 10px', color: 'grey'}}>–</span>
 });
 
 export default Footer;
