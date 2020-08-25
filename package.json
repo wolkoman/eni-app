@@ -1,12 +1,13 @@
 {
-  "name": "eni-app",
-  "version": "0.1.0",
+  "name": "eni",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "animejs": "^3.2.0",
+    "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "jszip": "^3.5.0",
     "node-sass": "^4.14.1",
@@ -20,7 +21,8 @@
     "react-scripts": "3.4.1",
     "react-structured-data": "0.0.14",
     "sanitize-html": "^1.27.3",
-    "save-as": "^0.1.8"
+    "save-as": "^0.1.8",
+    "whatwg-fetch": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,7 +42,8 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ie 11"
     ]
   }
 }

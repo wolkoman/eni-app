@@ -5,7 +5,7 @@ import Loader from './Graphic/Loader';
 import { apiUrl } from './config';
 
 const ArticleSnippet = Radium(({ article, area, textStyle }) => {
-    return <a href={article?.link} style={{
+    return <a href={article?.link ?? ''} style={{
         ...style.shadowed,
         gridArea: area,
         height: '100%',

@@ -5,7 +5,7 @@ import { FaEye, FaYoutube, FaGithub, FaInstagram } from "react-icons/fa";
 
 const Footer = Radium(() => {
   return (
-    <div style={{ textAlign: "center", marginTop: "60px", display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+    <div style={{ textAlign: "center", marginTop: "60px", display: 'flex', justifyContent: 'center', flexWrap: 'wrap', padding: '20px 0' }}>
       {[
         <FooterItem
           link="/impressum"
