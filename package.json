@@ -19,7 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-structured-data": "0.0.14",
-    "sanitize-html": "^1.27.1",
+    "sanitize-html": "^1.27.3",
     "save-as": "^0.1.8"
   },
   "scripts": {
