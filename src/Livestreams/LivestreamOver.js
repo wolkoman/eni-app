@@ -1,14 +1,32 @@
 import React from "react";
 import LivestreamLayout from "./LivestreamLayout";
+import { style } from "../style";
 
 export default ({ livestream, index }) => (
-    <LivestreamLayout
-    index={index}
+  <LivestreamLayout
     main={
       <div>
-        <div>LIVESTREAM VOM {livestream.date.split('-').reverse().join('.')}</div>
-        <div style={{ fontWeight: "bold", fontSize: 24 }}>
-          <a href={livestream.url}>{livestream.title}</a>
+        <div style={{ fontWeight: 800 }}>
+          LIVESTREAM VOM {livestream.date.split("-").reverse().join(".")}
+        </div>
+        <div
+          style={{
+            paddingTop: 10,
+          }}
+        >
+          <a
+            href={livestream.url}
+            style={{
+              textDecoration: "underline",
+              [":hover"]: { textDecoration: "none" },
+              display: "block",
+              fontWeight: 400,
+              fontSize: 24,
+              color: style.dark,
+            }}
+          >
+            {livestream.title}
+          </a>
         </div>
       </div>
     }

@@ -1,15 +1,35 @@
 import React from "react";
 import LivestreamLayout from "./LivestreamLayout";
 import LiveIndicator from "./LiveIndicator";
+import { style } from "../style";
 
 export default ({ livestream }) => (
   <LivestreamLayout
     main={
       <div>
-        <div>JETZT LIVE</div>
-        <div style={{ fontWeight: "bold", fontSize: 24 }}>
+        <div style={{ fontWeight: 800 }}>JETZT LIVE</div>
+        <div
+          style={{
+            display: "flex",
+            fontWeight: "bold",
+            paddingTop: 10,
+          }}
+        >
           <LiveIndicator size={20} />
-          <a href={livestream.url}>{livestream.title}</a>
+          <a
+            href={livestream.url}
+            style={{
+              textDecoration: "underline",
+              [":hover"]: { textDecoration: "none" },
+              display: "block",
+              paddingLeft: 10,
+              fontWeight: 400,
+              fontSize: 24,
+              color: style.dark,
+            }}
+          >
+            {livestream.title}
+          </a>
         </div>
       </div>
     }

@@ -3,7 +3,8 @@ import Box from "../Box";
 import Cockpit from "../cockpit";
 import { parseLivestreams } from "./livestreamParser";
 import Livestream from "./Livestream";
-import {localStorageGet, localStorageSet} from "../utils";
+import { localStorageGet, localStorageSet } from "../utils";
+import { style } from "../style";
 
 export const Livestreams = () => {
   const LIVESTREAM = "livestream";
@@ -34,11 +35,12 @@ export const Livestreams = () => {
   }, [now, livestreams]);
 
   return parsedLivestreams.length === 0 ? null : (
-    <Box padded={true} label="Livestream">
-      {parsedLivestreams.map((l, i) => (
-        <Livestream livestream={l} key={l._id} now={now} index={i} />
-      ))}
+    <Box label="Livestream">
+      <div style={{ padding: "20px 40px", color: style.dark }}>
+        {parsedLivestreams.map((l, i) => (
+          <Livestream livestream={l} key={l._id} now={now} index={i} />
+        ))}
+      </div>
     </Box>
   );
 };
-
