@@ -4,7 +4,7 @@ import { style, style as globalStyle } from "../style";
 import { parseEvents, fetchRawEvents } from "../eventHandler";
 import Loader from "../Graphic/Loader";
 import Event from "./Event";
-import {localStorageSet} from "../utils";
+import { localStorageSet } from "../utils";
 
 const Events = Radium(() => {
   const [filter, setFilter] = useState(
@@ -51,14 +51,14 @@ const Events = Radium(() => {
           display: "flex",
         }}
         options={{
-          all: "Alle",
-          emmaus: "Emmaus",
-          neustift: "Neustift",
-          inzersdorf: "Inzersdorf",
+          all: { name: "Alle", icon: "miniatures/all.svg" },
+          emmaus: { name: "Emmaus", icon: "miniatures/emmaus.svg" },
+          neustift: { name: "Neustift", icon: "miniatures/neustift.svg" },
+          inzersdorf: { name: "Inzersdorf", icon: "miniatures/inzersdorf.svg" },
         }}
         value={filter}
         setValue={setFilter}
-      ></FilterList>
+      />
       <EventList
         style={{
           gridArea: "content",
@@ -80,18 +80,34 @@ const Events = Radium(() => {
 const FilterList = Radium(({ options, value, setValue, style }) => {
   return (
     <div style={style}>
-      {Object.entries(options).map(([key, val]) => (
+      {Object.entries(options).map(([key, { icon, name }]) => (
         <div
           style={{
-            fontWeight: key === value ? 800 : 300,
-            fontSize: 22,
-            marginBottom: 5,
-            marginRight: 10,
+            display: "flex",
+            opacity: key === value ? 1 : 0.6,
+            transform: key === value ? "scale(1.03)" : "scale(1)",
           }}
-          key={key}
-          onClick={() => setValue(key)}
         >
-          {val}
+          <img
+            src={icon}
+            style={{
+              width: 25,
+              paddingRight: 10,
+              opacity: key === value ? 1 : 0,
+              [globalStyle.mobile]: { display: "none" },
+            }}
+          />
+          <div
+            style={{
+              fontWeight: key === value ? 600 : 400,
+              fontSize: 22,
+              marginBottom: 5,
+              marginRight: 10,
+            }}
+            key={key}
+            onClick={() => setValue(key)}
+            children={name}
+          />
         </div>
       ))}
     </div>
@@ -125,7 +141,7 @@ const EventList = Radium(({ events, style, showPfarre, state, warning }) => {
       ) : null}
       {
         {
-          LOADING: <Loader/>,
+          LOADING: <Loader />,
           LOADED:
             events.length === 0 ? (
               <div>Keine Termine gefunden!</div>
@@ -176,11 +192,9 @@ const DateGroup = Radium(({ events, showPfarre, style }) => (
       {events[0].displayDate}
     </div>
     {events.map((event) => (
-      <Event key={event.id} event={event} showPfarre={showPfarre}/>
+      <Event key={event.id} event={event} showPfarre={showPfarre} />
     ))}
   </div>
 ));
-
-
 
 export default Events;
