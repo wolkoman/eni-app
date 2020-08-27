@@ -5,6 +5,7 @@ import { parseEvents, fetchRawEvents } from "../eventHandler";
 import Loader from "../Graphic/Loader";
 import Event from "./Event";
 import { localStorageSet } from "../utils";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 const Events = Radium(() => {
   const [filter, setFilter] = useState(
@@ -71,7 +72,7 @@ const Events = Radium(() => {
           (event) => filter === "all" || event.pfarre === filter
         )}
         showPfarre={filter === "all"}
-        warning={filter !== "emmaus"}
+        warning={filter !== "emmaus" && 1598911200000 > new Date()}
       ></EventList>
     </div>
   );
@@ -127,16 +128,19 @@ const EventList = Radium(({ events, style, showPfarre, state, warning }) => {
       {warning ? (
         <div
           style={{
+            display: "flex",
             fontStyle: "italic",
-            padding: 10,
+            padding: 20,
             marginBottom: 20,
-            textAlign: "center",
             background: "#eee",
             borderRadius: globalStyle.borderRadius,
           }}
         >
-          Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift
-          sind noch nicht vollständig.
+          <FaExclamationTriangle style={{ flexShrink: 0, marginRight: 10 }} />
+          <div>
+            Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift
+            sind erst ab September vollständig.
+          </div>
         </div>
       ) : null}
       {
