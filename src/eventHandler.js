@@ -2,9 +2,9 @@ import { pad } from "./utils";
 import { apiUrl } from "./config";
 
 const isValidEventToken = (token) =>
-  fetch(
-    `${apiUrl}/calendar/v2/?check&token=${token}`
-  ).then(x => x.json()).then(x => Promise.resolve(x.valid));
+  fetch(`${apiUrl}/calendar/v2/?check&token=${token}`)
+    .then((x) => x.json())
+    .then((x) => Promise.resolve(x.valid));
 const fetchRawEvents = ({ customRange }) =>
   fetch(
     `${apiUrl}/calendar/v2/${
@@ -12,7 +12,7 @@ const fetchRawEvents = ({ customRange }) =>
         ? `?start=${customRange?.start}&limit=${customRange?.limit}&token=${customRange?.token}`
         : ""
     }`
-  ).then(x => x.json());
+  ).then((x) => x.json());
 
 const parseEvent = (event) => {
   const start = event.start.dateTime ?? event.start.date;
@@ -41,6 +41,7 @@ const parseEvent = (event) => {
     time: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
     value: `${date.getTime()}`,
     day: day.getTime(),
+    weekday: date.getDay(),
     location: {
       emmaus: {
         name: "Pfarre Emmaus am Wienerberg",

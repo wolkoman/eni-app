@@ -4,13 +4,11 @@ import { style, style as globalStyle } from "../style";
 import { parseEvents, fetchRawEvents } from "../eventHandler";
 import Loader from "../Graphic/Loader";
 import Event from "./Event";
-import { localStorageSet } from "../utils";
+import { localStorageSet, localStorageGet } from "../utils";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 const Events = Radium(() => {
-  const [filter, setFilter] = useState(
-    /*localStorageGet('filter') ?? 'all'*/ "emmaus"
-  );
+  const [filter, setFilter] = useState(localStorageGet("filter") ?? "all");
   const [events, setEvents] = useState([]);
   const [state, setState] = useState("LOADING");
   useEffect(() => {
@@ -191,7 +189,7 @@ const DateGroup = Radium(({ events, showPfarre, style }) => (
     <div
       style={{
         fontSize: 16,
-        textDecoration: "underline",
+        textDecoration: events[0].weekday === 0 ? "underline" : "none",
       }}
     >
       {events[0].displayDate}
