@@ -4,7 +4,8 @@ import { saveAs } from "file-saver";
 const CONST = {
   START_DATE: "-START-",
   END_DATE: "-END-",
-  DATE: "-DATE-",
+  SUNDAYDATE: "-SUNDAYDATE-",
+  NORMALDATE: "-NORMALDATE-",
   TITLE: "-TITLE-",
   DESCRIPTION: "-DESCRIPTION-",
   TIME: "-TIME-",
@@ -27,8 +28,14 @@ const TEMPLATE = (document) => ({
               .replace(CONST.DESCRIPTION, d)
           : ""
       ),
-  DATE: (x) =>
-    document.match(paragraphOf(CONST.DATE))[0].replace(CONST.DATE, x),
+  SUNDAYDATE: (x) =>
+    document
+      .match(paragraphOf(CONST.SUNDAYDATE))[0]
+      .replace(CONST.SUNDAYDATE, x),
+  NORMALDATE: (x) =>
+    document
+      .match(paragraphOf(CONST.NORMALDATE))[0]
+      .replace(CONST.NORMALDATE, x),
 });
 const paragraphOf = (x) =>
   new RegExp(`<w:p((?!</w:p>).)*?${x}.*?</w:p>`, "gms");
@@ -50,14 +57,17 @@ export default ({ templateDocumentPath, events, pfarre, wochen, start, end }) =>
         .replace(CONST.END_DATE, end)
         .replace(CONST.PFARRE, pfarre)
         .replace(CONST.WOCHEN, wochen)
-        .replace(paragraphOf(CONST.DATE), "")
+        .replace(paragraphOf(CONST.SUNDAYDATE), "")
+        .replace(paragraphOf(CONST.NORMALDATE), "")
         .replace(tableOf(CONST.TITLE), "")
         .replace(
           paragraphOf(CONST.CONTENT),
           Object.values(events)
             .map(
               (events) =>
-                TEMPLATE(document).DATE(events[0].displayDate) +
+                (events[0].weekday === 0
+                  ? TEMPLATE(document).SUNDAYDATE(events[0].displayDate)
+                  : TEMPLATE(document).NORMALDATE(events[0].displayDate)) +
                 events
                   .map((event) =>
                     TEMPLATE(document).EVENT(
