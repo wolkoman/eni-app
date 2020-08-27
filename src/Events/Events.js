@@ -91,6 +91,7 @@ const FilterList = Radium(({ options, value, setValue, style }) => {
         >
           <img
             src={icon}
+            alt={`miniature logo ${name}`}
             style={{
               width: 25,
               paddingRight: 10,

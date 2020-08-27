@@ -1,7 +1,6 @@
 import React from "react";
 import LivestreamLayout from "./LivestreamLayout";
 import { humanDateFormat } from "../utils";
-import { FaVideo } from "react-icons/fa";
 
 export default ({ livestream }) => (
   <LivestreamLayout

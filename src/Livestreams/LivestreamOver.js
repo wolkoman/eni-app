@@ -18,7 +18,7 @@ export default ({ livestream, index }) => (
             href={livestream.url}
             style={{
               textDecoration: "underline",
-              [":hover"]: { textDecoration: "none" },
+              ":hover": { textDecoration: "none" },
               display: "block",
               fontWeight: 400,
               fontSize: 24,
