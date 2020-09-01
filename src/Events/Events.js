@@ -70,7 +70,7 @@ const Events = Radium(() => {
           (event) => filter === "all" || event.pfarre === filter
         )}
         showPfarre={filter === "all"}
-        warning={filter !== "emmaus" && 1598911200000 > new Date()}
+        warning={filter !== "emmaus" && 1600128000000 > new Date()}
       ></EventList>
     </div>
   );
@@ -81,6 +81,7 @@ const FilterList = Radium(({ options, value, setValue, style }) => {
     <div style={style}>
       {Object.entries(options).map(([key, { icon, name }]) => (
         <div
+          key={key}
           style={{
             display: "flex",
             opacity: key === value ? 1 : 0.6,
@@ -138,7 +139,7 @@ const EventList = Radium(({ events, style, showPfarre, state, warning }) => {
           <FaExclamationTriangle style={{ flexShrink: 0, marginRight: 10 }} />
           <div>
             Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift
-            sind erst ab September vollständig.
+            sind erst ab Mitte September vollständig.
           </div>
         </div>
       ) : null}
