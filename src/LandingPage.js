@@ -3,9 +3,10 @@ import Title from "./Title";
 import Churches from "./Churches";
 import Box from "./Box";
 import Events from "./Events/Events";
-import { Livestreams } from './Livestreams/Livestreams';
-import ArticleSnippets from './ArticleSnippet';
+import { Livestreams } from "./Livestreams/Livestreams";
+import ArticleSnippets from "./ArticleSnippet";
 import Announcement from "./Announcement";
+import Corona from "./Corona";
 
 export default () => (
   <div>
@@ -17,7 +18,8 @@ export default () => (
     <Box label="Termine">
       <Events></Events>
     </Box>
-    <Announcement/>
+    <Corona />
+    <Announcement />
     <Box label="Vatikan Nachrichten" styled={false}>
       <ArticleSnippets></ArticleSnippets>
     </Box>
