@@ -18,7 +18,7 @@ export default ({ event, showPfarre }) => {
         display: "flex",
         ...style.serif,
         fontWeight: 600,
-        fontSize: 20,
+        fontSize: 18,
         marginTop: 5,
       }}
     >

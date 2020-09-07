@@ -5,7 +5,6 @@ import { parseEvents, fetchRawEvents } from "../eventHandler";
 import Loader from "../Graphic/Loader";
 import Event from "./Event";
 import { localStorageSet, localStorageGet } from "../utils";
-import { FaExclamationTriangle } from "react-icons/fa";
 
 const Events = Radium(() => {
   const [filter, setFilter] = useState(localStorageGet("filter") ?? "all");
@@ -70,7 +69,6 @@ const Events = Radium(() => {
           (event) => filter === "all" || event.pfarre === filter
         )}
         showPfarre={filter === "all"}
-        warning={filter !== "emmaus" && 1600128000000 > new Date()}
       ></EventList>
     </div>
   );
@@ -101,7 +99,7 @@ const FilterList = Radium(({ options, value, setValue, style }) => {
           <div
             style={{
               fontWeight: key === value ? 600 : 400,
-              fontSize: 22,
+              fontSize: 20,
               marginBottom: 5,
               marginRight: 10,
             }}
@@ -115,7 +113,7 @@ const FilterList = Radium(({ options, value, setValue, style }) => {
   );
 });
 
-const EventList = Radium(({ events, style, showPfarre, state, warning }) => {
+const EventList = Radium(({ events, style, showPfarre, state }) => {
   return (
     <div
       style={{
@@ -125,24 +123,6 @@ const EventList = Radium(({ events, style, showPfarre, state, warning }) => {
         boxShadow: "5px 0px 5px -5px rgba(0,0,0,0.1) inset",
       }}
     >
-      {warning ? (
-        <div
-          style={{
-            display: "flex",
-            fontStyle: "italic",
-            padding: 20,
-            marginBottom: 20,
-            background: "#eee",
-            borderRadius: globalStyle.borderRadius,
-          }}
-        >
-          <FaExclamationTriangle style={{ flexShrink: 0, marginRight: 10 }} />
-          <div>
-            Achtung, die Termine der Pfarren Inzersdorf und Inzersdorf-Neustift
-            sind erst ab Mitte September vollständig.
-          </div>
-        </div>
-      ) : null}
       {
         {
           LOADING: <Loader />,

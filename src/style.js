@@ -22,7 +22,7 @@ style = {
 };
 style.gradient = `linear-gradient(25deg,  ${style.accent1}, ${style.accent2}, ${style.accent3})`;
 style.shadowed = {
-  boxShadow: "0px 3px 5px rgba(0,0,0,0.1)",
+  boxShadow: "0px 3px 8px rgba(0,0,0,0.2)",
   background: style.white,
   borderRadius: 6,
   overflow: "auto",
