@@ -10,7 +10,7 @@ export default () => {
     let sources = items
       .map((item) =>
         [
-          ["sing-a-long", "scroll"].includes(item.field.name)
+          ["sing-a-long", "scroll", "info"].includes(item.field.name)
             ? {
                 enabled: true,
                 id: "browser_source",
