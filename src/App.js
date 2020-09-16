@@ -60,7 +60,7 @@ function App() {
                 }
               ></ChurchArticle>
             </Route>
-            <Route exact path="/inzersdorf">
+            <Route exact path="/nikolaus">
               <ChurchArticle
                 entry={() =>
                   Cockpit.collectionEntry(
