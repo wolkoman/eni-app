@@ -23,7 +23,6 @@ export default Radium(() => {
     fetch(url)
       .then((x) => x.json())
       .then((x) => {
-        console.log(x);
         let level = +x[0].Warnstufen.find((entry) => entry.Name === "Wien")
           .Warnstufe;
         setLevel(level);
@@ -67,8 +66,15 @@ const Ampel = ({ level }) => (
     ].map(({ color, x, y, r, level: lvl }) =>
       lvl === level
         ? [
-            <circle style={{ fill: color }} cx={x} cy={y} r={20} />,
             <circle
+              style={{ fill: color }}
+              cx={x}
+              cy={y}
+              r={20}
+              key={lvl * 10 + 1}
+            />,
+            <circle
+              key={lvl * 10 + 2}
               style={{ fill: color }}
               cx={x}
               cy={y}
@@ -76,6 +82,7 @@ const Ampel = ({ level }) => (
               filter="url(#f1)"
             />,
             <circle
+              key={lvl * 10 + 3}
               style={{ fill: color }}
               cx={x}
               cy={y}
@@ -83,7 +90,15 @@ const Ampel = ({ level }) => (
               filter="url(#f2)"
             />,
           ]
-        : [<circle style={{ fill: "#333333" }} cx={x} cy={y} r={20} />]
+        : [
+            <circle
+              style={{ fill: "#333333" }}
+              cx={x}
+              cy={y}
+              r={20}
+              key={lvl * 10 + 4}
+            />,
+          ]
     )}
   </svg>
 );

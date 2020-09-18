@@ -7,6 +7,7 @@ import { Livestreams } from "./Livestreams/Livestreams";
 import ArticleSnippets from "./ArticleSnippet";
 import Announcement from "./Announcement";
 import Corona from "./Corona";
+import Instagram from "./Instagram";
 
 export default () => (
   <div>
@@ -18,8 +19,9 @@ export default () => (
     <Box label="Termine">
       <Events></Events>
     </Box>
-    <Corona />
     <Announcement />
+    <Corona />
+    <Instagram />
     <Box label="Vatikan Nachrichten" styled={false}>
       <ArticleSnippets></ArticleSnippets>
     </Box>

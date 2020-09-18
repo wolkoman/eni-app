@@ -34,7 +34,7 @@ const Footer = Radium(() => {
           hard={true}
         ></FooterItem>,
         <FooterItem
-          link="//www.instagram.com/pfarreemmaus/"
+          link="//www.instagram.com/eni.wien/"
           title="Instagram"
           icon={<FaInstagram />}
           hard={true}

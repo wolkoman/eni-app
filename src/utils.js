@@ -13,5 +13,23 @@ const localStorageGet = (key) => {
 };
 const localStorageSet = (key, value) =>
   localStorage.setItem(key, JSON.stringify(value));
+const toDisplayDate = (date) =>
+  `${
+    [
+      "Sonntag",
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag",
+    ][date.getDay()]
+  }, ${pad(date.getDate())}.${pad(date.getMonth() + 1)}`;
 
-export { pad, humanDateFormat, localStorageGet, localStorageSet };
+export {
+  pad,
+  humanDateFormat,
+  localStorageGet,
+  localStorageSet,
+  toDisplayDate,
+};

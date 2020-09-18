@@ -1,5 +1,6 @@
 import { pad } from "./utils";
 import { apiUrl } from "./config";
+import { toDisplayDate } from "./utils";
 
 const isValidEventToken = (token) =>
   fetch(`${apiUrl}/calendar/v2/?check&token=${token}`)
@@ -27,17 +28,7 @@ const parseEvent = (event) => {
     date: `${pad(date.getDate())}.${pad(
       date.getMonth() + 1
     )}.${date.getFullYear()}`,
-    displayDate: `${
-      [
-        "Sonntag",
-        "Montag",
-        "Dienstag",
-        "Mittwoch",
-        "Donnerstag",
-        "Freitag",
-        "Samstag",
-      ][date.getDay()]
-    }, ${pad(date.getDate())}.${pad(date.getMonth() + 1)}`,
+    displayDate: toDisplayDate(date),
     time: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
     value: `${date.getTime()}`,
     day: day.getTime(),
