@@ -86,6 +86,5 @@ const Post = ({ post }) => (
         ),
       }}
     />
-    {JSON.stringify(post.node)}
   </div>
 );

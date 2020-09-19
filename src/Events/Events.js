@@ -51,10 +51,13 @@ const Events = Radium(() => {
         options={{
           all: { name: "Alle", icon: "miniatures/all.svg" },
           emmaus: { name: "Emmaus", icon: "miniatures/emmaus.svg" },
-          inzersdorf: { name: "Nikolaus", icon: "miniatures/inzersdorf.svg" },
           neustift: {
-            name: "Inzersdorf-Neustift",
+            name: "Neustift",
             icon: "miniatures/neustift.svg",
+          },
+          inzersdorf: {
+            name: "St. Nikolaus",
+            icon: "miniatures/inzersdorf.svg",
           },
         }}
         value={filter}

@@ -15,11 +15,11 @@ const Churches = Radium(() => {
       }}
     >
       <Church name="emmaus" picture="kirchen-01.svg" first={true}></Church>
-      <Church name="nikolaus" picture="kirchen-02.svg"></Church>
+      <Church name="neustift" picture="kirchen-03.svg"></Church>
       <Church
-        name="neustift"
-        label="inzersdorf - neustift"
-        picture="kirchen-03.svg"
+        label="st. nikolaus"
+        name="nikolaus"
+        picture="kirchen-02.svg"
       ></Church>
     </div>
   );
