@@ -4,11 +4,11 @@ const pad = (str, length = 2) =>
     .join("")}${str}`;
 const humanDateFormat = (date) =>
   `${date.split("-")[2]}.${date.split("-")[1]}.${date.split("-")[0]}`;
-const localStorageGet = (key) => {
+const localStorageGet = (key, standard = []) => {
   try {
     return JSON.parse(localStorage.getItem(key));
   } catch (e) {
-    return [];
+    return standard;
   }
 };
 const localStorageSet = (key, value) =>

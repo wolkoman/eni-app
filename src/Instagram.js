@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { FaFileExcel } from "react-icons/fa";
 import Box from "./Box";
 import { apiUrl } from "./config";
 import { style } from "./style";
 import { localStorageGet, localStorageSet, toDisplayDate } from "./utils";
+import cockpit from "./cockpit";
 
 const INSTAGRAM_STORAGE = "instagram";
+const INSTAGRAM_ENABLED = "instagram_enabled";
 
 export default () => {
   const [data, setData] = useState(localStorageGet(INSTAGRAM_STORAGE));
+  const [enabled, setEnabled] = useState(
+    localStorageGet(INSTAGRAM_ENABLED, false)
+  );
   useEffect(() => {
     fetch(`${apiUrl}/instagram/v1/`)
       .then((x) => x.json())
@@ -16,11 +20,15 @@ export default () => {
         localStorageSet(INSTAGRAM_STORAGE, x);
         setData(x);
       });
-  });
-  return (
+    cockpit.singleton("instagram").then(({ enabled }) => {
+      localStorageSet(INSTAGRAM_ENABLED, enabled);
+      setEnabled(enabled);
+    });
+  }, []);
+  return enabled && data !== null ? (
     <Box label="Eindrücke" styled={false}>
       <div style={{ display: "flex", width: "100%", overflowX: "scroll" }}>
-        {data.slice(0, 3).map((post) => (
+        {(data ?? []).slice(0, 3).map((post) => (
           <Post post={post} />
         ))}
       </div>
@@ -35,7 +43,7 @@ export default () => {
         }}
       />
     </Box>
-  );
+  ) : null;
 };
 
 const Post = ({ post }) => (
@@ -47,7 +55,6 @@ const Post = ({ post }) => (
       marginRight: 20,
       marginBottom: 10,
       background: "white",
-      borderRadius: style.borderRadius,
       flexShrink: 0,
       width: 300,
       ...style.shadowed,
@@ -67,7 +74,6 @@ const Post = ({ post }) => (
       style={{
         width: 300,
         marginBottom: 0,
-        borderRadius: style.borderRadius,
       }}
     />
     <div
