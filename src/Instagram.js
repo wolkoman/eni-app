@@ -71,6 +71,7 @@ const Post = ({ post }) => (
     </div>
     <img
       src={post.node.thumbnail_src}
+      alt={post.node.accessibility_caption}
       style={{
         width: 300,
         marginBottom: 0,
@@ -85,5 +86,6 @@ const Post = ({ post }) => (
         ),
       }}
     />
+    {JSON.stringify(post.node)}
   </div>
 );
