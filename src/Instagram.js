@@ -14,7 +14,7 @@ export default () => {
     localStorageGet(INSTAGRAM_ENABLED, false)
   );
   useEffect(() => {
-    fetch(`${apiUrl}/instagram/v1/`)
+    fetch(`${apiUrl}/instagram-v2/`)
       .then((x) => x.json())
       .then((x) => {
         localStorageSet(INSTAGRAM_STORAGE, x);
@@ -28,20 +28,10 @@ export default () => {
   return enabled && data !== null ? (
     <Box label="Eindrücke" styled={false}>
       <div style={{ display: "flex", width: "100%", overflowX: "scroll" }}>
-        {(data ?? []).slice(0, 3).map((post) => (
+        {(data ?? []).map((post) => (
           <Post post={post} />
         ))}
       </div>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: 50,
-          height: "100%",
-          background: `linear-gradient(90deg, transparent, ${style.light})`,
-        }}
-      />
     </Box>
   ) : null;
 };
@@ -67,11 +57,11 @@ const Post = ({ post }) => (
         color: "grey",
       }}
     >
-      {toDisplayDate(new Date(post.node.taken_at_timestamp * 1000))}
+      {toDisplayDate(new Date(post.timestamp))}
     </div>
     <img
-      src={post.node.thumbnail_src}
-      alt={post.node.accessibility_caption}
+      src={post.media_url}
+      alt={post.caption}
       style={{
         width: 300,
         marginBottom: 0,
@@ -80,10 +70,7 @@ const Post = ({ post }) => (
     <div
       style={{ padding: 20 }}
       dangerouslySetInnerHTML={{
-        __html: post.node.edge_media_to_caption.edges[0].node.text.replace(
-          /\n/g,
-          "<br>"
-        ),
+        __html: post.caption.replace(/\n/g, "<br>"),
       }}
     />
   </div>
