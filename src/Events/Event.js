@@ -45,7 +45,14 @@ export default ({ event, showPfarre }) => {
         {event.title}
         {showPfarre && event.pfarre !== "all" ? (
           <div style={descriptionStyle}>
-            <i style={{ textTransform: "capitalize" }}>in {event.pfarre}</i>
+            <i>
+              in{" "}
+              {{
+                emmaus: "Emmaus",
+                inzersdorf: "St. Nikolaus",
+                neustift: "Neustift",
+              }[event.pfarre] ?? "unbekannt"}
+            </i>
           </div>
         ) : null}
         {event.place ? (
