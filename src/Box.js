@@ -10,9 +10,10 @@ const Box = ({ children, label, styled = true, padded = false }) => {
           style={{
             fontWeight: 600,
             marginTop: 40,
-            marginBottom: 20,
-            fontSize: 30,
+            marginBottom: 10,
             paddingLeft: 20,
+            textTransform: 'uppercase',
+            opacity: 0.7,
           }}
         >
           {label}
