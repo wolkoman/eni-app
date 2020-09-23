@@ -13,6 +13,7 @@ import ChurchArticle from "./ChurchArticle";
 import Wochenblatt from "./Wochenblatt";
 import LandingPage from "./LandingPage";
 import LiturgyLive from "./LiturgyLive";
+import Resources from "./Resources";
 
 function App() {
   return (
@@ -72,6 +73,9 @@ function App() {
             </Route>
             <Route exact path="/redirect-notice">
               <RedirectNotice></RedirectNotice>
+            </Route>
+            <Route exact path="/resources">
+              <Resources />
             </Route>
             <Route exact path="/wochenblatt">
               <Wochenblatt />

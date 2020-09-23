@@ -1,7 +1,13 @@
 import React from "react";
 import Radium from "radium";
 import { Link } from "react-router-dom";
-import { FaEye, FaYoutube, FaGithub, FaInstagram } from "react-icons/fa";
+import {
+  FaEye,
+  FaYoutube,
+  FaGithub,
+  FaInstagram,
+  FaDatabase,
+} from "react-icons/fa";
 
 const Footer = Radium(() => {
   return (
@@ -20,6 +26,11 @@ const Footer = Radium(() => {
           link="/impressum"
           title="Impressum & Datenschutz"
           icon={<FaEye />}
+        ></FooterItem>,
+        <FooterItem
+          link="/resources"
+          title="Resourcen"
+          icon={<FaDatabase />}
         ></FooterItem>,
         <FooterItem
           link="//github.com/wolkoman/eni"
