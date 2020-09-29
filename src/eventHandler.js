@@ -8,7 +8,7 @@ const isValidEventToken = (token) =>
     .then((x) => Promise.resolve(x.valid));
 const fetchRawEvents = ({ customRange }) =>
   fetch(
-    `${apiUrl}/calendar/v2/${
+    `${apiUrl}/calendar-v2/${
       customRange !== undefined
         ? `?start=${customRange?.start}&limit=${customRange?.limit}&token=${customRange?.token}`
         : ""

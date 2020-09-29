@@ -23,7 +23,7 @@ export default () => {
                 settings: {
                   restart_when_active: true,
                   shutdown: true,
-                  url: `http://api.eni.wien/live-inserts/v1/${id}/${item.value.title.replace(
+                  url: `http://api.eni.wien/live-inserts-v1/${id}/${item.value.title.replace(
                     / /g,
                     ""
                   )}`,
