@@ -10,32 +10,25 @@ const INSTAGRAM_ENABLED = "instagram_enabled";
 export default () => {
   const [data, setData] = useState(localStorageGet(INSTAGRAM_STORAGE));
   const [enabled, setEnabled] = useState(
-    localStorageGet(INSTAGRAM_ENABLED, false)
+    localStorageGet(INSTAGRAM_ENABLED, [])
   );
   useEffect(() => {
     fetch(`https://www.instagram.com/eni.wien/?__a=1`)
       .then((x) => x.json())
-      .then(
-        ({
-          graphql: {
-            user: {
-              edge_owner_to_timeline_media: { edges: x },
-            },
-          },
-        }) => {
-          localStorageSet(INSTAGRAM_STORAGE, x);
-          setData(x);
-        }
-      );
+      .then((x) => {
+        let nodes = x.graphql.user.edge_owner_to_timeline_media.edges;
+        localStorageSet(INSTAGRAM_STORAGE, nodes);
+        setData(nodes);
+      });
     cockpit.singleton("instagram").then(({ enabled }) => {
       localStorageSet(INSTAGRAM_ENABLED, enabled);
-      setEnabled(enabled);
+      setEnabled(enabled || true);
     });
   }, []);
   return enabled && data !== null ? (
     <Box label="Eindrücke" styled={false}>
       <div style={{ display: "flex", width: "100%", overflowX: "scroll" }}>
-        {data.slice(0, 5).map((post) => (
+        {data.slice(0, 5).map((post: any) => (
           <Post post={post} key={post.node.id} />
         ))}
       </div>
@@ -43,7 +36,7 @@ export default () => {
   ) : null;
 };
 
-const Post = ({ post: { node } }) => (
+const Post = ({ post: { node } }: { post: { node: any } }) => (
   <div
     style={{
       display: "flex",

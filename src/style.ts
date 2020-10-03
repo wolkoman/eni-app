@@ -1,10 +1,13 @@
 const mixin = {
-  sidepad: (pad) => ({ paddingLeft: pad + "px", paddingRight: pad + "px" }),
+  sidepad: (pad: any) => ({
+    paddingLeft: pad + "px",
+    paddingRight: pad + "px",
+  }),
 };
 let style = {
-  minmedia: (x) => `@media screen and (min-width: ${x}px)`,
-  maxmedia: (x) => `@media screen and (max-width: ${x - 1}px)`,
-};
+  minmedia: (x: number) => `@media screen and (min-width: ${x}px)`,
+  maxmedia: (x: number) => `@media screen and (max-width: ${x - 1}px)`,
+} as any;
 style = {
   ...style,
   white: "#fff",
