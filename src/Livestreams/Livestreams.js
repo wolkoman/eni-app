@@ -6,7 +6,7 @@ import Livestream from "./Livestream";
 import { localStorageGet, localStorageSet } from "../utils";
 import { style } from "../style";
 
-export const Livestreams = () => {
+export default () => {
   const LIVESTREAM = "livestream";
   const [now, setNow] = useState(new Date().getTime());
   const [livestreams, setLivestreams] = useState(

@@ -11,7 +11,13 @@ import Cockpit from "./cockpit";
 import ScrollToTop from "./ScrollTop";
 import ChurchArticle from "./ChurchArticle";
 import Wochenblatt from "./Wochenblatt";
-import LandingPage from "./LandingPage";
+import Title from "./Title";
+import Livestreams from "./Livestreams/Livestreams";
+import Churches from "./Churches";
+import Announcement from "./Announcement";
+import ArticleSnippets from "./ArticleSnippet";
+import Instagram from "./Instagram";
+import Events from "./Events/Events";
 import LiturgyLive from "./LiturgyLive";
 import Resources from "./Resources";
 
@@ -32,7 +38,19 @@ function App() {
           <Navbar></Navbar>
           <Switch>
             <Route exact path="/">
-              <LandingPage />
+              <Title></Title>
+              <Livestreams />
+              <Box label="Pfarren" styled={false}>
+                <Churches></Churches>
+              </Box>
+              <Box label="Termine">
+                <Events></Events>
+              </Box>
+              <Announcement />
+              <Instagram />
+              <Box label="Vatikan Nachrichten" styled={false}>
+                <ArticleSnippets></ArticleSnippets>
+              </Box>
             </Route>
             <Route exact path="/impressum">
               <Box>
