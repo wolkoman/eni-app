@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Box from "./Box";
-import { apiUrl } from "./config";
 import { style } from "./style";
 import { localStorageGet, localStorageSet, toDisplayDate } from "./utils";
 import cockpit from "./cockpit";
@@ -14,12 +13,20 @@ export default () => {
     localStorageGet(INSTAGRAM_ENABLED, false)
   );
   useEffect(() => {
-    fetch(`${apiUrl}/instagram-v2/`)
+    fetch(`https://www.instagram.com/eni.wien/?__a=1`)
       .then((x) => x.json())
-      .then((x) => {
-        localStorageSet(INSTAGRAM_STORAGE, x);
-        setData(x);
-      });
+      .then(
+        ({
+          graphql: {
+            user: {
+              edge_owner_to_timeline_media: { edges: x },
+            },
+          },
+        }) => {
+          localStorageSet(INSTAGRAM_STORAGE, x);
+          setData(x);
+        }
+      );
     cockpit.singleton("instagram").then(({ enabled }) => {
       localStorageSet(INSTAGRAM_ENABLED, enabled);
       setEnabled(enabled);
@@ -28,15 +35,15 @@ export default () => {
   return enabled && data !== null ? (
     <Box label="Eindrücke" styled={false}>
       <div style={{ display: "flex", width: "100%", overflowX: "scroll" }}>
-        {(data ?? []).map((post) => (
-          <Post post={post} />
+        {data.slice(0, 5).map((post) => (
+          <Post post={post} key={post.node.id} />
         ))}
       </div>
     </Box>
   ) : null;
 };
 
-const Post = ({ post }) => (
+const Post = ({ post: { node } }) => (
   <div
     style={{
       display: "flex",
@@ -57,11 +64,11 @@ const Post = ({ post }) => (
         color: "grey",
       }}
     >
-      {toDisplayDate(new Date(post.timestamp))}
+      {toDisplayDate(new Date(node.taken_at_timestamp * 1000))}
     </div>
     <img
-      src={post.media_url}
-      alt={post.caption}
+      src={node.thumbnail_src}
+      alt={node.accessibility_caption}
       style={{
         width: 300,
         marginBottom: 0,
@@ -70,7 +77,10 @@ const Post = ({ post }) => (
     <div
       style={{ padding: 20 }}
       dangerouslySetInnerHTML={{
-        __html: post.caption.replace(/\n/g, "<br>"),
+        __html: node.edge_media_to_caption.edges[0].node.text.replace(
+          /\n/g,
+          "<br>"
+        ),
       }}
     />
   </div>
