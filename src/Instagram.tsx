@@ -22,7 +22,7 @@ export default () => {
       });
     cockpit.singleton("instagram").then(({ enabled }) => {
       localStorageSet(INSTAGRAM_ENABLED, enabled);
-      setEnabled(enabled || true);
+      setEnabled(enabled);
     });
   }, []);
   return enabled && data !== null ? (
