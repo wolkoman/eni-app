@@ -1,12 +1,20 @@
 import React from "react";
 import { JSONLD, Generic } from "react-structured-data";
+import { ExtendedEventDto, Pfarre } from "../eventHandler";
 import { style } from "../style";
 var sanitize = require("sanitize-html");
 
-export default ({ event, showPfarre }) => {
+export default ({
+  event,
+  showPfarre,
+}: {
+  event: ExtendedEventDto;
+  showPfarre: boolean;
+}) => {
   const descriptionStyle = { fontSize: 14, fontWeight: "normal" };
-  const color = (pfarre) =>
+  const color = (pfarre: Pfarre) =>
     ({
+      all: style.light,
       emmaus: style.accent1,
       neustift: style.accent2,
       inzersdorf: style.accent3,
@@ -44,7 +52,7 @@ export default ({ event, showPfarre }) => {
       <div>
         {event.title}
         {showPfarre && event.pfarre !== "all" ? (
-          <div style={descriptionStyle}>
+          <div style={descriptionStyle as any}>
             <i>
               in{" "}
               {{
@@ -56,12 +64,12 @@ export default ({ event, showPfarre }) => {
           </div>
         ) : null}
         {event.place ? (
-          <div style={descriptionStyle}>
+          <div style={descriptionStyle as any}>
             <i style={{ textTransform: "capitalize" }}>in {event.place}</i>
           </div>
         ) : null}
         {event.attachments?.map((attachment) => (
-          <div style={descriptionStyle}>
+          <div style={descriptionStyle as any}>
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -75,7 +83,7 @@ export default ({ event, showPfarre }) => {
         ))}
         {event.description ? (
           <div
-            style={descriptionStyle}
+            style={descriptionStyle as any}
             dangerouslySetInnerHTML={{
               __html: sanitize(event.description, {
                 allowedTags: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
@@ -95,7 +103,7 @@ export default ({ event, showPfarre }) => {
   );
 };
 
-const EventSchema = ({ event }) => (
+const EventSchema = ({ event }: { event: ExtendedEventDto }) => (
   <JSONLD>
     <Generic
       type="event"
