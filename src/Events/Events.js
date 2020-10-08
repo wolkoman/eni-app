@@ -7,11 +7,11 @@ import Event from "./Event";
 import { localStorageSet, localStorageGet } from "../utils";
 
 const Events = Radium(() => {
-  const [filter, setFilter] = useState(localStorageGet("filter") ?? "all");
+  const [filter, setFilter] = useState(localStorage.getItem("filter") ?? "all");
   const [events, setEvents] = useState([]);
   const [state, setState] = useState("LOADING");
   useEffect(() => {
-    localStorageSet("filter", filter);
+    localStorage.setItem("filter", filter);
   }, [filter]);
   useEffect(() => {
     fetchRawEvents({})

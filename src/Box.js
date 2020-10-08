@@ -2,7 +2,7 @@ import React from "react";
 import Radium from "radium";
 import { style } from "./style";
 
-const Box = ({ children, label, styled = true, padded = false }) => {
+const Box = ({ children, label = "", styled = true, padded = false }) => {
   return (
     <div>
       {label ? (
@@ -12,7 +12,7 @@ const Box = ({ children, label, styled = true, padded = false }) => {
             marginTop: 40,
             marginBottom: 10,
             paddingLeft: 20,
-            textTransform: 'uppercase',
+            textTransform: "uppercase",
             opacity: 0.7,
           }}
         >

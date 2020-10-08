@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleRoot } from "radium";
 import { style } from "./style";
 import Navbar from "./Navbar";
 import Box from "./Box";
@@ -20,10 +19,11 @@ import Instagram from "./Instagram";
 import Events from "./Events/Events";
 import LiturgyLive from "./LiturgyLive";
 import Resources from "./Resources";
+import Radium from "radium";
 
 function App() {
   return (
-    <StyleRoot>
+    <Radium.StyleRoot>
       <div
         style={{
           ...style.responsive,
@@ -108,7 +108,7 @@ function App() {
           <Footer></Footer>
         </Router>
       </div>
-    </StyleRoot>
+    </Radium.StyleRoot>
   );
 }
 
