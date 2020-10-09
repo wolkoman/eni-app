@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import Box from "./Box";
-import cockpit from "./cockpit";
-import { style } from "./style";
+import Box from "../Box";
+import cockpit from "../cockpit";
+import { style } from "../style";
 
+interface Liturgy {
+  title: string;
+  items: { value: { title: string }; field: { name: string } }[];
+  _id: string;
+}
 export default () => {
-  const [liturgies, setLitugries] = useState({ entries: [] });
-  const exportObs = ({ title, items, _id: id }) => {
+  const [liturgies, setLitugries] = useState<{ entries: Liturgy[] }>({
+    entries: [],
+  });
+  const exportObs = ({ title, items, _id: id }: Liturgy) => {
     console.log(title, items);
     let sources = items
       .map((item) =>
@@ -79,22 +86,22 @@ export default () => {
           name: item.value.title,
           settings: {
             items: sources
-              .filter((source) => source.myScene === item.value.title)
+              .filter((source) => source && source.myScene === item.value.title)
               .map((source) => ({
-                locked: source.id !== "ffmpeg_source",
-                name: source.name,
+                locked: source!.id !== "ffmpeg_source",
+                name: source!.name,
                 visible: true,
               })),
           },
         })),
-        ...sources.filter((source) => source.myExtraSource),
+        ...sources.filter((source) => source!.myExtraSource),
       ],
     };
     console.log(json);
     var dataStr =
       "data:text/json;charset=utf-8," +
       encodeURIComponent(JSON.stringify(json));
-    var dlAnchorElem = document.getElementById("downloadAnchorElem");
+    var dlAnchorElem = document.getElementById("downloadAnchorElem")!;
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", `obs-${title.toLowerCase()}.json`);
     dlAnchorElem.click();
@@ -120,7 +127,6 @@ export default () => {
             padding: 10,
             borderRadius: style.borderRadius,
             marginBottom: 10,
-            ":hover": { background: "#eee" },
           }}
           onClick={() => exportObs(liturgy)}
         >

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Radium from "radium";
-import { style, style as globalStyle } from "../style";
+import { style, style as globalStyle } from "../../../style";
 import {
   parseEvents,
   fetchRawEvents,
   EventDto,
   ExtendedEventDto,
-} from "../eventHandler";
-import Loader from "../Graphic/Loader";
+} from "../../../eventHandler";
+import Loader from "../../../Graphic/Loader";
 import Event from "./Event";
 
 enum LoadingState {

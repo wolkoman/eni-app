@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Box from "./Box";
-import cockpit, { host } from "./cockpit";
+import Box from "../Box";
+import cockpit, { host } from "../cockpit";
 
 export default () => {
-  const [resources, setResources] = useState([]);
+  const [resources, setResources] = useState<
+    { _id: string; file: string; name: string }[]
+  >([]);
   useEffect(() => {
     cockpit.collection("Resources").then((x) => setResources(x.entries));
   }, []);

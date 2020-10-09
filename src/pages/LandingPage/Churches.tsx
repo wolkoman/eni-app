@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import { style } from "./style";
+import { style } from "../../style";
 import { Link } from "react-router-dom";
 
 const Churches = Radium(() => {
@@ -44,7 +44,7 @@ const Church = Radium(
   }) => {
     return (
       <Link
-        to={`/${name}`}
+        to={`/pfarre/${name}`}
         style={{
           position: "relative",
           ...style.shadowed,

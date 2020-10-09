@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import Box from "./Box";
-import wochenblattGenerator from "./wochenblattGenerator";
-import Loader from "./Graphic/Loader";
-import cockpit, { host } from "./cockpit";
-import { fetchRawEvents, parseEvents, isValidEventToken } from "./eventHandler";
-import {localStorageGet, localStorageSet} from "./utils";
+import Box from "../Box";
+import wochenblattGenerator from "../wochenblattGenerator";
+import Loader from "../Graphic/Loader";
+import cockpit, { host } from "../cockpit";
+import {
+  fetchRawEvents,
+  parseEvents,
+  isValidEventToken,
+  ExtendedEventDto,
+} from "../eventHandler";
+import { localStorageGet, localStorageSet } from "../utils";
 
 const CALENDAR_TOKEN = "calendar_token";
-const onTokenSubmit = (token) => {
+const onTokenSubmit = (token: string) => {
   localStorageSet(CALENDAR_TOKEN, token);
   window.location.reload(false);
 };
@@ -33,12 +38,12 @@ export default () => {
 };
 
 const labelStyle = { padding: "15px 0 5px 0" };
-const Generator = ({ token }) => {
+const Generator = ({ token }: { token: string }) => {
   const [config, setConfig] = useState({
     token,
     start: "2020-01-01",
     limit: "+1 week",
-    pfarre: 'EMMAUS',
+    pfarre: "EMMAUS",
   });
   return (
     <div>
@@ -67,17 +72,30 @@ const Generator = ({ token }) => {
         <button
           onClick={async () =>
             wochenblattGenerator({
-              templateDocumentPath:
-                `${host}/${(await cockpit.singleton("wochenblatt")).template}`,
+              templateDocumentPath: `${host}/${
+                (await cockpit.singleton("wochenblatt")).template
+              }`,
               events: parseEvents(
-                (await fetchRawEvents({
-                  customRange: {start: config.start, limit: config.limit},
-                })).filter(e => e.pfarre === config.pfarre.toLowerCase())
+                (
+                  await fetchRawEvents({
+                    customRange: {
+                      start: config.start,
+                      limit: config.limit,
+                      token: "",
+                    },
+                  })
+                ).filter(
+                  (event: ExtendedEventDto) =>
+                    event.pfarre === config.pfarre.toLowerCase()
+                )
               ),
               pfarre: config.pfarre,
-              wochen: {'+1 week': 'DIE WOCHE', '+2 week': 'ZWEI WOCHEN'}[config.limit],
-              start: '',
-              end: '',
+              wochen: ({
+                "+1 week": "DIE WOCHE",
+                "+2 week": "ZWEI WOCHEN",
+              } as any)[config.limit],
+              start: "",
+              end: "",
             })
           }
         >
@@ -92,7 +110,9 @@ const NoAccess = () => (
   <div>
     <div>Passwort</div>
     <input
-      onKeyUp={(e) => (e.keyCode === 13 ? onTokenSubmit(e.target.value) : null)}
+      onKeyUp={(e) =>
+        e.keyCode === 13 ? onTokenSubmit((e.target as any).value) : null
+      }
     />
   </div>
 );
