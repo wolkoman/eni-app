@@ -14,6 +14,101 @@ export default () => {
   });
   const exportObs = ({ title, items, _id: id }: Liturgy) => {
     console.log(title, items);
+    let intro = [
+      {
+        id: "scene",
+        name: "Intro",
+        settings: {
+          items: [
+            {
+              locked: true,
+              name: "intro media",
+              visible: true,
+            },
+          ],
+        },
+      },
+      {
+        id: "ffmpeg_source",
+        name: `intro media`,
+        locked: true,
+        monitoring_type: 2,
+        volume: 0.30305752158164978,
+        settings: {
+          input:
+            "https://cockpit.eni.wien/storage/uploads/2020/09/23/5f6b137b14a94ENI-Intro.mp4",
+          is_local_file: false,
+        },
+      },
+      {
+        id: "scene",
+        name: "Idle",
+        settings: {
+          items: [
+            {
+              locked: true,
+              name: "idle text1",
+              visible: true,
+              pos: {
+                x: 214.0,
+                y: 615.0,
+              },
+              rot: 0.0,
+              scale: {
+                x: 0.50647246837615967,
+                y: 0.5078125,
+              },
+            },
+            {
+              locked: true,
+              name: "idle text2",
+              visible: true,
+              pos: {
+                x: 214.0,
+                y: 745.0,
+              },
+              rot: 0.0,
+              scale: {
+                x: 0.24618902802467346,
+                y: 0.24609375,
+              },
+            },
+          ],
+        },
+      },
+      {
+        id: "text_gdiplus",
+        name: `idle text1`,
+        locked: true,
+        settings: {
+          bk_color: 4281545523,
+          color: 4281545523,
+          font: {
+            face: "Source Sans Pro Black",
+            flags: 1,
+            size: 256,
+            style: "Black",
+          },
+          text: "Hl. Messe",
+        },
+      },
+      {
+        id: "text_gdiplus",
+        name: `idle text2`,
+        locked: true,
+        settings: {
+          bk_color: 4281545523,
+          color: 4281545523,
+          font: {
+            face: "Source Sans Pro",
+            flags: 0,
+            size: 256,
+            style: "Regular",
+          },
+          text: "Der Livestream beginnt gleich..",
+        },
+      },
+    ];
     let sources = items
       .map((item) =>
         [
@@ -71,7 +166,11 @@ export default () => {
       current_scene: items[0].value.title,
       current_transition: "Überblende",
       name: title,
-      scene_order: items.map((item) => ({ name: item.value.title })),
+      scene_order: [
+        ...items.map((item) => ({ name: item.value.title })),
+        "Intro",
+        "Idle",
+      ],
       sources: [
         {
           id: "scene",
@@ -95,6 +194,7 @@ export default () => {
           },
         })),
         ...sources.filter((source) => source!.myExtraSource),
+        ...intro,
       ],
     };
     console.log(json);
