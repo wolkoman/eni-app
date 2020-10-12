@@ -1,8 +1,18 @@
 import React from "react";
 import Radium from "radium";
-import { style } from "./style";
+import { style } from "../util/style";
 
-const Box = ({ children, label = "", styled = true, padded = false }) => {
+const Box = ({
+  children,
+  label = "",
+  styled = true,
+  padded = false,
+}: {
+  children?: any;
+  styled?: boolean;
+  padded?: boolean;
+  label: string;
+}) => {
   return (
     <div>
       {label ? (

@@ -1,7 +1,7 @@
 import React from "react";
-import { style } from "./style";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { style } from "./util/style";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ScrollToTop from "./ScrollTop";
 import Wochenblatt from "./pages/Wochenblatt";

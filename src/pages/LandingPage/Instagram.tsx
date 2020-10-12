@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Box from "../../Box";
-import { style } from "../../style";
-import { localStorageGet, localStorageSet, toDisplayDate } from "../../utils";
-import cockpit from "../../cockpit";
+import Box from "../../components/Box";
+import { style } from "../../util/style";
+import {
+  localStorageGet,
+  localStorageSet,
+  toDisplayDate,
+} from "../../util/utils";
+import cockpit from "../../util/cockpit";
 
 const INSTAGRAM_STORAGE = "instagram";
 const INSTAGRAM_ENABLED = "instagram_enabled";
@@ -26,7 +30,7 @@ export default () => {
     });
   }, []);
   return enabled && data !== null ? (
-    <Box label="Eindrücke" styled={false}>
+    <Box label="Eindrücke" styled={false} padded={false}>
       <div style={{ display: "flex", width: "100%", overflowX: "scroll" }}>
         {data.slice(0, 5).map((post: any) => (
           <Post post={post} key={post.node.id} />

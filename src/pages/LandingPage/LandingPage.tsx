@@ -1,7 +1,7 @@
 import React from "react";
 import Announcement from "./Announcement";
-import ArticleSnippets from "./ArticleSnippet";
-import Box from "../../Box";
+import VaticanNews from "./VaticanNews";
+import Box from "../../components/Box";
 import Churches from "./Churches";
 import Events from "./Events/Events";
 import Instagram from "./Instagram";
@@ -21,7 +21,7 @@ export default () => (
     <Announcement />
     <Instagram />
     <Box label="Vatikan Nachrichten" styled={false}>
-      <ArticleSnippets></ArticleSnippets>
+      <VaticanNews />
     </Box>
   </div>
 );

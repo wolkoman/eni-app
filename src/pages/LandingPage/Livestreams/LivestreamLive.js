@@ -1,7 +1,7 @@
 import React from "react";
 import LivestreamLayout from "./LivestreamLayout";
 import LiveIndicator from "./LiveIndicator";
-import { style } from "../../../style";
+import { style } from "../../../util/style";
 
 export default ({ livestream }) => (
   <LivestreamLayout

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Box from "../Box";
-import cockpit from "../cockpit";
-import { style } from "../style";
+import Box from "../components/Box";
+import cockpit from "../util/cockpit";
+import { style } from "../util/style";
 
 interface Liturgy {
   title: string;

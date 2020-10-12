@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import { style } from "./style";
+import { style } from "../util/style";
 import { useRouteMatch, Link } from "react-router-dom";
 
 const Navbar = Radium(() => {
@@ -18,7 +18,7 @@ const Navbar = Radium(() => {
           paddingLeft: 20,
           color: style.dark,
           cursor: "pointer",
-          ...(match.isExact ? { fontSize: 45 } : { fontSize: 30 }),
+          ...(match?.isExact ? { fontSize: 45 } : { fontSize: 30 }),
           transition: "all .1s",
         }}
       >
@@ -27,7 +27,7 @@ const Navbar = Radium(() => {
           alt="eni logo"
           style={{
             paddingRight: 10,
-            width: match.isExact ? 40 : 30,
+            width: match?.isExact ? 40 : 30,
             transition: "all .2s",
           }}
         />

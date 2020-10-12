@@ -1,6 +1,6 @@
 import Radium from "radium";
 import React from "react";
-import { style } from "../../style";
+import { style } from "../../util/style";
 
 const Title = Radium(() => {
   return (

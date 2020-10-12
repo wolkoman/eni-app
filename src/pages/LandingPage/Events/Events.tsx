@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Radium from "radium";
-import { style, style as globalStyle } from "../../../style";
+import { style, style as globalStyle } from "../../../util/style";
 import {
   parseEvents,
   fetchRawEvents,

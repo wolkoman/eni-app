@@ -1,6 +1,6 @@
 import React from "react";
 import Radium from "radium";
-import { style } from "../../style";
+import { style } from "../../util/style";
 import { Link } from "react-router-dom";
 
 const Churches = Radium(() => {

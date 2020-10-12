@@ -63,11 +63,20 @@ const Footer = Radium(() => {
 });
 
 const FooterItem = Radium(
-  ({ link, title, hard = false, onClick, icon = null }) => {
+  ({
+    link,
+    title,
+    hard = false,
+    icon = null,
+  }: {
+    link: string;
+    title: string;
+    hard?: boolean;
+    icon: any;
+  }) => {
     return hard ? (
       <a
         href={link}
-        onClick={onClick}
         style={{
           color: "grey",
           textDecoration: "none",

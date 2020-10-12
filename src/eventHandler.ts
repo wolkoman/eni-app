@@ -1,6 +1,6 @@
-import { pad } from "./utils";
-import { apiUrl } from "./config";
-import { toDisplayDate } from "./utils";
+import { pad } from "./util/utils";
+import { apiUrl } from "./util/config";
+import { toDisplayDate } from "./util/utils";
 
 export type Pfarre = "emmaus" | "inzersdorf" | "neustift" | "all";
 export interface EventDto {

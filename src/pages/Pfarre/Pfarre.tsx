@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import PfarreArticle from "./PfarreArticle";
-import Cockpit from "../../cockpit";
+import Cockpit from "../../util/cockpit";
 
 export default () => (
   <div>

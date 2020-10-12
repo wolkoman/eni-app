@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Box from "../Box";
-import cockpit, { host } from "../cockpit";
+import Box from "../components/Box";
+import cockpit, { host } from "../util/cockpit";
 
 export default () => {
   const [resources, setResources] = useState<

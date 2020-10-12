@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Box from "../Box";
+import Box from "../components/Box";
 import wochenblattGenerator from "../wochenblattGenerator";
 import Loader from "../Graphic/Loader";
-import cockpit, { host } from "../cockpit";
+import cockpit, { host } from "../util/cockpit";
 import {
   fetchRawEvents,
   parseEvents,
   isValidEventToken,
   ExtendedEventDto,
 } from "../eventHandler";
-import { localStorageGet, localStorageSet } from "../utils";
+import { localStorageGet, localStorageSet } from "../util/utils";
 
 const CALENDAR_TOKEN = "calendar_token";
 const onTokenSubmit = (token: string) => {

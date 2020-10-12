@@ -1,6 +1,6 @@
 import React from "react";
 import LivestreamLayout from "./LivestreamLayout";
-import { humanDateFormat } from "../../../utils";
+import { humanDateFormat } from "../../../util/utils";
 
 export default ({ livestream }) => (
   <LivestreamLayout

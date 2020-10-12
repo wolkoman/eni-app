@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Box from "../../../Box";
-import Cockpit from "../../../cockpit";
+import Box from "../../../components/Box";
+import Cockpit from "../../../util/cockpit";
 import { parseLivestreams } from "./livestreamParser";
 import Livestream from "./Livestream";
-import { localStorageGet, localStorageSet } from "../../../utils";
-import { style } from "../../../style";
+import { localStorageGet, localStorageSet } from "../../../util/utils";
+import { style } from "../../../util/style";
 
 export default () => {
   const LIVESTREAM = "livestream";

@@ -1,12 +1,12 @@
 import React from "react";
-import Article from "../Article";
-import Box from "../Box";
-import Cockpit from "../cockpit";
+import Article from "../components/Article";
+import Box from "../components/Box";
+import Cockpit from "../util/cockpit";
 
 export default () => (
   <div>
-    <Box>
-      <Article article={() => Cockpit.singleton("impressum")}></Article>
+    <Box label="">
+      <Article article={() => Cockpit.singleton("impressum")} />
     </Box>
   </div>
 );

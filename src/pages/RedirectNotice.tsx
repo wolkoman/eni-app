@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Radium from "radium";
-import { style } from "../style";
+import { style } from "../util/style";
 import { useHistory } from "react-router-dom";
-import { localStorageGet, localStorageSet } from "../utils";
+import { localStorageGet, localStorageSet } from "../util/utils";
 
 const RedirectNotice = Radium(() => {
   const timeout = localStorageGet("redirect-notice") ? 0 : 10;

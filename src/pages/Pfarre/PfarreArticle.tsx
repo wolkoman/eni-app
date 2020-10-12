@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Radium from "radium";
-import { style } from "../../style";
+import { style } from "../../util/style";
 import Loader from "../../Graphic/Loader";
 import Markdown from "../../Markdown";
-import Box from "../../Box";
-import { host } from "../../cockpit";
+import Box from "../../components/Box";
+import { host } from "../../util/cockpit";
 
 interface ChurchEntry {
   name: string;
