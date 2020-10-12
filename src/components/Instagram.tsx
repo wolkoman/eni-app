@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Box from "../../components/Box";
-import { style } from "../../util/style";
-import {
-  localStorageGet,
-  localStorageSet,
-  toDisplayDate,
-} from "../../util/utils";
-import cockpit from "../../util/cockpit";
+import Box from "./Box";
+import { style } from "../util/style";
+import { localStorageGet, localStorageSet, toDisplayDate } from "../util/utils";
+import cockpit from "../util/cockpit";
 
 const INSTAGRAM_STORAGE = "instagram";
 const INSTAGRAM_ENABLED = "instagram_enabled";

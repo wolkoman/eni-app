@@ -1,8 +1,8 @@
 import Radium from "radium";
 import React, { useEffect, useState } from "react";
-import { style } from "../../util/style";
-import Loader from "../../Graphic/Loader";
-import { apiUrl } from "../../util/config";
+import { style } from "../util/style";
+import Loader from "../Graphic/Loader";
+import { apiUrl } from "../util/config";
 
 const VaticanArticle = Radium(
   ({

@@ -6,7 +6,7 @@ import {
   fetchRawEvents,
   EventDto,
   ExtendedEventDto,
-} from "../../../eventHandler";
+} from "../../../util/eventHandler";
 import Loader from "../../../Graphic/Loader";
 import Event from "./Event";
 

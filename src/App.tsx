@@ -3,7 +3,7 @@ import { style } from "./util/style";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ScrollToTop from "./ScrollTop";
+import ScrollToTop from "./components/ScrollTop";
 import Wochenblatt from "./pages/Wochenblatt";
 import LiturgyLive from "./pages/LiturgyLive";
 import Resources from "./pages/Resources";

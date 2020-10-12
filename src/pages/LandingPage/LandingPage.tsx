@@ -1,10 +1,10 @@
 import React from "react";
-import Announcement from "./Announcement";
-import VaticanNews from "./VaticanNews";
+import Announcement from "../../components/Announcement";
+import VaticanNews from "../../components/VaticanNews";
 import Box from "../../components/Box";
-import Churches from "./Churches";
+import Churches from "../../components/Churches";
 import Events from "./Events/Events";
-import Instagram from "./Instagram";
+import Instagram from "../../components/Instagram";
 import Livestreams from "./Livestreams/Livestreams";
 import Title from "./Title";
 

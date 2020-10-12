@@ -1,6 +1,6 @@
 import React from "react";
 import { JSONLD, Generic } from "react-structured-data";
-import { ExtendedEventDto, Pfarre } from "../../../eventHandler";
+import { ExtendedEventDto, Pfarre } from "../../../util/eventHandler";
 import { style } from "../../../util/style";
 var sanitize = require("sanitize-html");
 

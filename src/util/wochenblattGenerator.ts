@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import { ExtendedEventDto, Pfarre } from "./eventHandler";
 
 const CONST = {
   START_DATE: "-START-",
@@ -14,35 +15,49 @@ const CONST = {
   WOCHEN: "-WOCHEN-",
 };
 
-const TEMPLATE = (document) => ({
-  EVENT: (z, t, d) =>
+const TEMPLATE = (document: string) => ({
+  EVENT: (time: string, title: string, description: string) =>
     document
-      .match(tableOf(CONST.TITLE))[0]
-      .replace(CONST.TIME, z ?? "")
-      .replace(CONST.TITLE, t)
+      .match(tableOf(CONST.TITLE))![0]
+      .replace(CONST.TIME, time ?? "")
+      .replace(CONST.TITLE, title)
       .replace(
         paragraphOf(CONST.DESCRIPTION),
-        d
+        description
           ? document
-              .match(paragraphOf(CONST.DESCRIPTION))[0]
-              .replace(CONST.DESCRIPTION, d)
+              .match(paragraphOf(CONST.DESCRIPTION))![0]
+              .replace(CONST.DESCRIPTION, description)
           : ""
       ),
-  SUNDAYDATE: (x) =>
+  SUNDAYDATE: (displayDate: string) =>
     document
-      .match(paragraphOf(CONST.SUNDAYDATE))[0]
-      .replace(CONST.SUNDAYDATE, x),
-  NORMALDATE: (x) =>
+      .match(paragraphOf(CONST.SUNDAYDATE))![0]
+      .replace(CONST.SUNDAYDATE, displayDate),
+  NORMALDATE: (displayDate: string) =>
     document
-      .match(paragraphOf(CONST.NORMALDATE))[0]
-      .replace(CONST.NORMALDATE, x),
+      .match(paragraphOf(CONST.NORMALDATE))![0]
+      .replace(CONST.NORMALDATE, displayDate),
 });
-const paragraphOf = (x) =>
-  new RegExp(`<w:p((?!</w:p>).)*?${x}.*?</w:p>`, "gms");
-const tableOf = (x) =>
-  new RegExp(`<w:tbl((?!</w:tbl>).)*?${x}.*?</w:tbl>`, "gms");
+const paragraphOf = (value: string) =>
+  new RegExp(`<w:p((?!</w:p>).)*?${value}.*?</w:p>`, "gms");
+const tableOf = (value: string) =>
+  new RegExp(`<w:tbl((?!</w:tbl>).)*?${value}.*?</w:tbl>`, "gms");
 
-export default ({ templateDocumentPath, events, pfarre, wochen, start, end }) =>
+export default ({
+  templateDocumentPath,
+  events,
+  pfarre,
+  wochen,
+  start,
+  end,
+}: {
+  templateDocumentPath: string;
+  events: Record<string, ExtendedEventDto[]>;
+  pfarre: Pfarre;
+  wochen: string;
+  start: string;
+  end: string;
+}) =>
   fetch(templateDocumentPath)
     .then((response) =>
       response.status === 200 || response.status === 0
@@ -51,7 +66,7 @@ export default ({ templateDocumentPath, events, pfarre, wochen, start, end }) =>
     )
     .then(JSZip.loadAsync)
     .then(async (zip) => {
-      let document = await zip.file("word/document.xml").async("string");
+      let document = await zip.file("word/document.xml")!.async("string");
       let content = document
         .replace(CONST.START_DATE, start)
         .replace(CONST.END_DATE, end)

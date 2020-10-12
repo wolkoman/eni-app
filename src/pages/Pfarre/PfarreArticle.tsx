@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Radium from "radium";
 import { style } from "../../util/style";
 import Loader from "../../Graphic/Loader";
-import Markdown from "../../Markdown";
+import Markdown from "../../components/Markdown";
 import Box from "../../components/Box";
 import { host } from "../../util/cockpit";
 

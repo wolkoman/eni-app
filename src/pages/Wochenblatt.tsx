@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Box from "../components/Box";
-import wochenblattGenerator from "../wochenblattGenerator";
+import wochenblattGenerator from "../util/wochenblattGenerator";
 import Loader from "../Graphic/Loader";
 import cockpit, { host } from "../util/cockpit";
 import {
@@ -8,7 +8,8 @@ import {
   parseEvents,
   isValidEventToken,
   ExtendedEventDto,
-} from "../eventHandler";
+  Pfarre,
+} from "../util/eventHandler";
 import { localStorageGet, localStorageSet } from "../util/utils";
 
 const CALENDAR_TOKEN = "calendar_token";
@@ -39,11 +40,16 @@ export default () => {
 
 const labelStyle = { padding: "15px 0 5px 0" };
 const Generator = ({ token }: { token: string }) => {
-  const [config, setConfig] = useState({
+  const [config, setConfig] = useState<{
+    token: string;
+    start: string;
+    limit: string;
+    pfarre: Pfarre;
+  }>({
     token,
     start: "2020-01-01",
     limit: "+1 week",
-    pfarre: "EMMAUS",
+    pfarre: "emmaus",
   });
   return (
     <div>
@@ -64,9 +70,11 @@ const Generator = ({ token }: { token: string }) => {
       <div style={labelStyle}>Pfarre</div>
       <select
         value={config.pfarre}
-        onChange={(e) => setConfig({ ...config, pfarre: e.target.value })}
+        onChange={(e) =>
+          setConfig({ ...config, pfarre: e.target.value as Pfarre })
+        }
       >
-        <option value="EMMAUS">Emmaus</option>
+        <option value="emmaus">Emmaus</option>
       </select>
       <div style={labelStyle}>
         <button

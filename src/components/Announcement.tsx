@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import cockpit from "../../util/cockpit";
-import Box from "../../components/Box";
-import Markdown from "../../Markdown";
-import { localStorageGet, localStorageSet } from "../../util/utils";
+import cockpit from "../util/cockpit";
+import Box from "./Box";
+import Markdown from "./Markdown";
+import { localStorageGet, localStorageSet } from "../util/utils";
 
 const ANNOUNCEMENT = "announcement";
 
