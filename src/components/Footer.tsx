@@ -34,7 +34,7 @@ const Footer = Radium(() => {
         ></FooterItem>,
         <FooterItem
           link="//github.com/wolkoman/eni"
-          title="Github"
+          title="GitHub"
           icon={<FaGithub />}
           hard={true}
         ></FooterItem>,
