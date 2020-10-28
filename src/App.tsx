@@ -12,6 +12,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import Pfarre from "./pages/Pfarre/Pfarre";
 import Impressum from "./pages/Impressum";
 import RedirectNotice from "./pages/RedirectNotice";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/wochenblatt" component={Wochenblatt} />
             <Route exact path="/liturgy-live" component={LiturgyLive} />
+            <Route exact path="/login" component={Login} />
             <Route path="*">
               <b>404</b> Seite nicht gefunden
             </Route>

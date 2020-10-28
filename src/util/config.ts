@@ -1,1 +1,1 @@
-export const apiUrl = 'https://api.eni.wien';
+export const apiUrl = "//api.eni.wien";

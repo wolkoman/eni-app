@@ -7,9 +7,13 @@ import {
   FaGithub,
   FaInstagram,
   FaDatabase,
+  FaSignOutAlt,
+  FaSignInAlt,
 } from "react-icons/fa";
+import { useAuthentication } from "../util/authentication";
 
 const Footer = Radium(() => {
+  const authentication = useAuthentication();
   return (
     <div
       style={{
@@ -50,6 +54,19 @@ const Footer = Radium(() => {
           icon={<FaInstagram />}
           hard={true}
         ></FooterItem>,
+        authentication.loggedIn ? (
+          <FooterItem
+            icon={<FaSignOutAlt />}
+            title="Abmelden"
+            onClick={authentication.logout}
+          ></FooterItem>
+        ) : (
+          <FooterItem
+            icon={<FaSignInAlt />}
+            title="Anmelden"
+            link="/login"
+          ></FooterItem>
+        ),
       ]
         .map((item, index) => [
           index === 0 ? null : (
@@ -68,15 +85,18 @@ const FooterItem = Radium(
     title,
     hard = false,
     icon = null,
+    onClick = () => {},
   }: {
-    link: string;
+    link?: string;
     title: string;
     hard?: boolean;
     icon: any;
+    onClick?: () => void;
   }) => {
     return hard ? (
       <a
         href={link}
+        onClick={onClick}
         style={{
           color: "grey",
           textDecoration: "none",
@@ -92,7 +112,8 @@ const FooterItem = Radium(
       </a>
     ) : (
       <Link
-        to={link}
+        to={link ?? ""}
+        onClick={onClick}
         style={{
           color: "grey",
           textDecoration: "none",
