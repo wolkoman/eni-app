@@ -7,6 +7,7 @@ import Events from "./Events/Events";
 import Instagram from "../../components/Instagram";
 import Livestreams from "./Livestreams/Livestreams";
 import Title from "./Title";
+import InformationPanel from "../../components/InformationPanel";
 
 export default () => (
   <div>
@@ -23,5 +24,6 @@ export default () => (
     <Box label="Vatikan Nachrichten" styled={false}>
       <VaticanNews />
     </Box>
+    <InformationPanel />
   </div>
 );

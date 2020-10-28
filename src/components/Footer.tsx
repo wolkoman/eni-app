@@ -1,15 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import { Link } from "react-router-dom";
-import {
-  FaEye,
-  FaYoutube,
-  FaGithub,
-  FaInstagram,
-  FaDatabase,
-  FaSignOutAlt,
-  FaSignInAlt,
-} from "react-icons/fa";
+import { FaEye, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { useAuthentication } from "../util/authentication";
 
 const Footer = Radium(() => {
@@ -30,29 +22,6 @@ const Footer = Radium(() => {
           link="/impressum"
           title="Impressum & Datenschutz"
           icon={<FaEye />}
-        ></FooterItem>,
-        <FooterItem
-          link="/resources"
-          title="Resourcen"
-          icon={<FaDatabase />}
-        ></FooterItem>,
-        <FooterItem
-          link="//github.com/wolkoman/eni"
-          title="GitHub"
-          icon={<FaGithub />}
-          hard={true}
-        ></FooterItem>,
-        <FooterItem
-          link="//www.youtube.com/channel/UCty97x9ptrFsKhX5M_QA58g"
-          icon={<FaYoutube />}
-          title="YouTube"
-          hard={true}
-        ></FooterItem>,
-        <FooterItem
-          link="//www.instagram.com/eni.wien/"
-          title="Instagram"
-          icon={<FaInstagram />}
-          hard={true}
         ></FooterItem>,
         authentication.loggedIn ? (
           <FooterItem
