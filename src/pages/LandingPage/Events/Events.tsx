@@ -9,6 +9,7 @@ import {
 } from "../../../util/eventHandler";
 import Loader from "../../../Graphic/Loader";
 import Event from "./Event";
+import Box from "../../../components/Box";
 
 enum LoadingState {
   Loading,
@@ -30,63 +31,65 @@ const Events = Radium(() => {
       .catch(() => setState(LoadingState.Failed));
   }, []);
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 2fr",
-        gridTemplateAreas: '"filter content" "filter content"',
-        [style.mobile]: {
-          gridTemplateAreas: '"filter" "content"',
-          gridTemplateColumns: "1fr",
-          gridTemplateRows: "70px 1fr",
-        },
-        height: 500,
-      }}
-    >
-      <FilterList
+    <Box label="Termine">
+      <div
         style={{
-          gridArea: "filter",
-          padding: style.padding,
-          flexDirection: "column",
+          display: "grid",
+          gridTemplateColumns: "1fr 2fr",
+          gridTemplateAreas: '"filter content" "filter content"',
           [style.mobile]: {
-            padding: style.padding / 2,
-            flexDirection: "row",
-            justifyContent: "center",
-            height: 30,
+            gridTemplateAreas: '"filter" "content"',
+            gridTemplateColumns: "1fr",
+            gridTemplateRows: "70px 1fr",
           },
-          color: globalStyle.dark,
-          cursor: "pointer",
-          display: "flex",
+          height: 500,
         }}
-        options={{
-          all: { name: "Alle", icon: "miniatures/all.svg" },
-          emmaus: { name: "Emmaus", icon: "miniatures/emmaus.svg" },
-          neustift: {
-            name: "Neustift",
-            icon: "miniatures/neustift.svg",
-          },
-          inzersdorf: {
-            name: "St. Nikolaus",
-            icon: "miniatures/inzersdorf.svg",
-          },
-        }}
-        value={filter}
-        setValue={setFilter}
-      />
-      <EventList
-        style={{
-          gridArea: "content",
-          [style.mobile]: {
-            boxShadow: "0px 5px 5px -5px rgba(0,0,0,0.1) inset",
-          },
-        }}
-        state={state}
-        events={events.filter(
-          (event) => filter === "all" || event.pfarre === filter
-        )}
-        showPfarre={filter === "all"}
-      ></EventList>
-    </div>
+      >
+        <FilterList
+          style={{
+            gridArea: "filter",
+            padding: style.padding,
+            flexDirection: "column",
+            [style.mobile]: {
+              padding: style.padding / 2,
+              flexDirection: "row",
+              justifyContent: "center",
+              height: 30,
+            },
+            color: globalStyle.dark,
+            cursor: "pointer",
+            display: "flex",
+          }}
+          options={{
+            all: { name: "Alle", icon: "miniatures/all.svg" },
+            emmaus: { name: "Emmaus", icon: "miniatures/emmaus.svg" },
+            neustift: {
+              name: "Neustift",
+              icon: "miniatures/neustift.svg",
+            },
+            inzersdorf: {
+              name: "St. Nikolaus",
+              icon: "miniatures/inzersdorf.svg",
+            },
+          }}
+          value={filter}
+          setValue={setFilter}
+        />
+        <EventList
+          style={{
+            gridArea: "content",
+            [style.mobile]: {
+              boxShadow: "0px 5px 5px -5px rgba(0,0,0,0.1) inset",
+            },
+          }}
+          state={state}
+          events={events.filter(
+            (event) => filter === "all" || event.pfarre === filter
+          )}
+          showPfarre={filter === "all"}
+        ></EventList>
+      </div>
+    </Box>
   );
 });
 

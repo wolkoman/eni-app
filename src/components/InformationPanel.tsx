@@ -4,6 +4,7 @@ import { FaFileDownload, FaInstagram, FaYoutube } from "react-icons/fa";
 import Box from "./Box";
 
 import { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 
 type RadiumStyleProp = CSSProperties | undefined | null | boolean;
 
@@ -21,6 +22,7 @@ export default () => {
           label="YouTube"
           link="http://www.youtube.com/channel/UCty97x9ptrFsKhX5M_QA58g"
           color="red"
+          outsideLink={true}
         >
           <FaYoutube />
         </Info>
@@ -28,6 +30,7 @@ export default () => {
           label="Instagram"
           link="http://www.instagram.com/eni.wien/"
           color="#e73c59"
+          outsideLink={true}
         >
           <FaInstagram />
         </Info>
@@ -44,22 +47,23 @@ const Info = Radium(
     label,
     children,
     link,
+    outsideLink = false,
     color,
   }: {
     label: string;
     children: React.ReactNode;
-    link?: string;
+    link: string;
+    outsideLink?: boolean;
     color: string;
   }) => {
     const [hover, setHover] = useState(false);
-    return (
-      <a
-        href={link}
+    const child = (
+      <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         style={{
           display: "flex",
-          textDecoration: "none",
+
           color: "black",
           padding: "30px 40px",
           width: 70,
@@ -80,7 +84,12 @@ const Info = Radium(
           {children}
         </div>
         <div>{label}</div>
-      </a>
+      </div>
+    );
+    return outsideLink ? (
+      <a href={link} children={child} style={{ textDecoration: "none" }} />
+    ) : (
+      <Link to={link} children={child} style={{ textDecoration: "none" }} />
     );
   }
 );

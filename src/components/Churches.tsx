@@ -2,31 +2,38 @@ import React from "react";
 import Radium from "radium";
 import { style } from "../util/style";
 import { Link } from "react-router-dom";
+import Box from "./Box";
 
 const Churches = Radium(() => {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr",
-        gridTemplateRows: "200px",
-        columnGap: 20,
-        [style.mobile]: { columnGap: 5 },
-      }}
-    >
-      <Church name="emmaus" picture="emmaus.png" color={style.accent1}></Church>
-      <Church
-        name="neustift"
-        picture="neustift.png"
-        color={style.accent2}
-      ></Church>
-      <Church
-        label="st. nikolaus"
-        name="nikolaus"
-        picture="nikolaus.png"
-        color={style.accent3}
-      ></Church>
-    </div>
+    <Box label="Pfarren" styled={false}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gridTemplateRows: "200px",
+          columnGap: 20,
+          [style.mobile]: { columnGap: 5 },
+        }}
+      >
+        <Church
+          name="emmaus"
+          picture="emmaus.png"
+          color={style.accent1}
+        ></Church>
+        <Church
+          name="neustift"
+          picture="neustift.png"
+          color={style.accent2}
+        ></Church>
+        <Church
+          label="st. nikolaus"
+          name="nikolaus"
+          picture="nikolaus.png"
+          color={style.accent3}
+        ></Church>
+      </div>
+    </Box>
   );
 });
 

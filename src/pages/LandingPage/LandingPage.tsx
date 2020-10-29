@@ -1,7 +1,6 @@
 import React from "react";
 import Announcement from "../../components/Announcement";
 import VaticanNews from "../../components/VaticanNews";
-import Box from "../../components/Box";
 import Churches from "../../components/Churches";
 import Events from "./Events/Events";
 import Instagram from "../../components/Instagram";
@@ -13,17 +12,11 @@ export default () => (
   <div>
     <Title></Title>
     <Livestreams />
-    <Box label="Pfarren" styled={false}>
-      <Churches></Churches>
-    </Box>
-    <Box label="Termine">
-      <Events></Events>
-    </Box>
+    <Churches />
+    <Events />
     <Announcement />
     <Instagram />
-    <Box label="Vatikan Nachrichten" styled={false}>
-      <VaticanNews />
-    </Box>
+    <VaticanNews />
     <InformationPanel />
   </div>
 );
