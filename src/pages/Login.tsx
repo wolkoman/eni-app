@@ -1,7 +1,9 @@
 import Radium from "radium";
 import React, { Dispatch, useState } from "react";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Box from "../components/Box";
-import { useAuthentication } from "../util/authentication";
+import { authLogin } from "../store/auth.action";
 import { style } from "../util/style";
 
 interface CredentialsDto {
@@ -14,63 +16,69 @@ enum State {
   INVALID,
 }
 
-export default () => {
-  const [credentials, setCredentials] = useState<CredentialsDto>({
-    password: "",
-    user: "",
-  });
-  const [state, setState] = useState<State>(State.ACTIVE);
-  const authentication = useAuthentication();
-  const login = () => {
-    if (Object.values(credentials).some((x) => x === "")) return;
-    setState(State.LOADING);
-    authentication
-      .login(credentials)
-      .then(() => {
-        setState(State.ACTIVE);
-        window.location.href = "/";
-      })
-      .catch(() => {
-        setState(State.INVALID);
-        setCredentials({ ...credentials, password: "" });
-      });
-  };
-  return (
-    <Box label="Login" padded={true} styled={true}>
-      <div style={{ padding: "10px", textAlign: "center" }}>
-        <Input
-          label="Benutzername"
-          value={credentials.user}
-          disabled={state === State.LOADING}
-          setValue={(user) => {
-            setCredentials({ ...credentials, user });
-            setState(State.ACTIVE);
-          }}
-        />
-        <Input
-          label="Passwort"
-          value={credentials.password}
-          disabled={state === State.LOADING}
-          setValue={(password) => {
-            setCredentials({ ...credentials, password });
-            setState(State.ACTIVE);
-          }}
-          isPassword={true}
-        />
-        <Button
-          text="Anmelden"
-          onClick={login}
-          disabled={state === State.LOADING}
-        />
-        <div>
-          {state === State.INVALID
-            ? "Die angegebenen Daten sind falsch."
-            : null}
+export default connect(null, { authLogin })(
+  ({
+    authLogin,
+  }: {
+    authLogin: (user: string, password: string) => Promise<void>;
+  }) => {
+    const [credentials, setCredentials] = useState<CredentialsDto>({
+      password: "",
+      user: "",
+    });
+    const [state, setState] = useState<State>(State.ACTIVE);
+    const history = useHistory();
+
+    const login = () => {
+      if (Object.values(credentials).some((x) => x === "")) return;
+      setState(State.LOADING);
+      authLogin(credentials.user, credentials.password)
+        .then(() => {
+          setState(State.ACTIVE);
+          history.push("/");
+        })
+        .catch(() => {
+          setState(State.INVALID);
+          setCredentials({ ...credentials, password: "" });
+        });
+    };
+    return (
+      <Box label="Login" padded={true} styled={true}>
+        <div style={{ padding: "10px", textAlign: "center" }}>
+          <Input
+            label="Benutzername"
+            value={credentials.user}
+            disabled={state === State.LOADING}
+            setValue={(user) => {
+              setCredentials({ ...credentials, user });
+              setState(State.ACTIVE);
+            }}
+          />
+          <Input
+            label="Passwort"
+            value={credentials.password}
+            disabled={state === State.LOADING}
+            setValue={(password) => {
+              setCredentials({ ...credentials, password });
+              setState(State.ACTIVE);
+            }}
+            isPassword={true}
+          />
+          <Button
+            text="Anmelden"
+            onClick={login}
+            disabled={state === State.LOADING}
+          />
+          <div>
+            {state === State.INVALID
+              ? "Die angegebenen Daten sind falsch."
+              : null}
+          </div>
         </div>
-      </div>
-    </Box>
-  );
-};
+      </Box>
+    );
+  }
+);
 
 const Button = ({
   text,

@@ -8,10 +8,13 @@ import {
 } from "react-icons/fa";
 import Box from "./Box";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { AuthState } from "../store/auth.state";
 
-export default () => {
+const InformationPanel = ({ state }: { state: AuthState }) => {
   return (
     <Box label="Weiteres">
+      {JSON.stringify(state)}
       <div style={{ display: "flex", margin: "0 20px" }}>
         <Info
           label="YouTube"
@@ -93,3 +96,10 @@ const Info = Radium(
     );
   }
 );
+
+export default connect(
+  (state: AuthState) => ({
+    state,
+  }),
+  {}
+)(InformationPanel);

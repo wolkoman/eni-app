@@ -2,51 +2,66 @@ import React from "react";
 import Radium from "radium";
 import { Link } from "react-router-dom";
 import { FaEye, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
-import { useAuthentication } from "../util/authentication";
+import { State } from "../store/state";
+import { connect } from "react-redux";
+import { AuthState } from "../store/auth.state";
+import { AuthActions, authLogout } from "../store/auth.action";
 
-const Footer = Radium(() => {
-  const authentication = useAuthentication();
-  return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "60px",
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        padding: 20,
-      }}
-    >
-      {[
-        <FooterItem
-          link="/impressum"
-          title="Impressum & Datenschutz"
-          icon={<FaEye />}
-        ></FooterItem>,
-        authentication.loggedIn ? (
+export default connect(
+  (state: State) => ({
+    state: state.auth,
+  }),
+  { authLogout }
+)(
+  Radium(
+    ({
+      state,
+      authLogout,
+    }: {
+      state: AuthState;
+      authLogout: () => AuthActions;
+    }) => (
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "60px",
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          padding: 20,
+        }}
+      >
+        {[
           <FooterItem
-            icon={<FaSignOutAlt />}
-            title="Abmelden"
-            onClick={authentication.logout}
-          ></FooterItem>
-        ) : (
-          <FooterItem
-            icon={<FaSignInAlt />}
-            title="Anmelden"
-            link="/login"
-          ></FooterItem>
-        ),
-      ]
-        .map((item, index) => [
-          index === 0 ? null : (
-            <FooterSeperator key={index + "s"}></FooterSeperator>
+            link="/impressum"
+            title="Impressum & Datenschutz"
+            icon={<FaEye />}
+          ></FooterItem>,
+          state.userdata ? (
+            <FooterItem
+              icon={<FaSignOutAlt />}
+              title="Abmelden"
+              onClick={authLogout}
+            ></FooterItem>
+          ) : (
+            <FooterItem
+              icon={<FaSignInAlt />}
+              title="Anmelden"
+              link="/login"
+            ></FooterItem>
           ),
-          { ...item, key: index },
-        ])
-        .flat()}
-    </div>
-  );
-});
+        ]
+          .map((item, index) => [
+            index === 0 ? null : (
+              <FooterSeperator key={index + "s"}></FooterSeperator>
+            ),
+            { ...item, key: index },
+          ])
+          .flat()}
+      </div>
+    )
+  )
+);
 
 const FooterItem = Radium(
   ({
@@ -101,5 +116,3 @@ const FooterItem = Radium(
 const FooterSeperator = Radium(() => {
   return <div style={{ margin: "4px 10px", color: "grey" }}>–</div>;
 });
-
-export default Footer;

@@ -14,6 +14,8 @@ import Impressum from "./pages/Impressum";
 import RedirectNotice from "./pages/RedirectNotice";
 import Login from "./pages/Login";
 import Scheduler from "./pages/Scheduler";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 function App() {
   return (
@@ -27,25 +29,27 @@ function App() {
           paddingBottom: 60,
         }}
       >
-        <Router>
-          <ScrollToTop />
-          <Navbar></Navbar>
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/pfarre" component={Pfarre} />
-            <Route exact path="/impressum" component={Impressum} />
-            <Route exact path="/redirect-notice" component={RedirectNotice} />
-            <Route exact path="/resources" component={Resources} />
-            <Route exact path="/wochenblatt" component={Wochenblatt} />
-            <Route exact path="/einteilung" component={Scheduler} />
-            <Route exact path="/liturgy-live" component={LiturgyLive} />
-            <Route exact path="/login" component={Login} />
-            <Route path="*">
-              <b>404</b> Seite nicht gefunden
-            </Route>
-          </Switch>
-          <Footer></Footer>
-        </Router>
+        <Provider store={store}>
+          <Router>
+            <ScrollToTop />
+            <Navbar></Navbar>
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route path="/pfarre" component={Pfarre} />
+              <Route exact path="/impressum" component={Impressum} />
+              <Route exact path="/redirect-notice" component={RedirectNotice} />
+              <Route exact path="/resources" component={Resources} />
+              <Route exact path="/wochenblatt" component={Wochenblatt} />
+              <Route exact path="/einteilung" component={Scheduler} />
+              <Route exact path="/liturgy-live" component={LiturgyLive} />
+              <Route exact path="/login" component={Login} />
+              <Route path="*">
+                <b>404</b> Seite nicht gefunden
+              </Route>
+            </Switch>
+            <Footer></Footer>
+          </Router>
+        </Provider>
       </div>
     </Radium.StyleRoot>
   );
