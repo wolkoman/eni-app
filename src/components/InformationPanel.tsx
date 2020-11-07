@@ -9,12 +9,11 @@ import {
 import Box from "./Box";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { AuthState } from "../store/auth.state";
+import { State } from "../store/state";
 
-const InformationPanel = ({ state }: { state: AuthState }) => {
+const InformationPanel = ({ state }: { state: State }) => {
   return (
     <Box label="Weiteres">
-      {JSON.stringify(state)}
       <div style={{ display: "flex", margin: "0 20px" }}>
         <Info
           label="YouTube"
@@ -35,7 +34,7 @@ const InformationPanel = ({ state }: { state: AuthState }) => {
         <Info label="Downloads" link="/resources" color="#0b5cc1">
           <FaFileDownload />
         </Info>
-        {true ? (
+        {state.auth.userdata ? (
           <Info label="Einteilung" link="/einteilung" color="orange">
             <FaCalendarAlt />
           </Info>
@@ -98,7 +97,7 @@ const Info = Radium(
 );
 
 export default connect(
-  (state: AuthState) => ({
+  (state: State) => ({
     state,
   }),
   {}
