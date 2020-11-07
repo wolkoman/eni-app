@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 import { FaEye, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { State } from "../store/state";
 import { connect } from "react-redux";
-import { AuthState } from "../store/auth.state";
 import authAction, { AuthActions } from "../store/auth.action";
+import { isLoggedIn } from "../store/auth.selector";
 
 export default connect(
   (state: State) => ({
-    state: state.auth,
+    isLoggedIn: isLoggedIn(state),
   }),
-  { authLogout: authAction.logout }
+  { logout: authAction.logout }
 )(
   Radium(
     ({
-      state,
-      authLogout,
+      isLoggedIn,
+      logout,
     }: {
-      state: AuthState;
-      authLogout: () => AuthActions;
+      isLoggedIn: boolean;
+      logout: () => AuthActions;
     }) => (
       <div
         style={{
@@ -37,11 +37,11 @@ export default connect(
             title="Impressum & Datenschutz"
             icon={<FaEye />}
           ></FooterItem>,
-          state.userdata ? (
+          isLoggedIn ? (
             <FooterItem
               icon={<FaSignOutAlt />}
               title="Abmelden"
-              onClick={authLogout}
+              onClick={logout}
             ></FooterItem>
           ) : (
             <FooterItem

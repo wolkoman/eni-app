@@ -10,39 +10,42 @@ import Box from "./Box";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { State } from "../store/state";
+import { isOrganist } from "../store/auth.selector";
 
-const InformationPanel = ({ state }: { state: State }) => {
-  return (
-    <Box label="Weiteres">
-      <div style={{ display: "flex", margin: "0 20px" }}>
-        <Info
-          label="YouTube"
-          link="http://www.youtube.com/channel/UCty97x9ptrFsKhX5M_QA58g"
-          color="red"
-          outsideLink={true}
-        >
-          <FaYoutube />
-        </Info>
-        <Info
-          label="Instagram"
-          link="http://www.instagram.com/eni.wien/"
-          color="#e73c59"
-          outsideLink={true}
-        >
-          <FaInstagram />
-        </Info>
-        <Info label="Downloads" link="/resources" color="#0b5cc1">
-          <FaFileDownload />
-        </Info>
-        {state.auth.userdata ? (
-          <Info label="Einteilung" link="/einteilung" color="orange">
-            <FaCalendarAlt />
+export default connect((state: State) => ({ showOrganist: isOrganist(state) }))(
+  ({ showOrganist }: { showOrganist: boolean }) => {
+    return (
+      <Box label="Weiteres">
+        <div style={{ display: "flex", margin: "0 20px" }}>
+          <Info
+            label="YouTube"
+            link="http://www.youtube.com/channel/UCty97x9ptrFsKhX5M_QA58g"
+            color="red"
+            outsideLink={true}
+          >
+            <FaYoutube />
           </Info>
-        ) : null}
-      </div>
-    </Box>
-  );
-};
+          <Info
+            label="Instagram"
+            link="http://www.instagram.com/eni.wien/"
+            color="#e73c59"
+            outsideLink={true}
+          >
+            <FaInstagram />
+          </Info>
+          <Info label="Downloads" link="/resources" color="#0b5cc1">
+            <FaFileDownload />
+          </Info>
+          {showOrganist ? (
+            <Info label="Einteilung" link="/einteilung" color="orange">
+              <FaCalendarAlt />
+            </Info>
+          ) : null}
+        </div>
+      </Box>
+    );
+  }
+);
 
 const Info = Radium(
   ({
@@ -95,10 +98,3 @@ const Info = Radium(
     );
   }
 );
-
-export default connect(
-  (state: State) => ({
-    state,
-  }),
-  {}
-)(InformationPanel);
