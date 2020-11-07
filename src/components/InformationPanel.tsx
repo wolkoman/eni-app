@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import Radium from "radium";
-import { FaFileDownload, FaInstagram, FaYoutube } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaFileDownload,
+  FaInstagram,
+  FaYoutube,
+} from "react-icons/fa";
 import Box from "./Box";
-
-import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
-
-type RadiumStyleProp = CSSProperties | undefined | null | boolean;
-
-export function asCSS(
-  styles: RadiumStyleProp | RadiumStyleProp[]
-): CSSProperties {
-  return styles as any;
-}
 
 export default () => {
   return (
@@ -37,6 +32,11 @@ export default () => {
         <Info label="Downloads" link="/resources" color="#0b5cc1">
           <FaFileDownload />
         </Info>
+        {true ? (
+          <Info label="Einteilung" link="/einteilung" color="orange">
+            <FaCalendarAlt />
+          </Info>
+        ) : null}
       </div>
     </Box>
   );

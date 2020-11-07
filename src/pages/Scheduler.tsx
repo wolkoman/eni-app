@@ -1,11 +1,9 @@
 import React from "react";
 import Box from "../components/Box";
-import Login from "./Login";
+import { Autorisation, useRequireAutorisation } from "../util/authorisation";
 
 export default () => {
-  return (
-    <Box label="Einteilung" padded={true} styled={true}>
-      <Login></Login>
-    </Box>
-  );
+  useRequireAutorisation(Autorisation.ORGANIST);
+
+  return <Box label="Einteilung" padded={true} styled={true}></Box>;
 };

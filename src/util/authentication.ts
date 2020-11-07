@@ -4,8 +4,9 @@ import { apiUrl } from "./config";
 import { localStorageGet, localStorageSet } from "./utils";
 
 export interface Credentials {
-  user: string;
-  password: string;
+  api_key: string;
+  email: string;
+  group: string;
 }
 export function useAuthentication() {
   const [credentials, setCredentials] = useState<Credentials>();
@@ -24,10 +25,9 @@ export function useAuthentication() {
     credentials,
     loggedIn: !!credentials,
     loginPrompt: () => {
-      console.log("LOGIN");
       history.push("/login");
     },
-    login: (credentials: Credentials) =>
+    login: (credentials: { user: string; password: string }) =>
       fetch(`${apiUrl}/authentication-v1/`, {
         method: "POST",
         body: JSON.stringify(credentials),
