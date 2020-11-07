@@ -23,6 +23,7 @@ export const saveState = (state: State) => {
 };
 
 const rootReducer = combineReducers({ auth: authReducer as any });
+
 export const store = createStore(
   rootReducer,
   loadState(),

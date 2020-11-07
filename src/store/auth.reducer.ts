@@ -10,10 +10,10 @@ export const authReducer: Reducer<AuthState, Action> = (
   switch (action.type) {
     case "Login":
       return {
-        userdata: action.credentials,
+        userdata: action.userData,
       };
     case "Logout":
-      return { userdata: undefined };
+      return {};
     default:
       return state;
   }

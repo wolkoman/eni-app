@@ -3,7 +3,7 @@ import React, { Dispatch, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Box from "../components/Box";
-import { authLogin } from "../store/auth.action";
+import authAction from "../store/auth.action";
 import { style } from "../util/style";
 
 interface CredentialsDto {
@@ -16,7 +16,7 @@ enum State {
   INVALID,
 }
 
-export default connect(null, { authLogin })(
+export default connect(null, { authLogin: authAction.login })(
   ({
     authLogin,
   }: {

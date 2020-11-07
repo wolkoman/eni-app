@@ -5,13 +5,13 @@ import { FaEye, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { State } from "../store/state";
 import { connect } from "react-redux";
 import { AuthState } from "../store/auth.state";
-import { AuthActions, authLogout } from "../store/auth.action";
+import authAction, { AuthActions } from "../store/auth.action";
 
 export default connect(
   (state: State) => ({
     state: state.auth,
   }),
-  { authLogout }
+  { authLogout: authAction.logout }
 )(
   Radium(
     ({
