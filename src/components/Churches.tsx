@@ -57,7 +57,7 @@ const Church = Radium(
           ...style.shadowed,
           cursor: "pointer",
           textDecoration: "none",
-          background: color,
+          background: `linear-gradient(180deg, ${color}, white)`,
         }}
       >
         <div
