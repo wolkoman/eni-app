@@ -53,7 +53,6 @@ const Post = ({ post: { node } }: { post: { node: any } }) => (
     <div
       style={{
         padding: "10px 20px",
-        textTransform: "uppercase",
         color: "grey",
       }}
     >
@@ -68,7 +67,7 @@ const Post = ({ post: { node } }: { post: { node: any } }) => (
       }}
     />
     <div
-      style={{ padding: 20 }}
+      style={{ padding: 20, maxHeight: 120, overflowY: "auto" }}
       dangerouslySetInnerHTML={{
         __html: node.edge_media_to_caption.edges[0].node.text.replace(
           /\n/g,
