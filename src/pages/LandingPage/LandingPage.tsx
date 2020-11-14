@@ -7,6 +7,7 @@ import Instagram from "../../components/Instagram";
 import Livestreams from "./Livestreams/Livestreams";
 import Title from "./Title";
 import InformationPanel from "../../components/InformationPanel";
+import NewsletterSubscription from "../../components/NewsletterSubscription";
 
 export default () => (
   <div>
@@ -16,6 +17,7 @@ export default () => (
     <Events />
     <Announcement />
     <Instagram />
+    <NewsletterSubscription />
     <VaticanNews />
     <InformationPanel />
   </div>

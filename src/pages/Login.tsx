@@ -1,10 +1,9 @@
-import Radium from "radium";
-import React, { Dispatch, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Box from "../components/Box";
+import { Button, Input } from "../components/FormElements";
 import authAction from "../store/auth.action";
-import { style } from "../util/style";
 
 interface CredentialsDto {
   user: string;
@@ -30,7 +29,7 @@ export default connect(null, { authLogin: authAction.login })(
     const history = useHistory();
 
     const login = () => {
-      if (Object.values(credentials).some((x) => x === "")) return;
+      if (Object.values(credentials).some(x => x === "")) return;
       setState(State.LOADING);
       authLogin(credentials.user, credentials.password)
         .then(() => {
@@ -49,7 +48,8 @@ export default connect(null, { authLogin: authAction.login })(
             label="Benutzername"
             value={credentials.user}
             disabled={state === State.LOADING}
-            setValue={(user) => {
+            centered={true}
+            setValue={user => {
               setCredentials({ ...credentials, user });
               setState(State.ACTIVE);
             }}
@@ -58,7 +58,8 @@ export default connect(null, { authLogin: authAction.login })(
             label="Passwort"
             value={credentials.password}
             disabled={state === State.LOADING}
-            setValue={(password) => {
+            centered={true}
+            setValue={password => {
               setCredentials({ ...credentials, password });
               setState(State.ACTIVE);
             }}
@@ -78,63 +79,4 @@ export default connect(null, { authLogin: authAction.login })(
       </Box>
     );
   }
-);
-
-const Button = ({
-  text,
-  onClick,
-  disabled = false,
-}: {
-  text: string;
-  disabled?: boolean;
-  onClick: () => void;
-}) => (
-  <button
-    onClick={onClick}
-    disabled={disabled}
-    style={{
-      padding: "10px 20px",
-      fontSize: 18,
-      border: "none",
-      background: style.accent2,
-      color: "white",
-      borderRadius: style.borderRadius,
-    }}
-  >
-    {text}
-  </button>
-);
-
-const Input = Radium(
-  ({
-    label,
-    value,
-    setValue,
-    isPassword = false,
-    disabled = false,
-  }: {
-    label: string;
-    value: string;
-    setValue: Dispatch<string>;
-    isPassword?: boolean;
-    disabled?: boolean;
-  }) => (
-    <div style={{ padding: "15px 0" }}>
-      <div style={{ opacity: 0.7, textTransform: "uppercase", fontSize: 13 }}>
-        {label}
-      </div>
-      <input
-        disabled={disabled}
-        type={isPassword ? "password" : "text"}
-        style={{
-          fontSize: 24,
-          textAlign: "center",
-        }}
-        value={value}
-        onChange={(e) =>
-          setValue(((e.target as unknown) as { value: string }).value)
-        }
-      />
-    </div>
-  )
 );
