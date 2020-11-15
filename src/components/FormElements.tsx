@@ -2,29 +2,41 @@ import Radium from "radium";
 import React, { Dispatch } from "react";
 import { style } from "../util/style";
 
-export const Button = ({
-  text,
-  onClick,
-  disabled = false,
-}: {
-  text: string;
-  disabled?: boolean;
-  onClick: () => void;
-}) => (
-  <button
-    onClick={onClick}
-    disabled={disabled}
-    style={{
-      padding: "10px 20px",
-      fontSize: 18,
-      border: "none",
-      background: style.accent2,
-      color: "white",
-      borderRadius: style.borderRadius,
-    }}
-  >
-    {text}
-  </button>
+export const Button = Radium(
+  ({
+    text,
+    onClick,
+    disabled = false,
+  }: {
+    text: string;
+    disabled?: boolean;
+    onClick: () => void;
+  }) => (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      style={{
+        position: "relative",
+        padding: "10px 20px",
+        fontSize: 18,
+        border: "none",
+        background: style.accent1,
+        color: "white",
+        borderRadius: style.borderRadius,
+        fontWeight: "bold",
+        boxShadow: `0px 5px 0 ${style.accent1Light}`,
+        top: 0,
+        transition: "all .1s",
+        cursor: "pointer",
+        [":hover" as any]: {
+          top: 3,
+          boxShadow: `0px 2px 0 ${style.accent1Light}`,
+        },
+      }}
+    >
+      {text}
+    </button>
+  )
 );
 export const Label = ({ label }: { label: string }) => (
   <div
@@ -63,6 +75,10 @@ export const Input = Radium(
           fontSize: 24,
           textAlign: centered ? "center" : "unset",
           width: "calc(100% - 10px)",
+          padding: "5px 10px",
+          border: `2px solid ${style.accent1}`,
+          borderRadius: style.borderRadius,
+          outline: "none",
         }}
         value={value}
         onChange={e =>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Radium from "radium";
 import {
   FaCalendarAlt,
+  FaEnvelope,
   FaFileDownload,
   FaInstagram,
   FaYoutube,
@@ -10,10 +11,19 @@ import Box from "./Box";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { State } from "../store/state";
-import { isOrganist } from "../store/auth.selector";
+import { isAdmin, isOrganist } from "../store/auth.selector";
 
-export default connect((state: State) => ({ showOrganist: isOrganist(state) }))(
-  ({ showOrganist }: { showOrganist: boolean }) => {
+export default connect((state: State) => ({
+  showOrganist: isOrganist(state),
+  showAdmin: isAdmin(state),
+}))(
+  ({
+    showOrganist,
+    showAdmin,
+  }: {
+    showOrganist: boolean;
+    showAdmin: boolean;
+  }) => {
     return (
       <Box label="Weiteres">
         <div style={{ display: "flex", margin: "0 20px" }}>
@@ -39,6 +49,24 @@ export default connect((state: State) => ({ showOrganist: isOrganist(state) }))(
           {showOrganist ? (
             <Info label="Einteilung" link="/einteilung" color="orange">
               <FaCalendarAlt />
+            </Info>
+          ) : null}
+          {showAdmin ? (
+            <Info
+              label="Wochenblatt Generator"
+              link="/wochenblatt"
+              color="purple"
+            >
+              <FaEnvelope />
+            </Info>
+          ) : null}
+          {showAdmin ? (
+            <Info
+              label="Newsletter"
+              link="/newsletter-administration"
+              color="green"
+            >
+              <FaEnvelope />
             </Info>
           ) : null}
         </div>

@@ -16,6 +16,7 @@ import Login from "./pages/Login";
 import Scheduler from "./pages/Scheduler";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import NewsletterAdministration from "./pages/NewsletterAdministration";
 
 function App() {
   return (
@@ -42,6 +43,11 @@ function App() {
               <Route exact path="/wochenblatt" component={Wochenblatt} />
               <Route exact path="/einteilung" component={Scheduler} />
               <Route exact path="/liturgy-live" component={LiturgyLive} />
+              <Route
+                exact
+                path="/newsletter-administration"
+                component={NewsletterAdministration}
+              />
               <Route exact path="/login" component={Login} />
               <Route path="*">
                 <b>404</b> Seite nicht gefunden

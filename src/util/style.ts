@@ -14,6 +14,7 @@ style = {
   light: "#f8f8f8",
   accent3: "#F5B428",
   accent1: "#31575E",
+  accent1Light: "rgb(49 87 94 / 50%)",
   accent2: "#11B0A8",
   dark: "#2B303A",
   borderRadius: 6,
