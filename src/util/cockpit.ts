@@ -11,7 +11,8 @@ const fetchJSON = (url: string) =>
     }));
 
 export default {
-  singleton: (id: string) => fetchJSON(request(`api/singletons/get/${id}`)),
+  singleton: (id: string, token?: string) =>
+    fetchJSON(request(`api/singletons/get/${id}`, { token })),
   collection: (id: string, token?: string, appendix = "") =>
     fetchJSON(request(`api/collections/get/${id}`, { token, appendix })),
   collectionEntry: (collection: string, entryId: string) =>

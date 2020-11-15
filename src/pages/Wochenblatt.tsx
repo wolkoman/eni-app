@@ -1,53 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Box from "../components/Box";
 import wochenblattGenerator from "../util/wochenblattGenerator";
-import Loader from "../Graphic/Loader";
 import cockpit, { host } from "../util/cockpit";
 import {
   fetchRawEvents,
   parseEvents,
-  isValidEventToken,
   ExtendedEventDto,
   Pfarre,
 } from "../util/eventHandler";
-import { localStorageGet, localStorageSet } from "../util/utils";
-
-const CALENDAR_TOKEN = "calendar_token";
-const onTokenSubmit = (token: string) => {
-  localStorageSet(CALENDAR_TOKEN, token);
-  window.location.reload(false);
-};
+import { getApiKey, isAdmin } from "../store/auth.selector";
+import { connect } from "react-redux";
+import { State } from "../store/state";
 
 export default () => {
-  const [access, setAccess] = useState();
-  useEffect(() => {
-    isValidEventToken(localStorageGet(CALENDAR_TOKEN)).then((valid) =>
-      setAccess(valid)
-    );
-  }, []);
-  return access === undefined ? (
-    <Loader />
-  ) : (
+  return (
     <Box label="Wochenblatt" padded={true}>
-      {access ? (
-        <Generator token={localStorageGet(CALENDAR_TOKEN)} />
-      ) : (
-        <NoAccess />
-      )}
+      <Generator />
     </Box>
   );
 };
 
 const labelStyle = { padding: "15px 0 5px 0" };
-const Generator = ({ token }: { token: string }) => {
+const Generator = connect((state: State) => ({
+  access: isAdmin(state),
+  api_key: getApiKey(state),
+}))(({ access, api_key }: { access: boolean; api_key: string }) => {
   const [config, setConfig] = useState<{
-    token: string;
+    access: boolean;
     start: string;
     limit: string;
     pfarre: Pfarre;
   }>({
-    token,
-    start: "2020-01-01",
+    access,
+    start: new Date().toISOString().substring(0, 10),
     limit: "+1 week",
     pfarre: "emmaus",
   });
@@ -57,12 +42,12 @@ const Generator = ({ token }: { token: string }) => {
       <input
         type="date"
         value={config.start}
-        onChange={(e) => setConfig({ ...config, start: e.target.value })}
+        onChange={e => setConfig({ ...config, start: e.target.value })}
       />
       <div style={labelStyle}>Zeitspanne</div>
       <select
         value={config.limit}
-        onChange={(e) => setConfig({ ...config, limit: e.target.value })}
+        onChange={e => setConfig({ ...config, limit: e.target.value })}
       >
         <option value="+1 week">Eine Woche</option>
         <option value="+2 week">Zwei Wochen</option>
@@ -70,7 +55,7 @@ const Generator = ({ token }: { token: string }) => {
       <div style={labelStyle}>Pfarre</div>
       <select
         value={config.pfarre}
-        onChange={(e) =>
+        onChange={e =>
           setConfig({ ...config, pfarre: e.target.value as Pfarre })
         }
       >
@@ -81,7 +66,7 @@ const Generator = ({ token }: { token: string }) => {
           onClick={async () =>
             wochenblattGenerator({
               templateDocumentPath: `${host}/${
-                (await cockpit.singleton("wochenblatt")).template
+                (await cockpit.singleton("wochenblatt", api_key)).template
               }`,
               events: parseEvents(
                 (
@@ -107,20 +92,9 @@ const Generator = ({ token }: { token: string }) => {
             })
           }
         >
-          Generate
+          Generieren
         </button>
       </div>
     </div>
   );
-};
-
-const NoAccess = () => (
-  <div>
-    <div>Passwort</div>
-    <input
-      onKeyUp={(e) =>
-        e.keyCode === 13 ? onTokenSubmit((e.target as any).value) : null
-      }
-    />
-  </div>
-);
+});

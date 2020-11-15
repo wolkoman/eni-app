@@ -40,22 +40,20 @@ export interface ExtendedEventDto {
   }[];
 }
 
-const isValidEventToken = (token: string) =>
-  fetch(`${apiUrl}/calendar/v2/?check&token=${token}`)
-    .then((x) => x.json())
-    .then((x) => Promise.resolve(x.valid));
 const fetchRawEvents = ({
   customRange,
 }: {
   customRange?: { start: string; limit: string; token: string };
 }) =>
-  fetch(
-    `${apiUrl}/calendar-v2/${
-      customRange !== undefined
-        ? `?start=${customRange?.start}&limit=${customRange?.limit}&token=${customRange?.token}`
-        : ""
-    }`
-  ).then((x) => x.json());
+  fetch(`${apiUrl}/calendar-v2/`, {
+    method: customRange ? "POST" : "GET",
+    body: customRange
+      ? JSON.stringify({
+          start: customRange?.start,
+          limit: customRange?.limit,
+        })
+      : undefined,
+  }).then(x => x.json());
 
 const parseEvent = (event: EventDto): ExtendedEventDto => {
   const start = event.start.dateTime ?? event.start.date;
@@ -120,4 +118,4 @@ const sortGroups = (events: ExtendedEventDto) => {
   );
 };
 
-export { parseEvents, fetchRawEvents, isValidEventToken };
+export { parseEvents, fetchRawEvents };

@@ -26,7 +26,7 @@ const Events = Radium(() => {
   }, [filter]);
   useEffect(() => {
     fetchRawEvents({})
-      .then((x) => setEvents(x))
+      .then(x => setEvents(x))
       .then(() => setState(LoadingState.Loaded))
       .catch(() => setState(LoadingState.Failed));
   }, []);
@@ -84,7 +84,7 @@ const Events = Radium(() => {
           }}
           state={state}
           events={events.filter(
-            (event) => filter === "all" || event.pfarre === filter
+            event => filter === "all" || event.pfarre === filter
           )}
           showPfarre={filter === "all"}
         ></EventList>
@@ -227,7 +227,7 @@ const DateGroup = Radium(
       >
         {events[0].displayDate}
       </div>
-      {events.map((event) => (
+      {events.map(event => (
         <Event key={event.id} event={event} showPfarre={showPfarre} />
       ))}
     </div>
