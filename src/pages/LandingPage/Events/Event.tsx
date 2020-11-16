@@ -1,4 +1,5 @@
 import React from "react";
+import { FaTimes } from "react-icons/fa";
 import { JSONLD, Generic } from "react-structured-data";
 import { ExtendedEventDto, Pfarre } from "../../../util/eventHandler";
 import { style } from "../../../util/style";
@@ -12,6 +13,8 @@ export default ({
   showPfarre: boolean;
 }) => {
   const descriptionStyle = { fontSize: 14, fontWeight: "normal" };
+  const canceled = event.title.match("ENTFÄLLT");
+  let title = event.title;
   const color = (pfarre: Pfarre) =>
     ({
       all: style.light,
@@ -38,7 +41,10 @@ export default ({
       >
         {event.time}
       </div>
-      <div style={{ width: 20, flexGrow: 0, flexShrink: 0, display: "flex" }}>
+      <div style={{ width: 20, flexGrow: 0, flexShrink: 0, display: "flex", position: "relative" }}>
+        {canceled ? <div style={{position: "absolute", top: 4, left: -4}}>
+          <FaTimes></FaTimes>
+        </div> : null}
         <div
           style={{
             width: 10,
@@ -50,7 +56,8 @@ export default ({
         ></div>
       </div>
       <div>
-        {event.title}
+        <div
+        dangerouslySetInnerHTML={{__html: canceled ? `<s>${title.split("ENTFÄLLT")[0]}</s> ENTFÄLLT` : event.title}}></div>
         {showPfarre && event.pfarre !== "all" ? (
           <div style={descriptionStyle as any}>
             <i>
@@ -81,7 +88,7 @@ export default ({
             </a>
           </div>
         ))}
-        {event.description ? (
+        {event.description && !canceled ? (
           <div
             style={descriptionStyle as any}
             dangerouslySetInnerHTML={{
