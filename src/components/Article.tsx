@@ -7,6 +7,7 @@ interface Article {
   title: string;
   content: string;
   layout?: (TextSection)[]
+  author?: string
 }
 interface TextSection {
   component: "text";
@@ -24,19 +25,19 @@ const Article = Radium(({ article }: { article: () => Promise<Article> }) => {
       {error ? <div style={{fontStyle: "italic"}}>Dieser Artikel existiert nicht.</div> : object ? (
         <div>
           <div
-            style={{ display: "flex", justifyContent: "space-between" }}
+            style={{
+            borderBottom: "1px solid #ddd", }}
             key="title"
           >
             <h1
               style={{
                 ...style.serif,
                 marginTop: 0,
-                paddingBottom: 20,
-                borderBottom: "1px solid #ddd",
               }}
             >
               {object.title}
             </h1>
+              { object.author ? <div style={{marginBottom: 20, ...style.serif, fontStyle: "italic"}}>von {object.author}</div> : null}
           </div>
           { object.layout ? object.layout.map((l,index) => <div
             key={index}
