@@ -6,6 +6,11 @@ import Loader from "../Graphic/Loader";
 interface Article {
   title: string;
   content: string;
+  layout?: (TextSection)[]
+}
+interface TextSection {
+  component: "text";
+  settings: {text: string}
 }
 const Article = Radium(({ article }: { article: () => Promise<Article> }) => {
   const [object, setObject] = useState<Article>();
@@ -17,7 +22,7 @@ const Article = Radium(({ article }: { article: () => Promise<Article> }) => {
   return (
     <div style={{ padding: style.padding }}>
       {error ? <div style={{fontStyle: "italic"}}>Dieser Artikel existiert nicht.</div> : object ? (
-        [
+        <div>
           <div
             style={{ display: "flex", justifyContent: "space-between" }}
             key="title"
@@ -32,13 +37,17 @@ const Article = Radium(({ article }: { article: () => Promise<Article> }) => {
             >
               {object.title}
             </h1>
-          </div>,
-          <div
+          </div>
+          { object.layout ? object.layout.map((l,index) => <div
+            key={index}
+            style={{ overflowWrap: "break-word", lineHeight: 1.5 }}
+            dangerouslySetInnerHTML={{__html: l.settings.text}}
+        />) : <div
             key="content"
             style={{ overflowWrap: "break-word", lineHeight: 1.5 }}
             dangerouslySetInnerHTML={{ __html: object.content }}
-          ></div>,
-        ]
+          ></div>}
+          </div>
       ) : (
         <Loader></Loader>
       )}
