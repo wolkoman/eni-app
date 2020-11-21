@@ -9,13 +9,14 @@ interface Article {
 }
 const Article = Radium(({ article }: { article: () => Promise<Article> }) => {
   const [object, setObject] = useState<Article>();
+  const [error, setError] = useState(false);
   useEffect(() => {
-    article().then(setObject);
+    article().then(setObject).catch(() => setError(true));
   }, [article]);
 
   return (
     <div style={{ padding: style.padding }}>
-      {object ? (
+      {error ? <div style={{fontStyle: "italic"}}>Dieser Artikel existiert nicht.</div> : object ? (
         [
           <div
             style={{ display: "flex", justifyContent: "space-between" }}

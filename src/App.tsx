@@ -18,6 +18,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import NewsletterAdministration from "./pages/NewsletterAdministration";
 import LivestreamAutocontrol from "./pages/LivestreamAutocontrol";
+import ArticlePage from "./components/ArticlePage";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               <Route exact path="/wochenblatt" component={Wochenblatt} />
               <Route exact path="/einteilung" component={Scheduler} />
               <Route exact path="/liturgy-live" component={LiturgyLive} />
+              <Route exact path="/beitrag/:slug" render={({match}) => <ArticlePage slug={match.params.slug}/>}/>
               <Route exact path="/autocontrol" component={LivestreamAutocontrol} />
               <Route
                 exact
