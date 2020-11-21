@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Radium from "radium";
 import {
   FaCalendarAlt,
+  FaCamera,
   FaEnvelope,
   FaFileDownload,
   FaInstagram,
@@ -11,18 +12,21 @@ import Box from "./Box";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { State } from "../store/state";
-import { isAdmin, isOrganist } from "../store/auth.selector";
+import { isAdmin, isLivestreamer, isOrganist } from "../store/auth.selector";
 
 export default connect((state: State) => ({
   showOrganist: isOrganist(state),
   showAdmin: isAdmin(state),
+  showLivestreamer: isLivestreamer(state),
 }))(
   ({
     showOrganist,
     showAdmin,
+    showLivestreamer,
   }: {
     showOrganist: boolean;
     showAdmin: boolean;
+    showLivestreamer: boolean;
   }) => {
     return (
       <Box label="Weiteres">
@@ -46,6 +50,11 @@ export default connect((state: State) => ({
           <Info label="Downloads" link="/resources" color="#0b5cc1">
             <FaFileDownload />
           </Info>
+          {showLivestreamer ? (
+            <Info label="Autorecord" link="/autocontrol" color="red">
+              <FaCamera />
+            </Info>
+          ) : null}
           {showOrganist ? (
             <Info label="Einteilung" link="/einteilung" color="orange">
               <FaCalendarAlt />

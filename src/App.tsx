@@ -17,6 +17,7 @@ import Scheduler from "./pages/Scheduler";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import NewsletterAdministration from "./pages/NewsletterAdministration";
+import LivestreamAutocontrol from "./pages/LivestreamAutocontrol";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               <Route exact path="/wochenblatt" component={Wochenblatt} />
               <Route exact path="/einteilung" component={Scheduler} />
               <Route exact path="/liturgy-live" component={LiturgyLive} />
+              <Route exact path="/autocontrol" component={LivestreamAutocontrol} />
               <Route
                 exact
                 path="/newsletter-administration"

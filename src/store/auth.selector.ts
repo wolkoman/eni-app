@@ -6,6 +6,9 @@ const getAuth = (state: State) => state.auth;
 export const getApiKey = createSelector([getAuth], auth => {
   return auth.userdata ? auth.userdata.api_key : "";
 });
+export const isLivestreamer = createSelector([getAuth], auth => {
+  return auth.userdata ? ["admin","Livestreamer"].includes(auth.userdata?.group) : false;
+});
 export const isAdmin = createSelector([getAuth], auth => {
   return auth.userdata ? ["admin"].includes(auth.userdata?.group) : false;
 });

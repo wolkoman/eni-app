@@ -124,7 +124,7 @@ export default connect((state: State) => ({ api_key: getApiKey(state) }))(
   })
 );
 
-const ActionButton = Radium(
+export const ActionButton = Radium(
   ({
     children,
     label,
