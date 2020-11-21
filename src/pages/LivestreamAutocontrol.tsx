@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import cockpit from "../util/cockpit";
 import { ActionButton } from "./NewsletterAdministration";
 import Box from "../components/Box";
+import LiturgyLive from "../components/LiturgyLive";
 
 interface LiturgyDto{
     _id: string, title: string, items: LiturgyItemDto[]
@@ -20,12 +21,12 @@ export default connect((state: State) => ({api_key: getApiKey(state)}))(({api_ke
     const [selectedLiturgyItem, setSelectedLiturgyItem] = useState<LiturgyItemDto>();
     useEffect(() => {
         cockpit.collection("liturgy", api_key).then(({entries}: {entries: LiturgyDto[]}) => {
-            //setSelectedLiturgyItem(entries[2].items[1]);
             setLiturgies(entries);
         });
         return () => {};
     }, [api_key])
-    return <Box label="Autocontrol" padded={true} styled={true}>
+    return  <div>
+    <Box label="Autocontrol" padded={true} styled={true}>
         {
             selectedLiturgyItem
             ? <Recer title={selectedLiturgyItem.value.title} content={selectedLiturgyItem.value.content}/>
@@ -39,6 +40,8 @@ export default connect((state: State) => ({api_key: getApiKey(state)}))(({api_ke
                 )
         }
         </Box>
+        <LiturgyLive/>
+        </div>
 });
 
 const Recer = ({title, content}: {title: string, content: string}) => {

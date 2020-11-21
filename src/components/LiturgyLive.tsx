@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Box from "../components/Box";
+import Box from "./Box";
 import cockpit from "../util/cockpit";
 import { style } from "../util/style";
 
@@ -211,7 +211,7 @@ export default () => {
     cockpit.collection("liturgy").then(setLitugries);
   }, []);
   return (
-    <Box label="Liturgy Live" padded={true} styled={true}>
+    <Box label="OBS Export" padded={true} styled={true}>
       <a
         id="downloadAnchorElem"
         href="http://google.com"

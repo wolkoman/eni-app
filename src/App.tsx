@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollTop";
 import Wochenblatt from "./pages/Wochenblatt";
-import LiturgyLive from "./pages/LiturgyLive";
+import LiturgyLive from "./components/LiturgyLive";
 import Resources from "./pages/Resources";
 import Radium from "radium";
 import LandingPage from "./pages/LandingPage/LandingPage";
