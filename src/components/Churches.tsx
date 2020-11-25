@@ -1,7 +1,6 @@
 import React from "react";
 import Radium from "radium";
 import { style } from "../util/style";
-import { Link } from "react-router-dom";
 import Box from "./Box";
 
 const Churches = Radium(() => {
@@ -20,17 +19,20 @@ const Churches = Radium(() => {
           name="emmaus"
           picture="emmaus.png"
           color={style.accent1}
+          link="https://tesarekplatz.at"
         ></Church>
         <Church
           name="neustift"
           picture="neustift.png"
           color={style.accent2}
+          link="https://www.erzdioezese-wien.at/pages/pfarren/9233"
         ></Church>
         <Church
           label="st. nikolaus"
           name="nikolaus"
           picture="nikolaus.png"
           color={style.accent3}
+          link="https://pfarresanktnikolaus.at"
         ></Church>
       </div>
     </Box>
@@ -43,15 +45,17 @@ const Church = Radium(
     picture,
     label,
     color,
+    link,
   }: {
     name: string;
     picture: string;
     label?: string;
     color: string;
+    link: string
   }) => {
     return (
-      <Link
-        to={`/pfarre/${name}`}
+      <a
+        href={link}
         style={{
           position: "relative",
           ...style.shadowed,
@@ -91,7 +95,7 @@ const Church = Radium(
         >
           {label ?? name}
         </div>
-      </Link>
+      </a>
     );
   }
 );

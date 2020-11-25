@@ -9,7 +9,6 @@ import LiturgyLive from "./components/LiturgyLive";
 import Resources from "./pages/Resources";
 import Radium from "radium";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Pfarre from "./pages/Pfarre/Pfarre";
 import Impressum from "./pages/Impressum";
 import RedirectNotice from "./pages/RedirectNotice";
 import Login from "./pages/Login";
@@ -38,7 +37,6 @@ function App() {
             <Navbar></Navbar>
             <Switch>
               <Route exact path="/" component={LandingPage} />
-              <Route path="/pfarre" component={Pfarre} />
               <Route exact path="/impressum" component={Impressum} />
               <Route exact path="/redirect-notice" component={RedirectNotice} />
               <Route exact path="/resources" component={Resources} />
