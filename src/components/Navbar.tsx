@@ -15,6 +15,7 @@ const Navbar = Radium(() => {
           ...style.serif,
           fontWeight: "bold",
           textDecoration: "none",
+          flexDirection: "row",
           paddingLeft: 20,
           color: style.dark,
           cursor: "pointer",
@@ -28,6 +29,7 @@ const Navbar = Radium(() => {
           style={{
             paddingRight: 10,
             width: match?.isExact ? 40 : 30,
+            height: 60,
             transition: "all .2s",
           }}
         />
