@@ -42,12 +42,24 @@ export default ({
       >
         {event.time}
       </div>
-      <div style={{ width: 20, flexGrow: 0, flexShrink: 0, display: "flex", position: "relative" }}>
-        {canceled ? <div style={{position: "absolute", top: 4, left: -4}}>
-          <FaTimes></FaTimes>
-        </div> : interim ? <div style={{position: "absolute", top: 4, left: -4}}>
-          <FaQuestion></FaQuestion>
-        </div> : null }
+      <div
+        style={{
+          width: 20,
+          flexGrow: 0,
+          flexShrink: 0,
+          display: "flex",
+          position: "relative",
+        }}
+      >
+        {canceled ? (
+          <div style={{ position: "absolute", top: 4, left: -4 }}>
+            <FaTimes></FaTimes>
+          </div>
+        ) : interim ? (
+          <div style={{ position: "absolute", top: 4, left: -4 }}>
+            <FaQuestion></FaQuestion>
+          </div>
+        ) : null}
         <div
           style={{
             width: 10,
@@ -60,7 +72,14 @@ export default ({
       </div>
       <div>
         <div
-        dangerouslySetInnerHTML={{__html: canceled ? `<s>${title.split("ENTFÄLLT")[0]}</s> ENTFÄLLT` : (interim ? `<span style="opacity: 0.5">${title}</span>` : event.title)}}></div>
+          dangerouslySetInnerHTML={{
+            __html: canceled
+              ? `<s>${title.split("ENTFÄLLT")[0]}</s> ENTFÄLLT`
+              : interim
+              ? `<span style="opacity: 0.5">${title}</span>`
+              : event.title,
+          }}
+        ></div>
         {showPfarre && event.pfarre !== "all" ? (
           <div style={descriptionStyle as any}>
             <i>
@@ -78,7 +97,7 @@ export default ({
             <i style={{ textTransform: "capitalize" }}>in {event.place}</i>
           </div>
         ) : null}
-        {event.attachments?.map((attachment) => (
+        {event.attachments?.map(attachment => (
           <div style={descriptionStyle as any}>
             <a
               target="_blank"

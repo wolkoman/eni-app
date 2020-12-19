@@ -13,6 +13,20 @@ const localStorageGet = (key: string, standard = []) => {
 };
 const localStorageSet = (key: string, value: any) =>
   localStorage.setItem(key, JSON.stringify(value));
+const monthNames = [
+  "Jänner",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
 const toDisplayDate = (date: Date) =>
   `${
     [
@@ -32,4 +46,5 @@ export {
   localStorageGet,
   localStorageSet,
   toDisplayDate,
+  monthNames,
 };
