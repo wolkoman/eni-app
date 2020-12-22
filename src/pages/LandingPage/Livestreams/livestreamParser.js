@@ -11,7 +11,8 @@ export const parseLivestreams = (ls, now) =>
     .sort((a, b) => a.publish - b.publish);
 
 const parseLivestream = (livestream, now) => {
-  const airTime = new Date(`${livestream.date} ${livestream.time}`).getTime();
+  var arr = `${livestream.date} ${livestream.time}:00`.split(/[- :]/);
+  const airTime = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]).getTime();
   const countdown = Math.ceil((airTime - now) / 1000);
   const prepublishTime = +livestream.prepublish_time * 60000;
   const duration = +livestream.duration * 60000;
