@@ -4,6 +4,7 @@ import { JSONLD, Generic } from "react-structured-data";
 import { ExtendedEventDto, Pfarre } from "../../../util/eventHandler";
 import { style } from "../../../util/style";
 var sanitize = require("sanitize-html");
+const cancelledTag = "entfällt!";
 
 export default ({
   event,
@@ -13,7 +14,7 @@ export default ({
   showPfarre: boolean;
 }) => {
   const descriptionStyle = { fontSize: 14, fontWeight: "normal" };
-  const canceled = event.title.match("ENTFÄLLT");
+  const canceled = event.title.match(cancelledTag);
   const interim = event.title.match("VORLÄUFIG");
   let title = event.title;
   const color = (pfarre: Pfarre) =>
@@ -74,7 +75,7 @@ export default ({
         <div
           dangerouslySetInnerHTML={{
             __html: canceled
-              ? `<s>${title.split("ENTFÄLLT")[0]}</s> ENTFÄLLT`
+              ? `<s>${title.split(cancelledTag)[0]}</s> ${cancelledTag}`
               : interim
               ? `<span style="opacity: 0.5">${title}</span>`
               : event.title,
