@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Radium from "radium";
 import { style } from "../util/style";
 import Loader from "../Graphic/Loader";
-import cockpit, { host } from "../util/cockpit";
+import { host } from "../util/cockpit";
 
 interface Article {
   title: string;
@@ -97,6 +97,7 @@ const LayoutComponent = Radium(({ layout }: { layout: any }) => {
             <img
               src={`${host}${entry.path}`}
               style={{ width: "100%", maxWidth: 800 }}
+              alt={entry.meta.title}
             />
             <div style={{ padding: 5, background: "#ddd" }}>
               {entry.meta.title}
