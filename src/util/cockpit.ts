@@ -15,6 +15,8 @@ export default {
     fetchJSON(request(`api/singletons/get/${id}`, { token })),
   collection: (id: string, token?: string, appendix = "") =>
     fetchJSON(request(`api/collections/get/${id}`, { token, appendix })),
+  users: (token?: string, appendix = "") =>
+    fetchJSON(request(`api/cockpit/listUsers`, { token, appendix })),
   collectionEntry: (collection: string, entryId: string) =>
     fetchJSON(
       request(`api/collections/get/${collection}`, {

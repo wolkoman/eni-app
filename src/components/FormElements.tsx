@@ -88,3 +88,55 @@ export const Input = Radium(
     </div>
   )
 );
+
+export const ButtonSelector = <T extends unknown>({
+  buttons = new Map(),
+  onChange,
+  active,
+}: {
+  buttons: Map<T, string>;
+  onChange: (id: T) => void;
+  active: T;
+}) => (
+  <div style={{ display: "flex", alignItems: "center" }}>
+    {Array.from(buttons).map(([id, label]) => (
+      <Selector
+        key={label}
+        label={label}
+        onClick={() => onChange(id)}
+        active={JSON.stringify(id) === JSON.stringify(active)}
+      />
+    ))}
+  </div>
+);
+
+export const Selector = Radium(
+  ({
+    label,
+    onClick,
+    active,
+  }: {
+    label: string;
+    onClick: () => void;
+    active: boolean;
+  }) => {
+    return (
+      <div
+        style={
+          {
+            cursor: "pointer",
+            padding: 6,
+            background: active ? style.accent1 : "#eee",
+            color: active ? "white" : "black",
+            borderRadius: 4,
+            marginRight: 4,
+            ":hover": { background: active ? style.accent1 : "#ddd" },
+          } as any
+        }
+        onClick={onClick}
+      >
+        {label}
+      </div>
+    );
+  }
+);
