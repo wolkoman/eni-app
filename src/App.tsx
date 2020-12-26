@@ -34,7 +34,7 @@ function App() {
         <Provider store={store}>
           <Router>
             <ScrollToTop />
-            <Navbar></Navbar>
+            <Navbar />
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/impressum" component={Impressum} />
@@ -43,8 +43,16 @@ function App() {
               <Route exact path="/wochenblatt" component={Wochenblatt} />
               <Route exact path="/einteilung" component={Scheduler} />
               <Route exact path="/liturgy-live" component={LiturgyLive} />
-              <Route exact path="/beitrag/:slug" render={({match}) => <ArticlePage slug={match.params.slug}/>}/>
-              <Route exact path="/autocontrol" component={LivestreamAutocontrol} />
+              <Route
+                exact
+                path="/beitrag/:slug"
+                render={({ match }) => <ArticlePage slug={match.params.slug} />}
+              />
+              <Route
+                exact
+                path="/autocontrol"
+                component={LivestreamAutocontrol}
+              />
               <Route
                 exact
                 path="/newsletter-administration"

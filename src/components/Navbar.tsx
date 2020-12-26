@@ -29,7 +29,7 @@ const Navbar = Radium(() => {
           style={{
             paddingRight: 10,
             width: match?.isExact ? 40 : 30,
-            height: 60,
+            height: match?.isExact ? 60 : 45,
             transition: "all .2s",
           }}
         />
