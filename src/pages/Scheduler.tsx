@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import { getApiKey } from "../store/auth.selector";
 import { State } from "../store/state";
 import { monthNames, pad } from "../util/utils";
-import { ButtonSelector } from "../components/FormElements";
+import { Button, ButtonSelector, Selector } from "../components/FormElements";
 import cockpit from "../util/cockpit";
 import { apiUrl } from "../util/config";
 import { EventDto } from "../util/eventHandler";
+import Modal from "../components/Modal";
+import { ActionButton } from "./NewsletterAdministration";
 
 const { currentMonth, currentYear } = {
   currentMonth: new Date().getUTCMonth() + 1,
@@ -62,18 +64,14 @@ export default connect((state: State) => ({
     Promise.all([
       fetch(`${apiUrl}/calendar-v2/inzersdorf-messe/?token=${api_key}`)
         .then(x => x.json())
-        .then(a => {
-          console.log(a);
-          return a;
-        })
         .then(({ events }: { events: EventDto[] }) =>
           events.map(event => ({
             type: "CALENDAR",
+            id: event.id,
             date: event.start.dateTime?.substring(0, 10),
             title: event.title,
             start_time: event.start.dateTime?.substring(11, 16),
             end_time: event.end.dateTime?.substring(11, 16),
-            id: event.id,
           }))
         ),
       cockpit.collection("schedule", api_key).then(response =>
@@ -108,12 +106,13 @@ export default connect((state: State) => ({
                 entry =>
                   entry.date ===
                   [selectedMonth.year, selectedMonth.month, day]
-                    .map(pad)
+                    .map(x => pad(x))
                     .join("-")
               )}
             />
           ))}
       </Box>
+      <Box label="Neuer Eintrag" padded={true} styled={true}></Box>
     </div>
   );
 });
@@ -130,7 +129,11 @@ const DayView = ({
   const [active, setActive] = useState(false);
   return (
     <div
-      style={{ display: "flex", padding: "4px 0" }}
+      style={{
+        display: "flex",
+        padding: "4px 0",
+        borderBottom: "1px solid #ccc",
+      }}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
     >
@@ -146,7 +149,7 @@ const DayView = ({
             <div>
               {entry.type === "SCHEDULE"
                 ? users.find(user => user._id === entry.owner)?.name
-                : "RESERVIERT"}
+                : `Reserviert ${entry.title}`}
             </div>
             <div
               style={{
@@ -158,8 +161,11 @@ const DayView = ({
             </div>
           </div>
         ))}
-        <div style={{ display: active ? "block" : "none" }}>Eintragen</div>
       </div>
     </div>
   );
+};
+
+const EntryForm = () => {
+  return <Modal>test</Modal>;
 };
