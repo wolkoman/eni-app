@@ -38,9 +38,7 @@ export default () => {
     <Box label="Livestream">
       <div style={{ padding: "20px 40px", color: style.dark }}>
         {parsedLivestreams.map((l, i) => (
-          <div>
           <Livestream livestream={l} key={l._id} now={now} index={i} />
-            </div>
         ))}
       </div>
     </Box>
