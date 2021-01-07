@@ -4,12 +4,10 @@ import { connect } from "react-redux";
 import { getApiKey } from "../store/auth.selector";
 import { State } from "../store/state";
 import { monthNames, pad } from "../util/utils";
-import { Button, ButtonSelector, Selector } from "../components/FormElements";
+import { ButtonSelector } from "../components/FormElements";
 import cockpit from "../util/cockpit";
 import { apiUrl } from "../util/config";
 import { EventDto } from "../util/eventHandler";
-import Modal from "../components/Modal";
-import { ActionButton } from "./NewsletterAdministration";
 
 const { currentMonth, currentYear } = {
   currentMonth: new Date().getUTCMonth() + 1,
@@ -164,8 +162,4 @@ const DayView = ({
       </div>
     </div>
   );
-};
-
-const EntryForm = () => {
-  return <Modal>test</Modal>;
 };

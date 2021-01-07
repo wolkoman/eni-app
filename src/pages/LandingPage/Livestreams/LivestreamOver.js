@@ -7,7 +7,7 @@ export default ({ livestream, index }) => (
     main={
       <div>
         <div style={{ fontWeight: 800 }}>
-          LIVESTREAM VOM {livestream.date.split("-").reverse().join(".")}
+          Livestream vom {livestream.date.split("-").reverse().join(".")}
         </div>
         <div
           style={{
