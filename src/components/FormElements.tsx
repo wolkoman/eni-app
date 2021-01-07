@@ -76,7 +76,7 @@ export const Input = Radium(
           textAlign: centered ? "center" : "unset",
           width: "calc(100% - 10px)",
           padding: "5px 10px",
-          border: `2px solid ${style.accent1}`,
+          border: `1px solid #aaa`,
           borderRadius: style.borderRadius,
           outline: "none",
         }}

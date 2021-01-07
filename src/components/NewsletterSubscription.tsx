@@ -52,6 +52,13 @@ export default () => {
         </div>
       ) : (
         <div>
+          <div style={{ paddingBottom: 15 }}>
+            <Label label="ENI - Newsletter" />
+            In unserem monatlichen Newsletter informieren wir kurz und prägnant
+            über zukünftige, aktuelle und vergangene Geschehnisse in unseren
+            drei Pfarren. Durch Angabe Ihrer E-Mail Adresse können wir auch
+            Ihnen den Newsletter jeweils zum Monatsbeginn zustellen.
+          </div>
           <Input
             label="E-Mail"
             value={form.mail}
