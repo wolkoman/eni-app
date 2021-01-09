@@ -13,6 +13,7 @@ export default ({ livestream }) => (
               display: livestream.countdown > 24 * 60 * 60 ? "none" : "inline",
             }}
           >
+            {" "}
             in {livestream.countdownString}
           </div>
         </div>
