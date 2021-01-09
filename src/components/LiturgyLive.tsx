@@ -105,12 +105,12 @@ export default () => {
             size: 256,
             style: "Regular",
           },
-          text: "Der Livestream beginnt gleich..",
+          text: "Der Livestream beginnt in Kürze",
         },
       },
     ];
     let sources = items
-      .map((item) =>
+      .map(item =>
         [
           ["sing-a-long", "scroll", "info", "credits"].includes(item.field.name)
             ? {
@@ -134,7 +134,7 @@ export default () => {
                 },
               }
             : null,
-          ["video", "audio"].includes(item.field.name)
+          ["video", "audio", "sing-a-long", "scroll"].includes(item.field.name)
             ? {
                 id: "ffmpeg_source",
                 name: `${item.value.title} media`,
@@ -145,12 +145,12 @@ export default () => {
             : null,
           !["video"].includes(item.field.name)
             ? {
-                name: "CAMERA",
+                name: "KAMERA",
                 myScene: item.value.title,
                 myExtraSource: false,
               }
             : null,
-          !["video", "audio"].includes(item.field.name)
+          !["video", "audio", "sing-a-long"].includes(item.field.name)
             ? {
                 name: "TON",
                 myScene: item.value.title,
@@ -160,40 +160,40 @@ export default () => {
         ].reverse()
       )
       .flat()
-      .filter((x) => !!x);
+      .filter(x => !!x);
     let json = {
       current_program_scene: items[0].value.title,
       current_scene: items[0].value.title,
       current_transition: "Überblende",
       name: title,
       scene_order: [
-        ...items.map((item) => ({ name: item.value.title })),
-        "Intro",
         "Idle",
+        "Intro",
+        ...items.map(item => ({ name: item.value.title })),
       ],
       sources: [
         {
           id: "scene",
-          name: "CAMERA",
+          name: "KAMERA",
         },
         {
           id: "scene",
           name: "TON",
         },
-        ...items.map((item) => ({
+        ...items.map(item => ({
           id: "scene",
           name: item.value.title,
           settings: {
             items: sources
-              .filter((source) => source && source.myScene === item.value.title)
-              .map((source) => ({
+              .filter(source => source && source.myScene === item.value.title)
+              .map(source => ({
                 locked: source!.id !== "ffmpeg_source",
                 name: source!.name,
                 visible: true,
               })),
           },
         })),
-        ...sources.filter((source) => source!.myExtraSource),
+        ...sources.filter(source => source!.myExtraSource),
         ...intro,
       ],
     };
@@ -219,7 +219,7 @@ export default () => {
       >
         anchor
       </a>
-      {liturgies.entries.map((liturgy) => (
+      {liturgies.entries.map(liturgy => (
         <div
           key={liturgy._id}
           style={{
