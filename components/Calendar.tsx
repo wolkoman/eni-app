@@ -15,7 +15,7 @@ export default function Calendar({ events }: {events: CalendarEvents}) {
       </div>)}
     </div>
     <div className="h-3xl overflow-y-scroll">
-      { events.map((event) => <Event  event={event}/>) }
+      { events.map((event) => <Event key={event?.id} event={event}/>) }
     </div>
   </div>
 }

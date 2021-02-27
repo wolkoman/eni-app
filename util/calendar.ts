@@ -35,6 +35,7 @@ export async function getPublicEvents(){
           timeMax: new Date(today + 3600000 * 24 * 30).toISOString(),
           singleEvents: true
         })).data.items?.map(event => ({
+          id: event.id,
           summary: event.summary,
           description: event.description ?? null,
           start: event.start,
