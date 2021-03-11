@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export default function Navbar() {
   return <div className="flex py-2 px-4">

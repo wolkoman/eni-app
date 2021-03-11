@@ -24,7 +24,9 @@ export async function getPublicEvents(){
   };
 
   const calendar = google.calendar("v3");
-  const today = new Date().getTime();
+  const todayDate = new Date();
+  todayDate.setHours(0);
+  const today = todayDate.getTime();
   const c = await Promise.all(
     Object.entries(calendarIds)
       .map(async ([name, calendarId]) =>
@@ -38,6 +40,7 @@ export async function getPublicEvents(){
           id: event.id,
           summary: event.summary,
           description: event.description ?? null,
+          date: (event.start?.date ?? event.start?.dateTime ?? "").substr(0,10),
           start: event.start,
           end: event.end,
           calendar: name,
@@ -50,6 +53,7 @@ export async function getPublicEvents(){
   const getTimeOfEvent = (event: any) => new Date(event!.start?.date ?? event!.start?.dateTime!).getTime();
 
   return c.flat()
+    .filter(event => !!event)
     .filter(event => event?.visibility === "public")
     .sort((a,b) => getTimeOfEvent(a) - getTimeOfEvent(b));
 
