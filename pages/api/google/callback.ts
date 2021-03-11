@@ -14,6 +14,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse){
 
   const configCollection = await DatabaseService.getCollection(ConfigEntity);
   await configCollection.updateOne({type: "google"}, {$set: {data: tokens}});
+  await DatabaseService.close();
 
   res.json(tokens);
 

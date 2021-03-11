@@ -5,6 +5,9 @@ import {getPublicEvents} from '../../../util/calendar';
 
 export default async function (req: NextApiRequest, res: NextApiResponse){
 
-  res.json(await getPublicEvents());
+  let publicEvents = await getPublicEvents();
+
+  await DatabaseService.close();
+  res.json(publicEvents);
 
 }

@@ -4,6 +4,7 @@ import Calendar from '../components/Calendar';
 import Responsive from '../components/Responsive';
 import {getPublicEvents} from '../util/calendar';
 import Title from '../components/Title';
+import { DatabaseService } from '../util/database';
 
 export default function HomePage({  calendar }: {calendar: any}) {
   return <div className="bg-gray-100 min-h-screen">
@@ -16,9 +17,11 @@ export default function HomePage({  calendar }: {calendar: any}) {
 }
 
 export async function getServerSideProps() {
+  let publicEvents = await getPublicEvents();
+  await DatabaseService.close();
   return {
     props: {
-      calendar: (await getPublicEvents()).reduce((previous, current) => {
+      calendar: publicEvents.reduce((previous, current) => {
         previous[current!.date] = previous[current!.date] ?? [];
         previous[current!.date].push(current);
         return previous;
