@@ -7,7 +7,7 @@ import Title from '../components/Title';
 import { DatabaseService } from '../util/database';
 
 export default function HomePage({  calendar }: {calendar: any}) {
-  return <div className="bg-gray-100 min-h-screen">
+  return <div className="min-h-screen">
     <Navbar />
     <Title/>
     <Responsive>
