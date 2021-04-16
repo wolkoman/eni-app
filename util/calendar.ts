@@ -55,6 +55,11 @@ export async function getPublicEvents(){
   return c.flat()
     .filter(event => !!event)
     .filter(event => event?.visibility === "public")
-    .sort((a,b) => getTimeOfEvent(a) - getTimeOfEvent(b));
+    .sort((a,b) => getTimeOfEvent(a) - getTimeOfEvent(b))
+    .reduce((previous, current) => {
+      previous[current!.date] = previous[current!.date] ?? [];
+      previous[current!.date].push(current);
+      return previous;
+    }, {} as any);
 
 }
