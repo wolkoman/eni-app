@@ -1,7 +1,7 @@
 import React from 'react';
-import {CalendarEvents} from '../util/calendar';
+import {CalendarEvent, CalendarGroups} from '../util/calendar';
 
-export default function Calendar({calendar}: { calendar: { [date: string]: CalendarEvents } }) {
+export default function Calendar({calendarGroups}: { calendarGroups: CalendarGroups }) {
   return <div className="flex p-2">
     <div className="flex flex-col w-72">
       {[
@@ -15,8 +15,12 @@ export default function Calendar({calendar}: { calendar: { [date: string]: Calen
       </div>)}
     </div>
     <div className="w-full h-3xl overflow-y-scroll">
-      {Object.entries(calendar).map(([day, events]) => <><EventDate
-        date={new Date(day)} key={day}/>{events.filter(x => x).map(event => <Event key={event?.id} event={event}/>)}</>)}
+      {Object.entries(calendarGroups).map(([day, events]) => <>
+        <EventDate date={new Date(day)} key={day}/>
+        {events
+          .filter(event => event)
+          .map(event => <Event key={event?.id} event={event}/>)}
+        </>)}
     </div>
   </div>
 }
@@ -36,8 +40,8 @@ const Event = ({event}: { event: any }) => {
   </div>;
 }
 
-const EventDate = ({date}: { date: Date }) => {
-  return <div className="pt-2 pb-1">
+export const EventDate = ({date}: { date: Date }) => {
+  return <div className="pt-2">
     {['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()]},{' '}
     {date.getDate()}. {['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'][date.getMonth()]}
   </div>;

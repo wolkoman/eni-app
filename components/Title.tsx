@@ -26,7 +26,7 @@ export default function Title() {
 
 function LineAnimation(){
   return <div className="w-64 relative">
-  <svg className="top-0 left-0" viewBox="0 0 162.8 32.2" style={{"enable-background":"new 0 0 162.8 32.2"} as any}>
+  <svg className="top-0 left-0" viewBox="0 0 162.8 32.2" style={{enableBackground:"new 0 0 162.8 32.2"} as any}>
     <style type="text/css">
       {".st1{fill:none;stroke:#555555;stroke-width:2.6626;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}"}
     </style>
