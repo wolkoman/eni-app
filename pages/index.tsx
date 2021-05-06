@@ -1,15 +1,14 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Calendar, {EventDate} from '../components/Calendar';
+import {EventDate} from '../components/Calendar';
 import Responsive from '../components/Responsive';
 import {CalendarEvent, CalendarGroups, getPublicEvents} from '../util/calendar';
 import Title from '../components/Title';
-import { DatabaseService } from '../util/database';
+import {DatabaseService} from '../util/database';
 import Article from '../components/Article';
+import Site from '../components/Site';
 
 export default function HomePage({ calendarGroups }: {calendarGroups: CalendarGroups}) {
-  return <div className="min-h-screen">
-    <Navbar/>
+  return <Site responsive={false}>
     <Title/>
     <Responsive>
       <Article/>
@@ -26,9 +25,8 @@ export default function HomePage({ calendarGroups }: {calendarGroups: CalendarGr
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
         </Info>
       </div>
-      <Calendar calendarGroups={calendarGroups}/>
     </Responsive>
-  </div>
+  </Site>
 }
 
 const Info = ({title, image, children}: {title: string, image: string, children: string}) => {
@@ -42,17 +40,18 @@ const Info = ({title, image, children}: {title: string, image: string, children:
 }
 
 const CalenderPeek = ({calendarGroups, calendar}:{calendarGroups: CalendarGroups, calendar: string}) => {
-  const color = ["emmaus", "inzersdorf", "neustift"].indexOf(calendar)+1;
+  const color = ["emmaus", "inzersdorf", "neustift"].indexOf(calendar) + 1;
   return <div className={`rounded bg-gray-100 border-l-4 border-primary${color}-default p-2 overflow-hidden`}>
     <div className={`text-primary${color}-default font-bold uppercase`}>{calendar}</div>
     {Object.entries(calendarGroups)
       .map(([date, events]) => ([date, events.filter(event => event.calendar === calendar)] as [string, CalendarEvent[]]))
       .filter(([_, events]) => events.length > 0)
-      .map(([date, events]) => <div key={date}>
+      .slice(0,1)
+      .map(([date, events]) => <div key={date} className="flex flex-col items-center text-center">
         <div><EventDate date={new Date(date)}/></div>
-        <div className="text-lg">{events.map(event => <div className="flex">
-          <div className="w-12 flex-shrink-0">{new Date(event.start.dateTime).toLocaleTimeString().slice(0,5)}</div>
-          <div className="leading-6 mt-0.5">{event.summary}</div>
+        <div className="text-lg">{events.map(event => <div className="">
+          <div className="inline mr-2">{new Date(event.start.dateTime).toLocaleTimeString().slice(0,5)}</div>
+          <div className="inline leading-6">{event.summary}</div>
         </div>)}</div>
       </div>)
     }

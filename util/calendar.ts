@@ -45,7 +45,9 @@ export async function getPublicEvents(): Promise<CalendarGroups>{
           auth: oauth2Client,
           timeMin: new Date(today).toISOString(),
           timeMax: new Date(today + 3600000 * 24 * 30).toISOString(),
-          singleEvents: true
+          singleEvents: true,
+          timeZone: "Europa/Vienna",
+          orderBy: "startTime"
         })).data.items?.map(event => ({
           id: event.id,
           summary: event.summary,
@@ -54,7 +56,7 @@ export async function getPublicEvents(): Promise<CalendarGroups>{
           start: event.start,
           end: event.end,
           calendar: name,
-          visibility: event.visibility ?? null,
+          visibility: event.visibility ?? "public",
           wholeday : !!event.start?.date,
         } as CalendarEvent)).filter(event => event.summary)
       )

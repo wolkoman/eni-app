@@ -20,10 +20,10 @@ export default function (req: NextApiRequest, res: NextApiResponse){
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
-    scope: scopes, // If you only need one scope you can pass it as string
+    scope: scopes,
 
   });
 
-  res.send(url);
+  res.redirect(url);
 
 }
