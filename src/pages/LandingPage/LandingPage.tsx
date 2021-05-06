@@ -11,7 +11,7 @@ import NewsletterSubscription from "../../components/NewsletterSubscription";
 
 export default () => (
   <div>
-    <Title></Title>
+    <Title/>
     <Livestreams />
     <Churches />
     <Events />

@@ -1,5 +1,5 @@
 const publicToken = "64198f6f1e227b537244360e04f08f";
-export const host = "https://cockpit.eni.wien";
+export const host = "https://data.eni.wien";
 const request = (path: string, { appendix = "", token = publicToken } = {}) =>
   `${host}/${path}?token=${token}${appendix}`;
 const fetchJSON = (url: string) =>
