@@ -20,9 +20,9 @@ module.exports = {
           100: "#f8f8f8",
         },
         secondary: { default: "#cd309a" },
-        primary1: { default: "#31575E" },
-        primary2: { default: "#0E8F89" },
-        primary3: { default: "#F4AC11" },
+        primary1: "#31575E",
+        primary2: "#0E8F89",
+        primary3: "#F4AC11",
       },
       height: {
         xl: "200px",

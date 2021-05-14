@@ -44,7 +44,7 @@ const Event = ({event}: { event: any }) => {
 
 export const EventDate = ({date}: { date: Date }) => {
   const day = date.getDay();
-  return <div className={`pt-2 ${day ? '' : 'underline'}`}>
+  return <div className={`${day ? '' : 'underline'}`}>
     {['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][day]},{' '}
     {date.getDate()}. {['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'][date.getMonth()]}
   </div>;
@@ -52,9 +52,9 @@ export const EventDate = ({date}: { date: Date }) => {
 
 const Bubble = ({calendar}: { calendar: string }) => {
   const calendarColors = {
-    emmaus: 'bg-primary1-default',
-    inzersdorf: 'bg-primary2-default',
-    neustift: 'bg-primary3-default'
+    emmaus: 'bg-primary1',
+    inzersdorf: 'bg-primary2',
+    neustift: 'bg-primary3'
   };
   const calendarImages = {
     emmaus: './miniatures/emmaus.svg',

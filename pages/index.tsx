@@ -7,29 +7,48 @@ import {DatabaseService} from '../util/database';
 import Article from '../components/Article';
 import Site from '../components/Site';
 
-export default function HomePage({ calendarGroups }: {calendarGroups: CalendarGroups}) {
+export default function HomePage({calendarGroups}: { calendarGroups: CalendarGroups }) {
   return <Site responsive={false}>
     <Title/>
     <Responsive>
       <Article/>
-      <div className="lg:-mx-12 my-4 grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 gap-4 md:h-40">
-        <CalenderPeek calendarGroups={calendarGroups} calendar="emmaus" />
-        <CalenderPeek calendarGroups={calendarGroups} calendar="inzersdorf" />
-        <CalenderPeek calendarGroups={calendarGroups} calendar="neustift" />
+      <div className="lg:-mx-12 my-8 grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 gap-4">
+        <CalenderPeek calendarGroups={calendarGroups} calendar="emmaus" label="Emmaus"/>
+        <CalenderPeek calendarGroups={calendarGroups} calendar="inzersdorf" label="St. Nikolaus"/>
+        <CalenderPeek calendarGroups={calendarGroups} calendar="neustift" label="Neustift"/>
       </div>
-      <div className="flex flex-row my-14">
+      <div className="flex flex-col md:flex-row my-14">
         <Info title="Newsletter" image="./info-01.svg">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+          In unserem monatlichen Newsletter informieren wir kurz und prägnant über zukünftige, aktuelle und vergangene Geschehnisse in unseren drei Pfarren.
+          <data id="mj-w-res-data" data-token="8f1b2140d89962bbed083c4c06b6edd4" className="mj-w-data"
+  data-apikey="6LsO" data-w-id="J4h" data-lang="de_DE" data-base="https://app.mailjet.com"
+  data-width="640" data-height="328" data-statics="statics"/>
+          <div>
+            <div
+              className="mj-w-button mj-w-btn bg-gray-200 hover:bg-gray-300 rounded font-sans inline-block px-3 py-1 mt-4"
+              data-token="8f1b2140d89962bbed083c4c06b6edd4"
+            >
+              Newsletter abonnieren
+            </div>
+          </div>
+          <script type="text/javascript" src="https://app.mailjet.com/statics/js/widget.modal.js"/>
         </Info>
         <Info title="Pfarrzeitung" image="./info-02.svg">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+          Ausführliche Berichte zum Pfarrleben, Diskussionen zur Weltkirche, Impulse zum Nachdenken und vieles mehr finden Sie in den Pfarrzeitungen der Pfarren.
+          <div>
+            <div
+              className="bg-gray-200 hover:bg-gray-300 rounded font-sans inline-block px-3 py-1 mt-4 cursor-pointer"
+            >
+              Pfarrzeitungen ansehen
+            </div>
+          </div>
         </Info>
       </div>
     </Responsive>
   </Site>
 }
 
-const Info = ({title, image, children}: {title: string, image: string, children: string}) => {
+const Info = ({title, image, children}: { title: string, image: string, children: any }) => {
   return <div className="font-serif px-3 text-lg">
     <div className="flex flex-row items-end mb-2">
       <img src={image} className="w-16"/>
@@ -39,21 +58,25 @@ const Info = ({title, image, children}: {title: string, image: string, children:
   </div>
 }
 
-const CalenderPeek = ({calendarGroups, calendar}:{calendarGroups: CalendarGroups, calendar: string}) => {
-  const color = ["emmaus", "inzersdorf", "neustift"].indexOf(calendar) + 1;
-  return <div className={`rounded bg-gray-100 border-l-4 border-primary${color}-default p-2 overflow-hidden`}>
-    <div className={`text-primary${color}-default font-bold uppercase`}>{calendar}</div>
+const CalenderPeek = ({calendarGroups, calendar, label}: { calendarGroups: CalendarGroups, calendar: string, label: string }) => {
+  const borderColor = ({'emmaus': 'border-primary1', 'inzersdorf':'border-primary2', 'neustift':'border-primary3'} as any)[calendar];
+  const textColor = ({'emmaus': 'text-primary1', 'inzersdorf':'text-primary2', 'neustift':'text-primary3'} as any)[calendar];
+  return <div className={`rounded border-l-4 ${borderColor} p-2 overflow-hidden border ${borderColor}`}>
+    <div className={`${textColor} font-bold uppercase`}>Pfarre {label}</div>
     {Object.entries(calendarGroups)
       .map(([date, events]) => ([date, events.filter(event => event.calendar === calendar)] as [string, CalendarEvent[]]))
       .filter(([_, events]) => events.length > 0)
-      .slice(0,1)
-      .map(([date, events]) => <div key={date} className="flex flex-col items-center text-center">
-        <div><EventDate date={new Date(date)}/></div>
-        <div className="text-lg">{events.map(event => <div className="">
-          <div className="inline mr-2">{new Date(event.start.dateTime).toLocaleTimeString().slice(0,5)}</div>
-          <div className="inline leading-6">{event.summary}</div>
-        </div>)}</div>
-      </div>)
+      .slice(0, 1)
+      .map(([date, events]) =>
+        <div key={date} className="flex flex-col py-4 px-2">
+          <div className="underline mb-2"><EventDate date={new Date(date)}/></div>
+          <div className="text-lg">{events.map(event =>
+            <div className="">
+              <div className="inline mr-2">{new Date(event.start.dateTime).toLocaleTimeString().slice(0, 5)}</div>
+              <div className="inline leading-6">{event.summary}</div>
+            </div>)}
+          </div>
+        </div>)
     }
   </div>;
 };

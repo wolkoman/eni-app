@@ -3,7 +3,7 @@ import Responsive from './Responsive';
 
 export default function Title() {
   return <>
-    <div className="bg-white py-12 bg-gray-100">
+    <div className="bg-white py-6 bg-gray-100">
       <Responsive>
         <div className="font-serif px-4 py-5">
           <div className="text-xl">Willkommen in den Pfarren</div>
