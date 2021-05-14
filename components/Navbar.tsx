@@ -5,7 +5,7 @@ export default function Navbar() {
     <div className="flex flex-row items-end">
       <div className="flex flex-col flex-grow">
         <div className="flex">
-          <div className="flex flex-col pb-2 leading-4">
+          <div className="flex flex-col pb-2 leading-4 hidden md:block">
             <div className="text-md md:ml-24">
               kanzlei@eni.wien
             </div>
@@ -13,7 +13,7 @@ export default function Navbar() {
               +1 616 4340
             </div>
           </div>
-          <div className="font-bold text-3xl pb-2 md:ml-6">
+          <div className="font-bold text-3xl pb-2 ml-6">
             eni.wien
           </div>
         </div>
