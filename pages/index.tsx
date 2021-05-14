@@ -2,16 +2,29 @@ import React from 'react';
 import {EventDate} from '../components/Calendar';
 import Responsive from '../components/Responsive';
 import {CalendarEvent, CalendarGroups, getPublicEvents} from '../util/calendar';
-import Title from '../components/Title';
 import {DatabaseService} from '../util/database';
-import Article from '../components/Article';
+import Articles from '../components/Articles';
 import Site from '../components/Site';
+import {Cockpit, CockpitArticles} from '../util/cockpit';
 
-export default function HomePage({calendarGroups}: { calendarGroups: CalendarGroups }) {
+export default function HomePage({calendarGroups, articles}: { calendarGroups: CalendarGroups, articles: CockpitArticles }) {
   return <Site responsive={false}>
-    <Title/>
     <Responsive>
-      <Article/>
+      <Articles articles={articles}/>
+      <div className="grid grid-cols-3 gap-4 md:gap-16 py-12">
+        <div>
+          <img src="/emmaus.png" className="pb-2"/>
+          <div>Die <b>Pfarre Emmaus am Wienerberg</b> wurde aus den Überresten der ehemaligen Wienerberger Ziegelfabrik errichtet.</div>
+        </div>
+        <div>
+          <img src="/inzersdorf.png" className="pb-2"/>
+          <div>Die <b>Pfarre Inzersdorf - St. Nikolaus</b> ist mit dem Gründungsjahr 1217 eine der ältesten Kirchen im Raum Wien.</div>
+        </div>
+        <div>
+          <img src="/neustift.png" className="pb-2"/>
+          <div>Die <b>Pfarre Inzersdorf-Neustift</b> entstand aus einer Abspaltung aus der Pfarre Inzersdorf und wurde Maria, Hilfe der Christen geweiht.</div>
+        </div>
+      </div>
       <div className="lg:-mx-12 my-8 grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 gap-4">
         <CalenderPeek calendarGroups={calendarGroups} calendar="emmaus" label="Emmaus"/>
         <CalenderPeek calendarGroups={calendarGroups} calendar="inzersdorf" label="St. Nikolaus"/>
@@ -49,10 +62,10 @@ export default function HomePage({calendarGroups}: { calendarGroups: CalendarGro
 }
 
 const Info = ({title, image, children}: { title: string, image: string, children: any }) => {
-  return <div className="font-serif px-3 text-lg">
+  return <div className="px-3 text-lg">
     <div className="flex flex-row items-end mb-2">
       <img src={image} className="w-16"/>
-      <div className="text-3xl ml-2">{title}</div>
+      <div className="text-3xl ml-2 font-bold">{title}</div>
     </div>
     {children}
   </div>
@@ -87,7 +100,8 @@ export async function getServerSideProps() {
   await DatabaseService.close();
   return {
     props: {
-      calendarGroups: publicEvents
+      calendarGroups: publicEvents,
+      articles: await Cockpit.article({"platform": "eni"}, {"_o": "1"})
     }
   }
 }

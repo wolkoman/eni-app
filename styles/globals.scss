@@ -7,12 +7,5 @@
 
 body{
   font-family: "Source Sans Pro";
-}
-.line {
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
-  animation: dash2 5s linear infinite;
-}
-@keyframes dash2 {
-  to { stroke-dashoffset: -300;}
+  color: #333;
 }
