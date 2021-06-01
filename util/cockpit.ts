@@ -1,7 +1,8 @@
 const token = '64198f6f1e227b537244360e04f08f';
 export const cockpitBase = 'https://data.eni.wien';
 
-export type CockpitArticles = { resort: string, title: string, author: string, preview_image: { path: string }, content: string, layout: { component: string, settings: any }[] }[];
+export type CockpitArticle = { _id: string, _created: number, resort: string, title: string, author: string, preview_image: { path: string }, content: string, layout: { component: string, settings: any }[] };
+export type CockpitArticles = CockpitArticle[];
 
 export class Cockpit {
   static article(filter = {}, sort = {}): Promise<CockpitArticles> {

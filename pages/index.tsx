@@ -12,8 +12,7 @@ export default function HomePage({
                                    calendarGroups,
                                    articles
                                  }: { calendarGroups: CalendarGroups, articles: CockpitArticles }) {
-  return <Site responsive={false}>
-    <Responsive>
+  return <Site>
       <Articles articles={articles}/>
       <Parishes/>
       <Calendar calendarGroups={calendarGroups}/>
@@ -35,7 +34,6 @@ export default function HomePage({
           <Button label="Pfarrzeitungen ansehen"/>
         </Info>
       </div>
-    </Responsive>
   </Site>
 }
 
@@ -46,8 +44,8 @@ function Calendar(props: { calendarGroups: CalendarGroups }) {
     'inzersdorf': 'bg-primary2',
     'neustift': 'bg-primary3'
   } as any)[calendar];
-  return <div className="flex bg-gray-100">
-    <div className="p-6 text-lg w-52">
+  return <div className="flex flex-col md:flex-row bg-gray-100">
+    <div className="flex md:flex-col flex-row p-6 text-lg md:w-52 justify-around md:justify-start">
       {[
         {label: "Alle", action: () => setFilter(null)},
         {label: "Emmaus", action: () => setFilter("emmaus")},
@@ -55,7 +53,7 @@ function Calendar(props: { calendarGroups: CalendarGroups }) {
         {label: "Neustift", action: () => setFilter("neustift")},
       ].map(parish => <div className="px-3 py-1 hover:bg-gray-200 mb-1 cursor-pointer" onClick={parish.action}>{parish.label}</div>)}
     </div>
-    <div className="h-3xl overflow-y-auto flex-grow">
+    <div className="h-3xl overflow-y-auto flex-grow events py-4">
       {Object.entries(props.calendarGroups)
         .map(([date, events]) => [date, events.filter(event => event.calendar === filter || filter === null)] as [string, CalendarEvent[]])
         .filter(([date, events]) => events.length > 0)
