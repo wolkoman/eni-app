@@ -17,12 +17,12 @@ export default function Calendar({calendarGroups}: { calendarGroups: CalendarGro
       </div>
     </div>
     <div className="w-full">
-      {Object.entries(calendarGroups).map(([day, events]) => <>
+      {Object.entries(calendarGroups).map(([day, events]) => <div key={day}>
         <EventDate date={new Date(day)} key={day}/>
         {events
           .filter(event => event)
           .map(event => <Event key={event?.id} event={event}/>)}
-        </>)}
+        </div>)}
     </div>
   </div>
 }

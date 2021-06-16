@@ -8,7 +8,7 @@ export default function Events() {
   const router = useRouter();
   const login = () => {
     setLoading(true);
-    fetch('/api/login', {body: JSON.stringify(data), method: "POST", headers: {"Content-Type": "json/application"}})
+    fetch('/api/login', {body: JSON.stringify(data), method: "POST"})
       .then(response => response.json())
       .then(response => {
         if(response.active){

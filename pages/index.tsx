@@ -8,14 +8,11 @@ import Site from '../components/Site';
 import {Cockpit, CockpitArticles} from '../util/cockpit';
 import Button from '../components/Button';
 
-export default function HomePage({
-                                   calendarGroups,
-                                   articles
-                                 }: { calendarGroups: CalendarGroups, articles: CockpitArticles }) {
+export default function HomePage(props: { calendarGroups: CalendarGroups, articles: CockpitArticles }) {
   return <Site>
-      <Articles articles={articles}/>
+      <Articles articles={props.articles}/>
       <Parishes/>
-      <Calendar calendarGroups={calendarGroups}/>
+      <Calendar calendarGroups={props.calendarGroups}/>
       <div className="flex flex-col md:flex-row my-14">
         <Info title="Newsletter" image="./info-01.svg">
           In unserem monatlichen Newsletter informieren wir kurz und prägnant über zukünftige, aktuelle und vergangene
@@ -45,13 +42,13 @@ function Calendar(props: { calendarGroups: CalendarGroups }) {
     'neustift': 'bg-primary3'
   } as any)[calendar];
   return <div className="flex flex-col md:flex-row bg-gray-100">
-    <div className="flex md:flex-col flex-row p-6 text-lg md:w-52 justify-around md:justify-start">
+    <div className="flex md:flex-col flex-row p-6 text-lg md:w-52 justify-around md:justify-start flex-shrink-0">
       {[
         {label: "Alle", action: () => setFilter(null)},
         {label: "Emmaus", action: () => setFilter("emmaus")},
         {label: "St. Nikolaus", action: () => setFilter("inzersdorf")},
         {label: "Neustift", action: () => setFilter("neustift")},
-      ].map(parish => <div className="px-3 py-1 hover:bg-gray-200 mb-1 cursor-pointer" onClick={parish.action}>{parish.label}</div>)}
+      ].map(parish => <div className="px-3 py-1 hover:bg-gray-200 mb-1 cursor-pointer" key={parish.label} onClick={parish.action}>{parish.label}</div>)}
     </div>
     <div className="h-3xl overflow-y-auto flex-grow events py-4">
       {Object.entries(props.calendarGroups)
@@ -100,7 +97,7 @@ function Parishes() {
         description: (x: string) => <>Die <b>{x}</b> entstand aus einer Abspaltung aus der Pfarre Inzersdorf und wurde
           Maria, Hilfe der Christen geweiht.</>
       },
-    ].map(parish => <div>
+    ].map(parish => <div key={parish.name}>
       <img src={parish.image} className="pb-2" alt={parish.name}/>
       <div className="md:hidden font-bold">{parish.name}</div>
       <div className="hidden md:block">{parish.description(parish.name)}</div>
