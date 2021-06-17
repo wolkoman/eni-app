@@ -13,7 +13,7 @@ export default function Article({article}: {article: CockpitArticle}) {
       <div>am <div className="inline font-bold text-lg">{new Date(article._created * 1000).toLocaleDateString()}</div> von <div className="inline font-bold">{article.author}</div></div>
     </div>
     <img src={`${cockpitBase}/${article.preview_image.path}`} className="h-52 max-w-full mr-4"/>
-    <div className="text-lg">
+    <div className="text-lg font-serif">
       {article.layout?.map(layoutEntity => ({
         text: <SanitizeHTML html={layoutEntity.settings.text} options={{}}/>
       }[layoutEntity.component as 'text'] as any))}

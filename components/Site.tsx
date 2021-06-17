@@ -5,6 +5,9 @@ import Footer from './Footer';
 
 export default function Site({ children, responsive = true, narrow = false, navbar = true, footer = true }:{ children: React.ReactNode, responsive?: boolean , narrow?: boolean, navbar?: boolean, footer?: boolean}){
   return <div className="min-h-screen">
+    <head>
+      <title>eni.wien</title>
+    </head>
     {navbar ? <Navbar/> : null }
     {responsive ?  <Responsive narrow={narrow}>
       {children}
