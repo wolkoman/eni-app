@@ -36,10 +36,10 @@ export default function Articles({articles}: { articles: CockpitArticles }) {
       </div>
     </div>
     <div className="flex pt-6 items-stretch">
-      <div className="flex flex-col md:grid md:grid-cols-3 gap-2 md:gap-12">
+      <div className="flex flex-col md:grid md:grid-cols-3 md:gap-4">
         {articles.slice(1, 4).map(article => <Link href={getArticleLink(article)} key={article._id}>
           <div
-            className="flex flex-col lg:flex-row hover:bg-gray-100 p-2 cursor-pointer">
+            className="flex flex-col lg:flex-row hover:bg-gray-100 p-2 cursor-pointer rounded border-2 hover:border-primary1 border-white">
             <div className="flex flex-col overflow-hidden">
               <div className="text-md uppercase text-primary1 font-bold">{article.resort ?? 'Neues'}</div>
               <div className="text-lg font-semibold truncate">{article.title}</div>
@@ -48,7 +48,7 @@ export default function Articles({articles}: { articles: CockpitArticles }) {
         </Link>)}
       </div>
       <Link href="/artikel">
-        <div className="hover:bg-gray-100 p-2 flex items-center cursor-pointer">
+        <div className="p-2 flex items-center cursor-pointer  border-2 hover:border-primary1 border-white rounded">
           <img src="./logos-28.svg" className="w-8"/>
         </div>
       </Link>

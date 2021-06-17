@@ -73,3 +73,57 @@ export async function getPublicEvents(): Promise<CalendarGroups>{
     }, {} as any);
 
 }
+
+
+export async function getPrivateEvents(): Promise<CalendarGroups>{
+
+  const configCollection = await DatabaseService.getCollection(ConfigEntity);
+  const config = await configCollection.findOne({type: "google"});
+
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_KEY,
+  );
+  oauth2Client.setCredentials(config?.data);
+
+
+  const calendar = google.calendar("v3");
+  const getTimeOfEvent = (event: any) => new Date(event!.start?.date ?? event!.start?.dateTime!).getTime();
+  const todayDate = new Date();
+  todayDate.setHours(0);
+  const today = todayDate.getTime();
+  const c = await Promise.all(
+    Object.entries(calendarIds)
+      .map(async ([name, calendarId]) =>
+        (await calendar.events.list({
+          calendarId,
+          auth: oauth2Client,
+          timeMin: new Date(today).toISOString(),
+          timeMax: new Date(today + 3600000 * 24 * 365).toISOString(),
+          singleEvents: true,
+          timeZone: "Europa/Vienna",
+          orderBy: "startTime"
+        })).data.items?.map(event => ({
+          id: event.id,
+          summary: event.summary,
+          description: event.description ?? null,
+          date: (event.start?.date ?? event.start?.dateTime ?? "").substr(0,10),
+          start: event.start,
+          end: event.end,
+          calendar: name,
+          visibility: event.visibility ?? "public",
+          wholeday : !!event.start?.date,
+        } as CalendarEvent)).filter(event => event.summary)
+      )
+  );
+  return c.flat()
+    .filter(event => !!event)
+    .map(event => event as CalendarEvent)
+    .sort((a,b) => getTimeOfEvent(a) - getTimeOfEvent(b))
+    .reduce((previous, current) => {
+      previous[current!.date] = previous[current!.date] ?? [];
+      previous[current!.date].push(current);
+      return previous;
+    }, {} as any);
+
+}

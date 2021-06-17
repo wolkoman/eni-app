@@ -8,7 +8,14 @@ export default function Intern() {
   useEffect(() => load(), []);
   return isLoggedIn && <Site>
     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-      {permissions[Permission.Articles] && <Link href="intern/artikel"><div className="h-32 bg-gray-200 flex justify-center items-center text-lg cursor-pointer">Artikel</div></Link>}
+      {
+        permissions[Permission.Articles] &&
+        <Link href="intern/artikel"><div className="h-32 bg-gray-200 flex justify-center items-center text-lg cursor-pointer">Artikel</div></Link>
+      }
+      {
+        permissions[Permission.ReaderPlanning] &&
+        <Link href="intern/reader-planning"><div className="h-32 bg-gray-200 flex justify-center items-center text-lg cursor-pointer">Lektor:innen Einteilung</div></Link>
+      }
     </div>
   </Site>
 }
