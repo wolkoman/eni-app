@@ -12,7 +12,9 @@ export default function Footer(props: {}) {
         <div className="flex justify-between">
           <div>Pfarre Emmaus am Wienerberg, Inzersdorf (St. Nikolaus), Inzersdorf-Neustift</div>
           {isLoggedIn
-            ? <Link href="/intern"><div className="cursor-pointer underline hover:no-underline">Zum Mitgliedsbereich</div></Link>
+            ? <>
+            <Link href="/intern"><div className="cursor-pointer underline hover:no-underline">Zum Mitgliedsbereich</div></Link>
+            </>
             : <Link href="/login"><div className="cursor-pointer underline hover:no-underline">Login</div></Link>}
         </div>
       </Responsive>

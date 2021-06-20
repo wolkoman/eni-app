@@ -1,43 +1,47 @@
-import React from 'react';
 import {CalendarEvent, CalendarGroups} from '../util/calendar';
+import React, {useState} from 'react';
 
-export default function Calendar({calendarGroups}: { calendarGroups: CalendarGroups }) {
-  return <div className="flex p-2">
-    <div className="flex flex-col w-72 relative">
-      <div className="sticky top-10">
+export function Calendar(props: { calendarGroups: CalendarGroups }) {
+  const [filter, setFilter] = useState<string | null>(null);
+  const bgColor = (calendar: string) => ({
+    'emmaus': 'bg-primary1',
+    'inzersdorf': 'bg-primary2',
+    'neustift': 'bg-primary3'
+  } as any)[calendar];
+
+  return <div className="flex flex-col md:flex-row bg-gray-100">
+    <div className="flex md:flex-col flex-row p-6 text-lg md:w-52 justify-around md:justify-start flex-shrink-0">
       {[
-        {name: 'Alle', image: './miniatures/all.svg', key: 'all'},
-        {name: 'Emmaus', image: './miniatures/emmaus.svg', key: 'emmaus'},
-        {name: 'St. Nikolaus', image: './miniatures/inzersdorf.svg', key: 'inzersdorf'},
-        {name: 'Neustift', image: './miniatures/neustift.svg', key: 'neustift'},
-      ].map(item => <div key={item.name} className="flex py-0.5">
-        <img src={item.image} className="w-6 mr-2"/>
-        <div className="font-semibold">{item.name}</div>
-      </div>)}
-      </div>
+        {label: 'Alle', action: () => setFilter(null)},
+        {label: 'Emmaus', action: () => setFilter('emmaus')},
+        {label: 'St. Nikolaus', action: () => setFilter('inzersdorf')},
+        {label: 'Neustift', action: () => setFilter('neustift')},
+      ].map(parish => <div className="px-3 py-1 hover:bg-gray-200 mb-1 cursor-pointer" key={parish.label}
+                           onClick={parish.action}>{parish.label}</div>)}
     </div>
-    <div className="w-full">
-      {Object.entries(calendarGroups).map(([day, events]) => <div key={day}>
-        <EventDate date={new Date(day)} key={day}/>
-        {events
-          .filter(event => event)
-          .map(event => <Event key={event?.id} event={event}/>)}
+    <div className="h-3xl overflow-y-auto flex-grow events py-4">
+      {Object.entries(props.calendarGroups)
+        .map(([date, events]) => [date, events.filter(event => event.calendar === filter || filter === null)] as [string, CalendarEvent[]])
+        .filter(([_, events]) => events.length > 0)
+        .map(([date, events]) => <div key={date}>
+          <div className="mt-3 leading-5"><EventDate date={new Date(date)}/></div>
+          {events.map(event => <div className="flex text-lg font-semibold" key={event.id}>
+            <div className="w-10">{event.start.dateTime?.substring(11, 16)}</div>
+            <div>
+              <div className={`${bgColor(event.calendar)} w-3 h-3 mx-3 rounded-xl mt-2`}/>
+            </div>
+            <div className="mb-2">
+              <div>{event.summary}</div>
+              {event.calendar !== 'all' && filter === null ?
+                <div className="font-normal text-sm leading-4 italic">in {({
+                  emmaus: 'Emmaus',
+                  inzersdorf: 'St. Nikolaus',
+                  neustift: 'Neustift'
+                } as any)[event.calendar]}</div> : null}
+              <div className="font-normal text-sm leading-4">{event.description}</div>
+            </div>
+          </div>)}
         </div>)}
-    </div>
-  </div>
-}
-
-const Event = ({event}: { event: any }) => {
-  const date = new Date(event.start.date ?? event.start.dateTime);
-  return <div className="py-1 font-semibold flex">
-    <div className="w-18 mr-2 font-serif">
-      {event.wholeday ? null :
-        <div>{date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</div>}
-    </div>
-    <Bubble calendar={event.calendar}/>
-    <div className="flex flex-col font-serif">
-      <div>{event.summary}</div>
-      <div className="font-normal text-sm">{event.description}</div>
     </div>
   </div>;
 }
@@ -48,20 +52,4 @@ export const EventDate = ({date}: { date: Date }) => {
     {['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][day]},{' '}
     {date.getDate()}. {['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'][date.getMonth()]}
   </div>;
-}
-
-const Bubble = ({calendar}: { calendar: string }) => {
-  const calendarColors = {
-    emmaus: 'bg-primary1',
-    inzersdorf: 'bg-primary2',
-    neustift: 'bg-primary3'
-  };
-  const calendarImages = {
-    emmaus: './miniatures/emmaus.svg',
-    inzersdorf: './miniatures/inzersdorf.svg',
-    neustift: './miniatures/neustift.svg'
-  };
-  return <div className={(calendarColors as any)[calendar] + ' rounded-xl mt-1.5 mr-2 text-md w-3 h-3 flex-shrink-0'}>
-    {/**<img src={(calendarImages as any)[calendar]} className="" style={{filter: 'brightness(10)'}}/>**/}
-  </div>
 }

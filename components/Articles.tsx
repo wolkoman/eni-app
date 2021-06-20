@@ -18,7 +18,6 @@ export default function Articles({articles}: { articles: CockpitArticles }) {
   const articleMax = 300;
   const router = useRouter();
 
-
   return <div>
     <div className="pt-12 grid md:grid-cols-2">
       <div className="h-80 rounded-sm" style={{
@@ -39,7 +38,7 @@ export default function Articles({articles}: { articles: CockpitArticles }) {
       <div className="flex flex-col md:grid md:grid-cols-3 md:gap-4">
         {articles.slice(1, 4).map(article => <Link href={getArticleLink(article)} key={article._id}>
           <div
-            className="flex flex-col lg:flex-row hover:bg-gray-100 p-2 cursor-pointer rounded border-2 hover:border-primary1 border-white">
+            className="flex flex-col lg:flex-row hover:bg-gray-100 p-2 cursor-pointer hover:bg-gray-200">
             <div className="flex flex-col overflow-hidden">
               <div className="text-md uppercase text-primary1 font-bold">{article.resort ?? 'Neues'}</div>
               <div className="text-lg font-semibold truncate">{article.title}</div>
@@ -48,7 +47,7 @@ export default function Articles({articles}: { articles: CockpitArticles }) {
         </Link>)}
       </div>
       <Link href="/artikel">
-        <div className="p-2 flex items-center cursor-pointer  border-2 hover:border-primary1 border-white rounded">
+        <div className="p-2 flex items-center cursor-pointer hover:bg-gray-200">
           <img src="./logos-28.svg" className="w-8"/>
         </div>
       </Link>
