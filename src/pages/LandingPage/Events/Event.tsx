@@ -115,8 +115,8 @@ export default ({
           <div
             style={descriptionStyle as any}
             dangerouslySetInnerHTML={{
-              __html: sanitize(event.description, {
-                allowedTags: ["b", "i", "em", "strong", "a", "ul", "ol", "li"],
+              __html: sanitize(event.description?.replace(/\n/g,'<br/>'), {
+                allowedTags: ["b", "i", "em", "strong", "a", "ul", "ol", "li", "br"],
                 allowedAttributes: {
                   a: ["href"],
                 },
