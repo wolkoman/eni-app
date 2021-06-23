@@ -1,6 +1,7 @@
-import {CalendarEvent, Calendar as CalendarType, CalendarEvents} from '../util/calendarEvents';
+import {Calendar as CalendarType, CalendarEvent} from '../util/calendarEvents';
 import React, {useEffect, useState} from 'react';
 import {Permission, useCalendarStore, useUserStore} from '../util/store';
+import {SanitizeHTML} from './SanitizeHtml';
 
 export function Calendar({}) {
   const [filter, setFilter] = useState<CalendarType | null>(null);
@@ -43,14 +44,18 @@ export function Calendar({}) {
               <div className={`${bgColor(event.calendar)} w-3 h-3 mx-3 rounded-xl mt-2`}/>
             </div>
             <div className="mb-2">
-              <div>{event.summary}</div>
+              <div>{event.summary} {event.visibility === "private" ? " (privat)" : ""}</div>
               {event.calendar !== 'all' && filter === null ?
                 <div className="font-normal text-sm leading-4 italic">in {({
                   emmaus: 'Emmaus',
                   inzersdorf: 'St. Nikolaus',
                   neustift: 'Neustift'
                 } as any)[event.calendar]}</div> : null}
-              <div className="font-normal text-sm leading-4">{event.description}</div>
+              <div className="font-normal text-sm leading-4">
+                {event.description
+                  ? <SanitizeHTML html={event.description?.replace(/\n/g, '<br/>')}/>
+                  : null }
+              </div>
             </div>
           </div>)}
         </div>)}
