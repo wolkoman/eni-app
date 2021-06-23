@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, {useEffect} from 'react';
 import Responsive from './Responsive';
-import {useStore} from '../util/store';
+import {useUserStore} from '../util/store';
 
 export default function Footer(props: {}) {
-  const [isLoggedIn, load] = useStore(state => [state.isLoggedIn(), state.load]);
+  const [isLoggedIn, load] = useUserStore(state => [state.user?.active, state.load]);
   useEffect(() => load(), []);
   return <>
     <div className="py-6 text-gray-600 mt-24">

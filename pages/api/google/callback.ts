@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {google} from 'googleapis';
-import {ConfigEntity, DatabaseService} from '../../../util/database';
+import {cockpit} from '../../../util/cockpit-sdk';
 
 export default async function (req: NextApiRequest, res: NextApiResponse){
 
@@ -12,10 +12,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse){
 
   const { tokens } = await oauth2Client.getToken(req.query.code as string);
 
-  const configCollection = await DatabaseService.getCollection(ConfigEntity);
-  await configCollection.updateOne({type: "google"}, {$set: {data: tokens}});
-  await DatabaseService.close();
+  await cockpit.collectionSave("internal-data", {_id: "60d2474f6264631a2e00035c", data: tokens});
 
-  res.json(tokens);
+  //res.json(tokens);
+  res.redirect("/");
 
 }

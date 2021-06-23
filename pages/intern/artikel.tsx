@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
-import {Permission, useStore} from '../../util/store';
+import {Permission} from '../../util/store';
 import Site from '../../components/Site';
 import Button from '../../components/Button';
+import {usePermission} from '../../util/usePermission';
 
 
 export default function InternArticles() {
-  const [isLoggedIn, permissions, load] = useStore(state => [state.isLoggedIn(), state.permissions, state.load]);
   const [news, setNews] = useState<any>();
   const [images, setImages] = useState<any>({});
 
+  usePermission([Permission.Articles]);
   useEffect(() => {
-    load();
     fetch("/api/vaticannews/articles").then(response => response.json()).then(setNews);
   }, []);
 
@@ -28,7 +28,7 @@ export default function InternArticles() {
       .then(({link}) => window.location.replace(link));
   }
 
-  return isLoggedIn && permissions[Permission.Articles] && <Site>
+  return <Site>
     <div className="">
       {news?.items.map((item: any) => <div key={item.title} className="flex flex-row mb-3">
         <div className="bg-gray-200 w-24 h-24 flex-shrink-0 mr-4">

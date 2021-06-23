@@ -1,35 +1,38 @@
 import React from 'react';
-import {Calendar} from '../components/Calendar';
-import {CalendarEvent, CalendarGroups, getPublicEvents} from '../util/calendar';
-import {DatabaseService} from '../util/database';
+import {Calendar, EventDate} from '../components/Calendar';
+import {CalendarEvent, CalendarEvents} from '../util/calendarEvents';
 import Articles from '../components/Articles';
 import Site from '../components/Site';
 import {Cockpit, CockpitArticles} from '../util/cockpit';
 import Button from '../components/Button';
 
-export default function HomePage(props: { calendarGroups: CalendarGroups, articles: CockpitArticles }) {
+export default function HomePage(props: { calendarGroups: CalendarEvents, articles: CockpitArticles }) {
   return <Site>
-      <Articles articles={props.articles}/>
-      <Parishes/>
-      <Calendar calendarGroups={props.calendarGroups}/>
-      <div className="flex flex-col md:flex-row my-14">
-        <Info title="Newsletter" image="./info-01.svg">
+    <Articles articles={props.articles}/>
+    <Parishes/>
+    <Calendar/>
+    <div className="flex flex-col md:flex-row my-14">
+      <Info title="Newsletter" image="./info-01.svg">
+        <div className="mb-4">
           In unserem monatlichen Newsletter informieren wir kurz und prägnant über zukünftige, aktuelle und vergangene
           Geschehnisse in unseren drei Pfarren.
-          <data id="mj-w-res-data" data-token="8f1b2140d89962bbed083c4c06b6edd4" className="mj-w-data"
-                data-apikey="6LsO" data-w-id="J4h" data-lang="de_DE" data-base="https://app.mailjet.com"
-                data-width="640" data-height="328" data-statics="statics"/>
-          <div className="mj-w-button mj-w-btn" data-token="8f1b2140d89962bbed083c4c06b6edd4">
-            <Button label="Newsletter abonnieren"/>
-          </div>
-          <script type="text/javascript" src="https://app.mailjet.com/statics/js/widget.modal.js"/>
-        </Info>
-        <Info title="Pfarrzeitung" image="./info-02.svg">
+        </div>
+        <data id="mj-w-res-data" data-token="8f1b2140d89962bbed083c4c06b6edd4" className="mj-w-data"
+              data-apikey="6LsO" data-w-id="J4h" data-lang="de_DE" data-base="https://app.mailjet.com"
+              data-width="640" data-height="328" data-statics="statics"/>
+        <div className="mj-w-button mj-w-btn" data-token="8f1b2140d89962bbed083c4c06b6edd4">
+          <Button label="Newsletter abonnieren"/>
+        </div>
+        <script type="text/javascript" src="https://app.mailjet.com/statics/js/widget.modal.js"/>
+      </Info>
+      <Info title="Pfarrzeitung" image="./info-02.svg">
+        <div className="mb-4">
           Ausführliche Berichte zum Pfarrleben, Diskussionen zur Weltkirche, Impulse zum Nachdenken und vieles mehr
           finden Sie in den Pfarrzeitungen der Pfarren.
-          <Button label="Pfarrzeitungen ansehen"/>
-        </Info>
-      </div>
+        </div>
+        <Button label="Pfarrzeitungen ansehen"/>
+      </Info>
+    </div>
   </Site>
 }
 
@@ -45,12 +48,14 @@ function Parishes() {
       {
         image: '/inzersdorf.png',
         name: 'Pfarre Inzersdorf - St. Nikolaus',
-        description: (x: string) => <>Die <b>{x}</b> ist mit dem Gründungsjahr 1217 eine der ältesten Pfarren der Erzdiözese Wien.</>
+        description: (x: string) => <>Die <b>{x}</b> ist mit dem Gründungsjahr 1217 eine der ältesten Pfarren der
+          Erzdiözese Wien.</>
       },
       {
         image: '/neustift.png',
         name: 'Pfarre Inzersdorf - Neustift',
-        description: (x: string) => <>Die <b>{x}</b> entstand aus einer Teilung von der Pfarre Inzersdorf und wurde Maria, Hilfe der Christen geweiht.</>
+        description: (x: string) => <>Die <b>{x}</b> entstand aus einer Teilung von der Pfarre Inzersdorf und wurde
+          Maria, Hilfe der Christen geweiht.</>
       },
     ].map(parish => <div key={parish.name}>
       <img src={parish.image} className="pb-2" alt={parish.name}/>
@@ -74,7 +79,7 @@ const CalenderPeek = ({
                         calendarGroups,
                         calendar,
                         label
-                      }: { calendarGroups: CalendarGroups, calendar: string, label: string }) => {
+                      }: { calendarGroups: CalendarEvents, calendar: string, label: string }) => {
   const borderColor = ({
     'emmaus': 'border-primary1',
     'inzersdorf': 'border-primary2',
@@ -107,11 +112,8 @@ const CalenderPeek = ({
 
 
 export async function getServerSideProps() {
-  let publicEvents = await getPublicEvents();
-  await DatabaseService.close();
   return {
     props: {
-      calendarGroups: publicEvents,
       articles: await Cockpit.article({'platform': 'eni'}, {'_o': '1'})
     }
   }

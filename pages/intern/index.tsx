@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Link from 'next/link';
-import {Permission, useStore} from '../../util/store';
+import {Permission, useUserStore} from '../../util/store';
 import Site from '../../components/Site';
+import {usePermission} from '../../util/usePermission';
 
 export default function Intern() {
-  const [isLoggedIn, permissions, load] = useStore(state => [state.isLoggedIn(), state.permissions, state.load]);
-  useEffect(() => load(), []);
-  return isLoggedIn && <Site>
+  const [permissions, user] = useUserStore(state => [state.permissions, state.user]);
+  usePermission([]);
+  return <Site>
+    {JSON.stringify({permissions, user})}
     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
       {
         permissions[Permission.Articles] &&

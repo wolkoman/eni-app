@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Permission, useStore} from '../../util/store';
+import {Permission, useUserStore} from '../../util/store';
 import Site from '../../components/Site';
 import {Calendar} from '../../components/Calendar';
+import {usePermission} from '../../util/usePermission';
 
 export default function InternArticles() {
-  const [isLoggedIn, user, permissions, load] = useStore(state => [state.isLoggedIn(), state.user, state.permissions, state.load]);
+  const [isLoggedIn, user, permissions, load] = useUserStore(state => [state.user?.active, state.user, state.permissions, state.load]);
   const [calendar, setCalendar] = useState<any>();
+  usePermission([Permission.PrivateCalendarAccess]);
 
-  useEffect(() => {
-    load();
-    fetch(`/api/google/private-calendar?token=${user?.api_key}`).then(response => response.json()).then(setCalendar);
-  }, []);
-
-  return isLoggedIn && permissions[Permission.PrivateCalendarAccess] && calendar !== undefined && <Site>
-    <Calendar calendarGroups={calendar}/>
+  return <Site>
+    <Calendar/>
   </Site>
 }

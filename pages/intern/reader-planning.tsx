@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Permission, useStore} from '../../util/store';
+import {Permission, useUserStore} from '../../util/store';
 import Site from '../../components/Site';
-import {CalendarEvent} from '../../util/calendar';
+import {CalendarEvent} from '../../util/calendarEvents';
 
 export default function InternArticles() {
-  const [isLoggedIn, user, permissions, load] = useStore(state => [state.isLoggedIn(), state.user, state.permissions, state.load]);
+  const [isLoggedIn, user, permissions, load] = useUserStore(state => [state.user?.active, state.user, state.permissions, state.load]);
   const [calendar, setCalendar] = useState<any>();
 
   useEffect(() => {
