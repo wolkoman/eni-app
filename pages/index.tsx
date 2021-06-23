@@ -93,7 +93,7 @@ const CalenderPeek = ({
   return <div className={`rounded border-l-4 ${borderColor} p-2 overflow-hidden border ${borderColor}`}>
     <div className={`${textColor} font-bold uppercase`}>Pfarre {label}</div>
     {Object.entries(calendarGroups)
-      .map(([date, events]) => ([date, events.filter(event => event.calendar === calendar)] as [string, CalendarEvent[]]))
+      ?.map(([date, events]) => ([date, events.filter(event => event.calendar === calendar)] as [string, CalendarEvent[]]))
       .filter(([_, events]) => events.length > 0)
       .slice(0, 1)
       .map(([date, events]) =>

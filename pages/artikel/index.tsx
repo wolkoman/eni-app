@@ -7,12 +7,11 @@ import {getArticleLink, getArticlePreviewImageUrl} from '../../components/Articl
 export default function Events(props: {articles: CockpitArticles}) {
   return <Site>
     {props.articles.map(article => <Link href={getArticleLink(article)}><div className="flex items-center mb-4 cursor-pointer">
-      <img src={getArticlePreviewImageUrl(article)} className="w-16 mr-4"/>
+      <img src={getArticlePreviewImageUrl(article)} className="w-16 mr-4" alt="article-review"/>
       <div>
         <div className="">{new Date(article._created * 1000).toLocaleDateString()}</div>
         <div className="font-bold text-lg">{article.title}</div>
       </div>
-
     </div></Link>)}
   </Site>;
 }

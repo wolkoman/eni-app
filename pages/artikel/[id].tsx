@@ -5,7 +5,7 @@ import {Cockpit, CockpitArticle, cockpitBase} from '../../util/cockpit';
 export default function Article({article}: {article: CockpitArticle}) {
   useEffect(() => {if(article.external_url) {
     window.location.replace(article.external_url);
-  }},[]);
+  }},[article.external_url]);
   return <Site>
     <div className="flex flex-col-reverse md:flex-row max-w-2xl mx-auto">
       <div className="flex flex-col mt-12 mb-6">
@@ -13,7 +13,7 @@ export default function Article({article}: {article: CockpitArticle}) {
         <div className="tracking-wide mt-3">am {new Date(article._created * 1000).toLocaleDateString()} von {article.author}</div>
       </div>
       <div className="flex-shrink-0">
-        <img src={`${cockpitBase}/${article.preview_image.path}`} className="h-52 max-w-full mr-4"/>
+        <img src={`${cockpitBase}/${article.preview_image.path}`} className="h-52 max-w-full mr-4" alt="article-preview"/>
       </div>
     </div>
     <div className="text-lg font-serif">

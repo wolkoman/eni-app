@@ -33,7 +33,7 @@ export function Calendar({}) {
     <div className="h-3xl overflow-y-auto flex-grow events py-4">
       {calendarLoaded || <LoadingEvents/>}
       {Object.entries(calendar)
-        .map(([date, events]) => [date, events.filter(event => event.calendar === filter || filter === null)] as [string, CalendarEvent[]])
+        ?.map(([date, events]) => [date, events.filter(event => event.calendar === filter || filter === null)] as [string, CalendarEvent[]])
         .filter(([_, events]) => events.length > 0)
         .map(([date, events]) => <div key={date}>
           <div className="mt-3 leading-5"><EventDate date={new Date(date)}/></div>
