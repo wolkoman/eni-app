@@ -59,57 +59,9 @@ export default () => {
             drei Pfarren. Durch Angabe Ihrer E-Mail Adresse können wir auch
             Ihnen den Newsletter jeweils zum Monatsbeginn zustellen.
           </div>
-          <Input
-            label="E-Mail"
-            value={form.mail}
-            setValue={mail => setForm({ ...form, mail })}
-          />
-          <div
-            style={{
-              display: "flex",
-              [style.mobile]: { flexDirection: "column" },
-            }}
-          >
-            <div style={{ flexGrow: 1 }}>
-              <div>
-                <Label label="Datenschutz" />
-                <div style={{ display: "flex" }}>
-                  <input
-                    type="checkbox"
-                    checked={form.confirmed ?? false}
-                    onChange={e =>
-                      setForm({
-                        ...form,
-                        confirmed: ((e.target as unknown) as {
-                          checked: boolean;
-                        }).checked,
-                      })
-                    }
-                  ></input>
-                  <div
-                    onClick={() =>
-                      setForm({ ...form, confirmed: !form.confirmed })
-                    }
-                    style={{ cursor: "pointer" }}
-                  >
-                    Ich bin mit der Verarbeitung meiner E-Mail-Adresse
-                    einverstanden und akzeptiere die{" "}
-                    <Link to="/impressum">Datenschutzerklärung</Link>.
-                  </div>
-                </div>
-                {form.errors.length === 0 ? null : (
-                  <div style={{ marginTop: 10, color: "red" }}>
-                    {form.errors.map(error => (
-                      <div>{error}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-            <div style={{ width: 20, height: 20 }} />
-            <div style={{ alignSelf: "flex-end" }}>
-              <Button text="Anmelden" onClick={submit}></Button>
-            </div>
+          <div style={{ paddingBottom: 15 }}>
+            <Label label="Anmeldung" />
+            Die Anmeldung geschieht vorübergehend per Mail an die E-Mail Adresse <a href="mailto:pfarre.inzersdorf@katholischekirche.at">pfarre.inzersdorf@katholischekirche.at</a>. Schreiben Sie uns in der Mail, dass Sie mit der datenschutzrechtlichen Verarbeitung Ihrer E-Mail Adresse zum Zwecke des Newsletter Versands einverstanden sind. Vielen Dank!
           </div>
         </div>
       )}
