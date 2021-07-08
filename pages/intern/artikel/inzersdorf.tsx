@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
-import {Permission} from '../../util/store';
-import Site from '../../components/Site';
-import Button from '../../components/Button';
-import {usePermission} from '../../util/usePermission';
+import Site from '../../../components/Site';
+import Button from '../../../components/Button';
+import {usePermission} from '../../../util/usePermission';
+import {Permission} from '../../../util/store';
 
 
 export default function InternArticles() {
@@ -12,7 +12,7 @@ export default function InternArticles() {
 
   usePermission([Permission.Articles]);
   useEffect(() => {
-    fetch("/api/vaticannews/articles").then(response => response.json()).then(setNews);
+    fetch("/api/inzersdorf-news/articles").then(response => response.json()).then(setNews);
   }, []);
 
   function loadImage(link: string) {

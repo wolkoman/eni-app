@@ -47,7 +47,7 @@ export async function getEvents(props: { public: boolean }): Promise<CalendarEve
           calendarId,
           auth: oauth2Client,
           timeMin: new Date(today).toISOString(),
-          timeMax: new Date(today + 3600000 * 24 * 30 * (props.public ? 1 : 3)).toISOString(),
+          timeMax: new Date(today + 3600000 * 24 * 30 * (props.public ? 1 : 6)).toISOString(),
           singleEvents: true,
           timeZone: 'Europa/Vienna',
           orderBy: 'startTime'
