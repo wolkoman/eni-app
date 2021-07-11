@@ -23,7 +23,6 @@ export default function HomePage(props: { calendarGroups: CalendarEvents, articl
         <div className="mj-w-button mj-w-btn" data-token="8f1b2140d89962bbed083c4c06b6edd4">
           <Button label="Newsletter abonnieren"/>
         </div>
-        <script type="text/javascript" src="https://app.mailjet.com/statics/js/widget.modal.js"/>
       </Info>
       <Info title="Pfarrzeitung" image="./info-02.svg">
         <div className="mb-4">

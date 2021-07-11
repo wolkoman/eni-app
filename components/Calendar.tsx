@@ -22,7 +22,7 @@ export function Calendar({}) {
   })[calendar];
 
   return <div>
-    {permission[Permission.PrivateCalendarAccess] ? <div className="text-center italic bg-gray-300 text-sm">Private Kalenderansicht</div> : null}
+    {permission[Permission.PrivateCalendarAccess] ? <div className="text-center italic bg-gray-200 text-sm">Private Kalenderansicht</div> : null}
     <div className="flex flex-col md:flex-row bg-gray-100">
       <div className="flex md:flex-col flex-row p-6 text-lg md:w-52 justify-around md:justify-start flex-shrink-0">
         {[

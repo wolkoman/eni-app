@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
-import Site from '../../../components/Site';
-import Button from '../../../components/Button';
-import {usePermission} from '../../../util/usePermission';
-import {Permission} from '../../../util/store';
+import {usePermission} from '../util/usePermission';
+import {Permission} from '../util/store';
+import Site from './Site';
+import Button from './Button';
 
 
-export default function InternArticles() {
+export default function LoadArticleSite({ type }: { type :'inzersdorf' | 'vatican'}) {
   const [news, setNews] = useState<any>();
   const [images, setImages] = useState<any>({});
 
   usePermission([Permission.Articles]);
   useEffect(() => {
-    fetch("/api/inzersdorf-news/articles").then(response => response.json()).then(setNews);
+    fetch(`/api/articles/articles?type=${type}`).then(response => response.json()).then(setNews);
   }, []);
 
   function loadImage(link: string) {
     let path = link.split(".va/", 2)[1];
     setImages((images: any) => ({...images, [link]: ""}))
-    fetch("/api/vaticannews/image", {method: "POST", body: JSON.stringify({link: path})})
+    fetch("/api/articles/image?type=vatican", {method: "POST", body: JSON.stringify({link: path})})
       .then(response => response.json())
       .then(response => setImages((images: any) => ({...images, [link]: response.image || null})));
   }
   function addArticle(item: any) {
-    fetch("/api/vaticannews/cockpit", {method: "POST", body: JSON.stringify({item})})
+    fetch("/api/articles/cockpit?type=vatican", {method: "POST", body: JSON.stringify({item})})
       .then(response => response.json())
       .then(({link}) => window.location.replace(link));
   }
