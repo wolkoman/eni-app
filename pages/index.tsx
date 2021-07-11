@@ -5,6 +5,7 @@ import Articles from '../components/Articles';
 import Site from '../components/Site';
 import {Cockpit, CockpitArticles} from '../util/cockpit';
 import Button from '../components/Button';
+import Link from 'next/link';
 
 export default function HomePage(props: { calendarGroups: CalendarEvents, articles: CockpitArticles }) {
   return <Site>
@@ -29,7 +30,7 @@ export default function HomePage(props: { calendarGroups: CalendarEvents, articl
           Ausführliche Berichte zum Pfarrleben, Diskussionen zur Weltkirche, Impulse zum Nachdenken und vieles mehr
           finden Sie in den Pfarrzeitungen der Pfarren.
         </div>
-        <Button label="Pfarrzeitungen ansehen"/>
+        <Link href="/pfarrzeitung"><Button label="Pfarrzeitungen ansehen"/></Link>
       </Info>
     </div>
   </Site>
